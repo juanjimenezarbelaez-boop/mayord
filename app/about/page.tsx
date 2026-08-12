@@ -27,7 +27,7 @@ const stats = [
 const values = [
   {
     icon: HandHeart,
-    text: "Honest prices — family reputation on the line",
+    text: "Honest work — family reputation on the line",
   },
   {
     icon: Users,

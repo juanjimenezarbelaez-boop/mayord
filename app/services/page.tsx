@@ -39,66 +39,56 @@ const services = [
     icon: ShoppingBag,
     name: "Tire Sales (New & Used)",
     description: "Hundreds of new & used tires in stock, ready to install today.",
-    price: "From $XX",
     time: "~20 min",
   },
   {
     icon: Wrench,
     name: "Flat Tire Repair",
     description: "Fast, reliable patches and plugs to get you safely back on the road.",
-    price: "From $XX",
     time: "~20 min",
   },
   {
     icon: Truck,
     name: "Mobile Tire Assistance",
     description: "Can't drive on it? We come to you within ~15 min of Edgewater.",
-    price: "From $XX",
     time: "During shop hours",
     featured: true,
-    extra:
-      "Service call from $XX (applied to your service) • Available during shop hours • Dispatched by phone",
+    extra: "Available during shop hours • Dispatched by phone • Call for details",
   },
   {
     icon: Settings,
     name: "Tire Mounting",
     description: "Professional mounting done right the first time, every time.",
-    price: "From $XX",
     time: "~20 min",
   },
   {
     icon: Gauge,
     name: "Tire Balancing",
     description: "Smooth ride, better handling, and longer tire life.",
-    price: "From $XX",
     time: "~20 min",
   },
   {
     icon: RotateCw,
     name: "Tire Rotation",
     description: "Extend tire life and keep tread wear even. Quick in-and-out.",
-    price: "From $XX",
     time: "~15 min",
   },
   {
     icon: Cog,
     name: "TPMS Sensor Installation & Reprogramming",
     description: "Install, program and reprogram TPMS sensors for all makes.",
-    price: "From $XX",
     time: "~30 min",
   },
   {
     icon: Gauge,
     name: "TPMS & Valve Stems",
     description: "Keep pressure readings accurate with fresh sensors and valve stems.",
-    price: "From $XX",
     time: "~20 min",
   },
   {
     icon: Sparkles,
     name: "Rim Cleaning",
     description: "Professional rim and wheel cleaning for a like-new look.",
-    price: "From $XX",
     time: "~20 min",
   },
 ]
@@ -309,10 +299,7 @@ export default function ServicesPage() {
                 )}
 
                 <div className="mt-6 flex items-center gap-4 border-t border-brand-surface-light pt-5">
-                  <span className="font-label text-lg font-bold text-white">
-                    {service.price}
-                  </span>
-                  <span className="flex items-center gap-1.5 text-sm text-brand-text-muted">
+                  <span className="flex items-center gap-1.5 text-sm font-bold text-white">
                     <Clock size={15} className="text-brand-orange" />
                     {service.time}
                   </span>

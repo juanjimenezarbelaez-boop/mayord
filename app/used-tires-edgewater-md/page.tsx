@@ -19,21 +19,15 @@ import QuoteForm from "@/components/landing/quote-form"
 import LandingStickyBar from "@/components/landing/landing-sticky-bar"
 
 const LANDING_LABEL = "landing_used_tires"
-const WHATSAPP_MESSAGE = "Hi! I'd like a price on used tires."
+const WHATSAPP_MESSAGE = "Hi! I'd like to check used tire availability."
 
 export const metadata: Metadata = pageMetadata({
-  title: "Used Tires Edgewater MD | From $XX Installed | Mayo RD Tire Shop",
+  title: "Used Tires Edgewater MD | Quality-Inspected & Installed | Mayo RD Tire Shop",
   description:
-    "Quality-inspected used tires in Edgewater, MD from $XX installed — mounting & balancing included. Hundreds in stock, top brands, in and out in ~20 minutes. Call 240-595-8547 to check your size.",
+    "Quality-inspected used tires in Edgewater, MD — mounting & balancing included. Hundreds in stock, top brands, in and out in ~20 minutes. Call 240-595-8547 to check your size.",
   path: "/used-tires-edgewater-md",
   absoluteTitle: true,
 })
-
-const priceCards = [
-  { label: "PASSENGER", price: "$XX" },
-  { label: "SUV / TRUCK", price: "$XX" },
-  { label: "COMMERCIAL / LT", price: "$XX" },
-]
 
 const reasons = [
   {
@@ -61,7 +55,7 @@ const reasons = [
 const reviews = [
   {
     name: "Rachel M.",
-    quote: "10 minutes and $50 later I had a tire on my car.",
+    quote: "10 minutes later I had a tire on my car.",
   },
   {
     name: "Gina S.",
@@ -107,8 +101,7 @@ export default function UsedTiresLandingPage() {
             Used Tires in <span className="text-brand-orange">Edgewater, MD</span>
           </h1>
           <p className="mt-5 max-w-2xl text-lg text-brand-text-muted text-pretty sm:text-xl">
-            Quality-inspected used tires from{" "}
-            <span className="font-bold text-white">$XX installed</span>. Hundreds in
+            Quality-inspected used tires, mounted &amp; balanced. Hundreds in
             stock — call to check your size.
           </p>
 
@@ -146,28 +139,26 @@ export default function UsedTiresLandingPage() {
         </div>
       </section>
 
-      {/* 2. Price anchor cards */}
+      {/* 2. Fit anchor cards */}
       <section className="border-b border-brand-surface-light">
         <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
           <div className="grid gap-4 sm:grid-cols-3">
-            {priceCards.map((card) => (
+            {["PASSENGER", "SUV / TRUCK", "COMMERCIAL / LT"].map((label) => (
               <div
-                key={card.label}
+                key={label}
                 className="rounded-2xl border border-brand-surface-light bg-brand-surface p-6 text-center"
               >
                 <p className="font-label text-sm font-bold tracking-wider text-brand-text-muted">
-                  {card.label}
+                  {label}
                 </p>
                 <p className="mt-2 font-label text-lg font-bold text-white">
-                  from{" "}
-                  <span className="text-3xl text-brand-orange">{card.price}</span>
+                  In stock, ready to install
                 </p>
-                <p className="mt-1 text-sm text-brand-text-muted">installed</p>
               </div>
             ))}
           </div>
           <p className="mt-5 text-center text-sm font-medium text-brand-text-muted">
-            Price includes mounting &amp; balancing.
+            Every used tire includes mounting &amp; balancing.
           </p>
         </div>
       </section>
@@ -229,10 +220,10 @@ export default function UsedTiresLandingPage() {
         <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 py-16 sm:px-6 lg:grid-cols-2">
           <div>
             <h2 className="font-label text-3xl font-bold uppercase tracking-tight text-white text-balance sm:text-4xl">
-              Get a price in one text
+              Check availability in one text
             </h2>
             <p className="mt-4 max-w-md text-lg text-brand-text-muted text-pretty">
-              Send your tire size or vehicle and we&apos;ll text you a price and confirm
+              Send your tire size or vehicle and we&apos;ll text you back to confirm
               we have it in stock. No pressure, no spam.
             </p>
           </div>

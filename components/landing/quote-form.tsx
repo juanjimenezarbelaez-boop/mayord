@@ -22,7 +22,7 @@ export default function QuoteForm({ label = "landing_used_tires" }: { label?: st
 
     // Pre-fill the visitor's SMS composer to the shop (mobile-first ads audience).
     const body = encodeURIComponent(
-      `Hi Mayo RD Tire Shop, I'd like a price on used tires. Tire size/vehicle: ${size.trim()}. Name: ${name.trim()}. My number: ${phone.trim()}.`,
+      `Hi Mayo RD Tire Shop, I'd like to check availability on used tires. Tire size/vehicle: ${size.trim()}. Name: ${name.trim()}. My number: ${phone.trim()}.`,
     )
     window.open(`sms:${SHOP_SMS_NUMBER}?body=${body}`, "_self")
 
@@ -92,7 +92,7 @@ export default function QuoteForm({ label = "landing_used_tires" }: { label?: st
         type="submit"
         className="mt-6 w-full rounded-lg bg-brand-orange px-6 py-4 font-label text-lg font-bold text-white transition-colors hover:bg-brand-orange-hover"
       >
-        TEXT ME A PRICE
+        TEXT ME
       </button>
       <p className="mt-3 text-center text-sm text-brand-text-muted">
         Or call {siteConfig.phone} — we answer 7 days a week.

@@ -21,12 +21,12 @@ export default function Hero() {
           <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold leading-[1.1] tracking-tight mb-6">
             GOOD TIRES.
             <br />
-            GREAT PRICES.
+            HONEST SERVICE.
             <br />
-            <span className="text-brand-orange">REAL SERVICE.</span>
+            <span className="text-brand-orange">REAL FAST.</span>
           </h1>
           <p className="text-xl sm:text-2xl text-brand-text mb-10 max-w-2xl font-medium">
-            Quality new &amp; used tires, expert service, and unbeatable prices.
+            Quality new &amp; used tires and expert service, done right the first time.
           </p>
           <div className="flex flex-col sm:flex-row gap-4">
             <PhoneCallLink
