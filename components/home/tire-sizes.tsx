@@ -8,6 +8,7 @@ const categories = [
     description:
       "Reliable tires for sedans, coupes, and hatchbacks. Built for comfort and daily driving.",
     sizes: ["195/65R15", "205/55R16", "215/55R17"],
+    price: "Used from $XX installed",
   },
   {
     icon: Truck,
@@ -15,6 +16,7 @@ const categories = [
     description:
       "Durable options for SUVs, Crossovers, and Light Trucks. Great traction and load capacity.",
     sizes: ["265/70R17", "275/55R20", "245/65R17"],
+    price: "Used from $XX installed",
   },
   {
     icon: Tractor,
@@ -22,6 +24,7 @@ const categories = [
     description:
       "Heavy-duty tires for commercial vans and work vehicles. Engineered for longevity and heavy loads.",
     sizes: ["LT245/75R16", "LT265/70R17", "225/75R15"],
+    price: "Used from $XX installed",
   },
 ]
 
@@ -53,8 +56,11 @@ export default function TireSizes() {
                 <category.icon size={40} />
               </div>
               <h3 className="text-2xl font-bold mb-4">{category.title}</h3>
-              <p className="text-brand-text-muted text-sm mb-8">
+              <p className="text-brand-text-muted text-sm mb-4">
                 {category.description}
+              </p>
+              <p className="text-brand-orange font-label font-bold text-sm mb-8">
+                {category.price}
               </p>
               <div className="space-y-3 font-label font-medium">
                 {category.sizes.map((size) => (

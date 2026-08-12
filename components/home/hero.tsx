@@ -1,7 +1,8 @@
 import Image from "next/image"
 import Link from "next/link"
-import { ChevronRight } from "lucide-react"
-import { images } from "@/lib/data"
+import { ChevronRight, Phone, Star } from "lucide-react"
+import { images, siteConfig } from "@/lib/data"
+import PhoneCallLink from "@/components/phone-call-link"
 
 export default function Hero() {
   return (
@@ -28,20 +29,32 @@ export default function Hero() {
             Quality new &amp; used tires, expert service, and unbeatable prices.
           </p>
           <div className="flex flex-col sm:flex-row gap-4">
+            <PhoneCallLink className="bg-brand-orange hover:bg-brand-orange-hover text-white px-8 py-4 rounded-lg font-bold font-label flex items-center justify-center gap-2 transition-colors">
+              <Phone size={20} />
+              CALL NOW: {siteConfig.phone}
+            </PhoneCallLink>
             <Link
               href="/tires"
-              className="bg-brand-orange hover:bg-brand-orange-hover text-white px-8 py-4 rounded-lg font-bold font-label flex items-center justify-center gap-2 transition-colors"
+              className="border-2 border-brand-text hover:border-brand-orange hover:text-brand-orange text-brand-text px-8 py-4 rounded-lg font-bold font-label flex items-center justify-center gap-2 transition-colors"
             >
               SHOP NEW &amp; USED TIRES
               <ChevronRight size={20} />
             </Link>
-            <Link
-              href="/services"
-              className="border-2 border-brand-text hover:border-brand-orange hover:text-brand-orange text-brand-text px-8 py-4 rounded-lg font-bold font-label flex items-center justify-center transition-colors"
-            >
-              OUR SERVICES
-            </Link>
           </div>
+          <p className="mt-6 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm sm:text-base font-medium text-brand-text-muted">
+            <span className="inline-flex items-center gap-1 text-brand-orange font-bold">
+              4.4
+              <Star size={16} className="fill-current" />
+            </span>
+            <span aria-hidden="true">&middot;</span>
+            <span>206 reviews</span>
+            <span aria-hidden="true">&middot;</span>
+            <span>Family-Owned</span>
+            <span aria-hidden="true">&middot;</span>
+            <span>Open 7 Days</span>
+            <span aria-hidden="true">&middot;</span>
+            <span>Hablamos Espa&ntilde;ol</span>
+          </p>
         </div>
       </div>
     </section>
