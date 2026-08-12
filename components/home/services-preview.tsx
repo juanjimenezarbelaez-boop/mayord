@@ -1,11 +1,14 @@
 import Link from "next/link"
 import {
-  AlignEndHorizontal,
   ChevronRight,
+  Cog,
   Gauge,
-  PenTool,
+  RotateCw,
   Settings,
   ShoppingBag,
+  Sparkles,
+  Truck,
+  Wrench,
 } from "lucide-react"
 
 const services = [
@@ -15,24 +18,42 @@ const services = [
     description: "New & used tires at the best prices.",
   },
   {
-    icon: Settings,
-    title: ["TIRE", "MOUNTING"],
-    description: "Professional mounting service.",
-  },
-  {
-    icon: PenTool,
-    title: ["TIRE", "REPAIR"],
+    icon: Wrench,
+    title: ["FLAT TIRE", "REPAIR"],
     description: "Puncture repair you can trust.",
   },
   {
-    icon: AlignEndHorizontal,
-    title: ["TIRE", "BALANCING"],
-    description: "Smooth ride, better performance.",
+    icon: Truck,
+    title: ["MOBILE", "ASSISTANCE"],
+    description:
+      "Stuck nearby? We come to you — tire help within ~15 minutes of Edgewater.",
+    highlight: true,
+  },
+  {
+    icon: Settings,
+    title: ["MOUNTING &", "BALANCING"],
+    description: "Professional mounting and balancing for a smooth ride.",
+  },
+  {
+    icon: RotateCw,
+    title: ["TIRE", "ROTATION"],
+    description: "Extend tire life and keep wear even. Quick in-and-out service.",
   },
   {
     icon: Gauge,
+    title: ["TPMS", "SENSORS"],
+    description:
+      "We install, program and reprogram TPMS sensors for all makes. Kill that dashboard light.",
+  },
+  {
+    icon: Cog,
     title: ["TPMS &", "VALVES"],
-    description: "We install and service TPMS and valves.",
+    description: "We install and service TPMS and valve stems.",
+  },
+  {
+    icon: Sparkles,
+    title: ["RIM", "CLEANING"],
+    description: "Professional rim and wheel cleaning for a like-new look.",
   },
 ]
 
@@ -65,16 +86,35 @@ export default function ServicesPreview() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {services.map((service) => (
             <div
               key={service.title.join(" ")}
-              className="bg-white border border-gray-100 hover:border-brand-orange/30 rounded-2xl p-8 text-center shadow-sm hover:shadow-[0_8px_30px_rgb(0,0,0,0.06)] transition-all group"
+              className={`relative bg-white rounded-2xl p-8 text-center transition-all group ${
+                service.highlight
+                  ? "border-2 border-brand-orange shadow-[0_8px_30px_rgb(0,0,0,0.06)]"
+                  : "border border-gray-100 hover:border-brand-orange/30 shadow-sm hover:shadow-[0_8px_30px_rgb(0,0,0,0.06)]"
+              }`}
             >
-              <div className="inline-flex items-center justify-center w-16 h-16 bg-gray-50 rounded-full mb-6 group-hover:bg-brand-orange/10 transition-colors">
+              {service.highlight && (
+                <span className="absolute top-4 right-4 bg-brand-orange text-white text-xs font-label font-bold tracking-widest px-2.5 py-1 rounded-full">
+                  NEW
+                </span>
+              )}
+              <div
+                className={`inline-flex items-center justify-center w-16 h-16 rounded-full mb-6 transition-colors ${
+                  service.highlight
+                    ? "bg-brand-orange/10"
+                    : "bg-gray-50 group-hover:bg-brand-orange/10"
+                }`}
+              >
                 <service.icon
                   size={28}
-                  className="text-gray-900 group-hover:text-brand-orange transition-colors"
+                  className={`transition-colors ${
+                    service.highlight
+                      ? "text-brand-orange"
+                      : "text-gray-900 group-hover:text-brand-orange"
+                  }`}
                 />
               </div>
               <h3 className="font-label font-bold text-base tracking-widest mb-4">

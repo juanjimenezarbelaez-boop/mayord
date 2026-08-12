@@ -1,6 +1,6 @@
 import Image from "next/image"
 import Link from "next/link"
-import { Clock, Facebook, MapPin, Phone } from "lucide-react"
+import { Clock, DoorOpen, Facebook, MapPin, Phone, Truck } from "lucide-react"
 import { navLinks, siteConfig } from "@/lib/data"
 
 export default function Footer() {
@@ -72,6 +72,14 @@ export default function Footer() {
                   <br />
                   Sun: 9am-4pm
                 </span>
+              </li>
+              <li className="flex items-start gap-3">
+                <DoorOpen size={20} className="text-brand-orange mt-1 flex-shrink-0" />
+                <span>Walk-ins welcome — no appointment needed</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <Truck size={20} className="text-brand-orange mt-1 flex-shrink-0" />
+                <span>Mobile assistance within ~15 min of Edgewater</span>
               </li>
             </ul>
           </div>

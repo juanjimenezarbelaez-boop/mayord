@@ -6,8 +6,12 @@ import { Check, Send } from "lucide-react"
 const interestOptions = [
   "Used Tires",
   "New Tires",
-  "Tire Repair",
+  "Flat Tire Repair",
+  "Mobile Tire Assistance",
   "Mounting & Balancing",
+  "Tire Rotation",
+  "TPMS Sensors / Sensor Light On",
+  "Rim Cleaning",
   "Other",
 ]
 
