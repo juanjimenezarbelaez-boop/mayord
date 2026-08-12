@@ -37,7 +37,7 @@ export default function TireSizes() {
             OUR&nbsp;<span className="text-brand-orange">TIRES</span>
           </h2>
           <p className="text-brand-text-muted max-w-2xl mx-auto text-lg leading-relaxed">
-            We stock a wide variety of quality used tires for all types of
+            We stock a wide variety of quality new and used tires for all types of
             vehicles. Whether you need a replacement for your daily commuter or
             heavy-duty tires for your work truck, we&apos;ve got you covered.
           </p>

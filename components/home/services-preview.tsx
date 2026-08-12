@@ -11,8 +11,8 @@ import {
 const services = [
   {
     icon: ShoppingBag,
-    title: ["USED TIRE", "SALES"],
-    description: "High quality used tires at the best prices.",
+    title: ["TIRE", "SALES"],
+    description: "New & used tires at the best prices.",
   },
   {
     icon: Settings,

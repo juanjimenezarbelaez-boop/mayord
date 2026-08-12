@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import Image from "next/image"
 import { Clock, ExternalLink, MapPin, Phone } from "lucide-react"
 import ContactForm from "@/components/contact-form"
 import { images, siteConfig } from "@/lib/data"
@@ -22,10 +23,13 @@ export default function ContactPage() {
     <div className="flex-grow bg-white">
       {/* Hero */}
       <section className="relative pt-32 pb-24 overflow-hidden bg-brand-dark text-center border-b border-brand-surface-light">
-        <img
+        <Image
           src={images.contactHero}
           alt="Contact background"
-          className="absolute inset-0 w-full h-full object-cover"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover"
         />
         <div className="absolute inset-0 bg-brand-dark/80 pointer-events-none z-0" />
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

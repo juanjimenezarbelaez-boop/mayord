@@ -1,9 +1,11 @@
 import type { Metadata } from "next"
+import Image from "next/image"
 import {
   Crosshair,
   Disc,
   Settings,
   Shield,
+  ShoppingBag,
   Star,
   Tag,
   Wrench,
@@ -36,6 +38,13 @@ const highlights = [
 
 const services = [
   {
+    icon: ShoppingBag,
+    title: "TIRE",
+    accent: "SALES",
+    description: "New & used tires from top brands,\nin stock and ready to install.",
+    image: images.servicesHero,
+  },
+  {
     icon: Disc,
     title: "TIRE",
     accent: "MOUNTING",
@@ -63,10 +72,13 @@ export default function ServicesPage() {
     <>
       {/* Hero */}
       <section className="relative pt-32 pb-32 lg:pt-40 lg:pb-40 overflow-hidden bg-brand-dark">
-        <img
+        <Image
           src={images.servicesHero}
           alt="Mechanic shop exterior"
-          className="absolute inset-0 w-full h-full object-cover"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-brand-dark via-brand-dark/90 to-brand-dark/60 pointer-events-none z-0" />
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -135,10 +147,13 @@ export default function ServicesPage() {
               </div>
             </div>
             <div className="relative w-full md:w-1/2 min-h-[250px]">
-              <img
+              <Image
                 src={service.image}
                 alt={`${service.title} ${service.accent}`}
-                className="absolute inset-0 w-full h-full object-cover grayscale opacity-80"
+                fill
+                sizes="(max-width: 768px) 100vw, 50vw"
+                loading="lazy"
+                className="object-cover grayscale opacity-80"
               />
               <div className="absolute inset-0 bg-gradient-to-r from-brand-dark via-brand-dark/40 to-transparent pointer-events-none md:block hidden z-0" />
             </div>

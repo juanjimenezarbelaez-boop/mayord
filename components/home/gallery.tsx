@@ -1,3 +1,4 @@
+import Image from "next/image"
 import { images } from "@/lib/data"
 
 const galleryImages = [
@@ -21,12 +22,15 @@ export default function Gallery() {
           {galleryImages.map((image) => (
             <div
               key={image.alt}
-              className="bg-brand-surface rounded-xl overflow-hidden aspect-square border border-brand-surface-light"
+              className="bg-brand-surface rounded-xl overflow-hidden aspect-square border border-brand-surface-light relative"
             >
-              <img
+              <Image
                 src={image.src}
                 alt={image.alt}
-                className="w-full h-full object-cover"
+                fill
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                loading="lazy"
+                className="object-cover"
               />
             </div>
           ))}

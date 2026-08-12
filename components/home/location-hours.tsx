@@ -1,3 +1,4 @@
+import Image from "next/image"
 import { Star } from "lucide-react"
 import { hours, siteConfig } from "@/lib/data"
 
@@ -55,9 +56,11 @@ export default function LocationHours() {
             </ul>
             <div className="border-t border-gray-200 pt-8 flex items-center justify-between">
               <div className="flex items-center gap-4">
-                <img
+                <Image
                   src={siteConfig.yelpLogoUrl}
                   alt="Yelp"
+                  width={100}
+                  height={40}
                   className="h-10 w-auto object-contain"
                   draggable={false}
                 />

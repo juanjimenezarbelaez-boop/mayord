@@ -13,6 +13,7 @@ export const siteConfig = {
   mapEmbedUrl:
     "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3106.188470558778!2d-76.5524675240212!3d38.87391917173007!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89b7f574d538f5f1%3A0xc6cbfa864ac26ca0!2s175%20Mayo%20Rd%2C%20Edgewater%2C%20MD%2021037!5e0!3m2!1sen!2sus!4v1716503848123!5m2!1sen!2sus",
   yelpUrl: "https://www.yelp.com/biz/mayo-rd-tire-shop-edgewater-3",
+  googleUrl: "https://maps.app.goo.gl/TX1Da9wrV3eeGTJk9",
   facebookUrl: "https://www.facebook.com/p/MAYO-RD-TIRE-SHOP-61576214745510/",
   logoUrl:
     "https://firebasestorage.googleapis.com/v0/b/braindy-brand-guideline.firebasestorage.app/o/MayoRD%2Fmayo%20rd%20logo%20(5).png?alt=media&token=272cafe7-e5ac-41a2-b3a1-b1fdad36444f",
