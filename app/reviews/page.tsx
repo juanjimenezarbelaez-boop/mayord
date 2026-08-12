@@ -3,22 +3,30 @@ import Image from "next/image"
 import { Star } from "lucide-react"
 import { images } from "@/lib/data"
 import { realReviewsFallback } from "@/lib/reviews-fallback"
+import { pageMetadata, breadcrumbSchema, jsonLdProps } from "@/lib/seo"
 import ReviewsList from "@/components/reviews/reviews-list"
 
-export const metadata: Metadata = {
-  title: "Customer Reviews | Mayo RD Tire Shop",
+export const metadata: Metadata = pageMetadata({
+  title: "Customer Reviews — 4.4 Stars Across Google & Yelp",
   description:
-    "See what our community has to say about our fast service, honest pricing, and high-quality tires.",
-}
+    "Read real reviews from Edgewater and Annapolis, MD drivers about Mayo RD Tire Shop's fast service, honest pricing, and quality new and used tires. Rated 4.4 stars across Google and Yelp.",
+  path: "/reviews",
+})
+
+const breadcrumbs = breadcrumbSchema([
+  { name: "Home", path: "/" },
+  { name: "Reviews", path: "/reviews" },
+])
 
 export default function ReviewsPage() {
   return (
     <>
+      <script {...jsonLdProps(breadcrumbs)} />
       {/* Hero */}
       <section className="relative pt-32 pb-40 lg:pt-40 lg:pb-48 overflow-hidden bg-brand-orange text-center">
         <Image
           src={images.reviewsHero}
-          alt="Reviews background"
+          alt="Mayo RD Tire Shop building in Edgewater, Maryland"
           fill
           priority
           sizes="100vw"

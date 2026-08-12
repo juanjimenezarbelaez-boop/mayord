@@ -3,21 +3,29 @@ import Image from "next/image"
 import Link from "next/link"
 import { ArrowRight, Calendar, Tag } from "lucide-react"
 import { blogPosts, images } from "@/lib/data"
+import { pageMetadata, breadcrumbSchema, jsonLdProps } from "@/lib/seo"
 
-export const metadata: Metadata = {
-  title: "Shop News | Mayo RD Tire Shop",
+export const metadata: Metadata = pageMetadata({
+  title: "Tire Tips & Shop News for Maryland Drivers",
   description:
-    "Tire tips, maintenance advice, and the latest updates from Mayo RD Tire Shop.",
-}
+    "Tire tips, maintenance advice, and buying guides for Edgewater and Annapolis, MD drivers from the family team at Mayo RD Tire Shop.",
+  path: "/blog",
+})
+
+const breadcrumbs = breadcrumbSchema([
+  { name: "Home", path: "/" },
+  { name: "Blog", path: "/blog" },
+])
 
 export default function BlogPage() {
   return (
     <>
+      <script {...jsonLdProps(breadcrumbs)} />
       {/* Hero */}
       <section className="relative pt-32 pb-40 lg:pt-40 lg:pb-48 overflow-hidden bg-brand-dark">
         <Image
           src={images.blogHero}
-          alt="Blog background"
+          alt="Tire maintenance tips from Mayo RD Tire Shop in Edgewater, Maryland"
           fill
           priority
           sizes="100vw"

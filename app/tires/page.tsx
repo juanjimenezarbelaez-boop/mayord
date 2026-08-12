@@ -9,12 +9,19 @@ import {
   ThumbsUp,
 } from "lucide-react"
 import { images } from "@/lib/data"
+import { pageMetadata, breadcrumbSchema, jsonLdProps } from "@/lib/seo"
 
-export const metadata: Metadata = {
-  title: "Our Tires | Mayo RD Tire Shop",
+export const metadata: Metadata = pageMetadata({
+  title: "New & Used Tires in Edgewater & Annapolis, MD",
   description:
-    "Massive inventory of high-quality new & used tires for all vehicle types. Reliable, affordable, and fully inspected.",
-}
+    "Huge inventory of new and quality used tires for cars, SUVs and trucks in Edgewater, MD. All sizes, all major brands, fully inspected and installed same day. Serving Annapolis and nearby communities.",
+  path: "/tires",
+})
+
+const breadcrumbs = breadcrumbSchema([
+  { name: "Home", path: "/" },
+  { name: "Tires", path: "/tires" },
+])
 
 const brands = ["FIRESTONE", "GOODYEAR", "MICHELIN", "CONTINENTAL"]
 
@@ -50,11 +57,12 @@ const detailImages = [
 export default function TiresPage() {
   return (
     <>
+      <script {...jsonLdProps(breadcrumbs)} />
       {/* Hero */}
       <section className="relative pt-32 pb-40 lg:pt-40 lg:pb-48 overflow-hidden bg-brand-dark">
         <Image
           src={images.tiresHero}
-          alt="Stack of new and used tires"
+          alt="New and used tires stacked at Mayo RD Tire Shop in Edgewater, Maryland"
           fill
           priority
           sizes="100vw"

@@ -3,6 +3,7 @@ import { CircleCheck } from "lucide-react"
 import { images } from "@/lib/data"
 
 const highlights = [
+  "Family-owned & operated by the Hagans family",
   "New tires from top brands",
   "Carefully inspected used tires",
   "Fast, reliable and friendly service",
@@ -26,11 +27,14 @@ export default function AboutPreview() {
               <br />
               FOCUSED ON <span className="text-brand-orange">YOU</span>.
             </h2>
-            <p className="text-lg text-brand-text-muted mb-10 max-w-lg leading-relaxed">
-              Mayord Tire Shop is a trusted local business in Maryland known for
+            <p className="text-lg text-brand-text-muted mb-3 max-w-lg leading-relaxed">
+              Mayo RD Tire Shop is a trusted local business in Maryland known for
               honest work, great prices, and outstanding customer service. Our
               bright orange shop is more than just a place to fix tires&mdash;it&apos;s
               a place where our community comes first.
+            </p>
+            <p className="text-sm font-label font-bold tracking-wider text-brand-orange mb-10">
+              Proudly African American &amp; Latino owned
             </p>
             <ul className="space-y-4">
               {highlights.map((item) => (

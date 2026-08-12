@@ -232,13 +232,23 @@ export default function ReviewsPreview() {
             <h4 className="text-brand-orange font-label font-bold tracking-wider mb-4">
               WHAT OUR CUSTOMERS SAY
             </h4>
-            <h2 className="text-4xl lg:text-5xl font-bold mb-8 leading-tight">
+            <h2 className="text-4xl lg:text-5xl font-bold mb-4 leading-tight">
               EXCELLENT
               <br />
               SERVICE.
               <br />
               TOP RATED.
             </h2>
+
+            <a
+              href={siteConfig.googleUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-1.5 text-brand-orange font-bold hover:underline mb-8"
+            >
+              Leave us a review
+              <ExternalLink size={16} />
+            </a>
 
             <div className="mb-8">
               <div className="flex items-center gap-4 mb-4">

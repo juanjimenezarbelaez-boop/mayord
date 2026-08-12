@@ -88,9 +88,10 @@ export default function ServicesPreview() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {services.map((service) => (
-            <div
+            <Link
               key={service.title.join(" ")}
-              className={`relative bg-white rounded-2xl p-8 text-center transition-all group ${
+              href="/services"
+              className={`relative bg-white rounded-2xl p-8 text-center transition-all group block ${
                 service.highlight
                   ? "border-2 border-brand-orange shadow-[0_8px_30px_rgb(0,0,0,0.06)]"
                   : "border border-gray-100 hover:border-brand-orange/30 shadow-sm hover:shadow-[0_8px_30px_rgb(0,0,0,0.06)]"
@@ -125,7 +126,7 @@ export default function ServicesPreview() {
               <p className="text-sm text-gray-500 leading-relaxed line-clamp-3">
                 {service.description}
               </p>
-            </div>
+            </Link>
           ))}
         </div>
       </div>
