@@ -5,7 +5,7 @@ import type { Locale } from "@/lib/i18n"
 
 const highlightsByLocale = {
   en: [
-    "Family-owned & operated by the Hagans family",
+    "Family-owned",
     "New tires from top brands",
     "Carefully inspected used tires",
     "Fast, reliable and friendly service",
@@ -13,7 +13,7 @@ const highlightsByLocale = {
     "Proudly serving Maryland for years",
   ],
   es: [
-    "Somos la familia Hagans, dueños y operadores del taller",
+    "Negocio familiar",
     "Llantas nuevas de las mejores marcas",
     "Llantas usadas cuidadosamente inspeccionadas",
     "Servicio rápido, confiable y amable",
@@ -35,7 +35,6 @@ const copy = {
       </>
     ),
     body: "Mayo RD Tire Shop is a trusted local business in Maryland known for honest work and outstanding customer service. Our bright orange shop is more than just a place to fix tires—it's a place where our community comes first.",
-    badge: "Proudly Afro-American & Latino owned",
   },
   es: {
     eyebrow: "SOBRE MAYORD",
@@ -49,7 +48,6 @@ const copy = {
       </>
     ),
     body: "Mayo RD Tire Shop es un negocio local de confianza en Maryland, conocido por su trabajo honesto y su excelente servicio al cliente. Nuestro taller naranja es más que un lugar para arreglar llantas: es un lugar donde nuestra comunidad es lo primero.",
-    badge: "Somos la familia Hagans — herencia afroamericana y latina",
   },
 }
 
@@ -68,11 +66,8 @@ export default function AboutPreview({ locale = "en" }: { locale?: Locale }) {
             <h2 className="text-5xl lg:text-6xl font-bold mb-6 leading-tight">
               {t.heading}
             </h2>
-            <p className="text-lg text-brand-text-muted mb-3 max-w-lg leading-relaxed">
+            <p className="text-lg text-brand-text-muted mb-10 max-w-lg leading-relaxed">
               {t.body}
-            </p>
-            <p className="text-sm font-label font-bold tracking-wider text-brand-orange mb-10">
-              {t.badge}
             </p>
             <ul className="space-y-4">
               {highlights.map((item) => (
