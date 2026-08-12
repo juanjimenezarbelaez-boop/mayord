@@ -1,5 +1,3 @@
-import Image from "next/image"
-import { Star } from "lucide-react"
 import { hours, siteConfig } from "@/lib/data"
 
 export default function LocationHours() {
@@ -54,41 +52,6 @@ export default function LocationHours() {
                 </li>
               ))}
             </ul>
-            <div className="border-t border-gray-200 pt-8 flex items-center justify-between">
-              <div className="flex items-center gap-4">
-                <Image
-                  src={siteConfig.yelpLogoUrl}
-                  alt="Yelp"
-                  width={100}
-                  height={40}
-                  className="h-10 w-auto object-contain"
-                  draggable={false}
-                />
-                <div>
-                  <h4 className="font-bold text-gray-900 leading-none">
-                    Find us on Yelp
-                  </h4>
-                  <div className="flex items-center gap-1 mt-1.5">
-                    <div className="flex gap-[2px] text-[#FF1A1A]">
-                      {[0, 1, 2, 3, 4].map((i) => (
-                        <Star key={i} size={16} className="fill-current" />
-                      ))}
-                    </div>
-                    <span className="text-sm text-gray-600 ml-1 font-medium">
-                      {siteConfig.rating.value} ({siteConfig.rating.count} reviews)
-                    </span>
-                  </div>
-                </div>
-              </div>
-              <a
-                href={siteConfig.yelpUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="text-sm font-bold text-[#FF1A1A] hover:underline"
-              >
-                Read Reviews
-              </a>
-            </div>
           </div>
         </div>
       </div>
