@@ -28,7 +28,7 @@ export default function AboutPreview() {
               FOCUSED ON <span className="text-brand-orange">YOU</span>.
             </h2>
             <p className="text-lg text-brand-text-muted mb-3 max-w-lg leading-relaxed">
-              Mayord Tire Shop is a trusted local business in Maryland known for
+              Mayo RD Tire Shop is a trusted local business in Maryland known for
               honest work, great prices, and outstanding customer service. Our
               bright orange shop is more than just a place to fix tires&mdash;it&apos;s
               a place where our community comes first.

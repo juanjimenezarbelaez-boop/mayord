@@ -16,15 +16,22 @@ import {
   Wrench,
 } from "lucide-react"
 import { siteConfig } from "@/lib/data"
+import { pageMetadata, breadcrumbSchema, jsonLdProps } from "@/lib/seo"
 import PhoneCallLink from "@/components/phone-call-link"
 import FaqAccordion, { type FaqItem } from "@/components/services/faq-accordion"
 import ServiceRadiusMap from "@/components/services/service-radius-map"
 
-export const metadata: Metadata = {
-  title: "Tire Services in Edgewater, MD | Mayo RD Tire Shop",
+export const metadata: Metadata = pageMetadata({
+  title: "Tire Services in Edgewater, MD — Flat Repair, Mounting & Mobile Assistance",
   description:
-    "Flat tire repair, mounting, balancing, rotation, TPMS service and mobile tire assistance in Edgewater, MD. Walk-ins welcome, most services in ~20 minutes, open 7 days. We come to you within ~15 minutes.",
-}
+    "Flat tire repair, mounting, balancing, rotation, TPMS service and mobile tire assistance in Edgewater, MD. Walk-ins welcome, most services in ~20 minutes, open 7 days. We come to you within ~15 minutes of Edgewater and Annapolis.",
+  path: "/services",
+})
+
+const breadcrumbs = breadcrumbSchema([
+  { name: "Home", path: "/" },
+  { name: "Services", path: "/services" },
+])
 
 const services = [
   {
@@ -173,6 +180,7 @@ export default function ServicesPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
+      <script {...jsonLdProps(breadcrumbs)} />
 
       {/* Hero */}
       <section className="relative overflow-hidden bg-brand-dark pt-32 pb-20 lg:pt-40 lg:pb-28">

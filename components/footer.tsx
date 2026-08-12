@@ -87,7 +87,7 @@ export default function Footer() {
 
         <div className="pt-8 border-t border-brand-surface-light text-center flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-brand-text-muted text-sm font-medium">
-            &copy; {new Date().getFullYear()} Mayo Rd Tire Shop. All rights reserved.
+            &copy; {new Date().getFullYear()} Mayo RD Tire Shop. All rights reserved.
           </p>
           <div className="flex gap-4 text-sm font-medium text-brand-text-muted">
             <a href="#" className="hover:text-white transition-colors">

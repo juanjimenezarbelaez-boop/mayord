@@ -2,13 +2,20 @@ import type { Metadata } from "next"
 import Image from "next/image"
 import { Camera, ChevronRight, HandHeart, MapPin, Phone, Users } from "lucide-react"
 import { images, siteConfig } from "@/lib/data"
+import { pageMetadata, breadcrumbSchema, jsonLdProps } from "@/lib/seo"
 import PhoneCallLink from "@/components/phone-call-link"
 
-export const metadata: Metadata = {
-  title: "About Us | Mayo RD Tire Shop",
+export const metadata: Metadata = pageMetadata({
+  title: "About Us — Family-Owned Tire Shop in Edgewater, MD",
   description:
-    "Mayo RD Tire Shop is owned and operated by the Hagans family — a proud African American & Latino family serving Edgewater and Annapolis. When you call, you talk to family.",
-}
+    "Mayo RD Tire Shop is owned and operated by the Hagans family — a proud African American & Latino family serving Edgewater and Annapolis, MD. When you call, you talk to family. Hablamos Español.",
+  path: "/about",
+})
+
+const breadcrumbs = breadcrumbSchema([
+  { name: "Home", path: "/" },
+  { name: "About", path: "/about" },
+])
 
 const stats = [
   { value: "Since 2020", label: "Serving the community" },
@@ -34,11 +41,12 @@ const values = [
 export default function AboutPage() {
   return (
     <>
+      <script {...jsonLdProps(breadcrumbs)} />
       {/* Hero */}
       <section className="relative pt-32 pb-40 lg:pt-40 lg:pb-48 overflow-hidden bg-gray-50 text-center">
         <Image
           src={images.aboutHero}
-          alt="About background"
+          alt="Mayo RD Tire Shop storefront in Edgewater, Maryland"
           fill
           priority
           sizes="100vw"

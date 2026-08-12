@@ -4,12 +4,19 @@ import { Clock, ExternalLink, MapPin, Phone } from "lucide-react"
 import ContactForm from "@/components/contact-form"
 import PhoneCallLink from "@/components/phone-call-link"
 import { images, siteConfig } from "@/lib/data"
+import { pageMetadata, breadcrumbSchema, jsonLdProps } from "@/lib/seo"
 
-export const metadata: Metadata = {
-  title: "Contact | Mayo RD Tire Shop",
+export const metadata: Metadata = pageMetadata({
+  title: "Contact & Directions — Edgewater, MD Tire Shop",
   description:
-    "Give us a call to check tire availability in your size, or drop by the shop. No appointments needed.",
-}
+    "Call Mayo RD Tire Shop at 240-595-8547 or visit us at 175 Mayo Rd, Edgewater, MD 21037. Serving Edgewater and Annapolis. No appointments needed, open 7 days. Hablamos Español.",
+  path: "/contact",
+})
+
+const breadcrumbs = breadcrumbSchema([
+  { name: "Home", path: "/" },
+  { name: "Contact", path: "/contact" },
+])
 
 const contactHours = [
   { day: "Mon - Wed", time: "8:00 AM - 6:30 PM" },
@@ -22,11 +29,12 @@ const contactHours = [
 export default function ContactPage() {
   return (
     <div className="flex-grow bg-white">
+      <script {...jsonLdProps(breadcrumbs)} />
       {/* Hero */}
       <section className="relative pt-32 pb-24 overflow-hidden bg-brand-dark text-center border-b border-brand-surface-light">
         <Image
           src={images.contactHero}
-          alt="Contact background"
+          alt="Mayo RD Tire Shop storefront in Edgewater, Maryland"
           fill
           priority
           sizes="100vw"

@@ -9,7 +9,7 @@ export default function Hero() {
     <section className="relative pt-32 pb-40 lg:pt-48 lg:pb-56 overflow-hidden">
       <Image
         src={images.homeHero}
-        alt="Tire shop interior"
+        alt="Mayo RD Tire Shop interior in Edgewater, Maryland"
         fill
         priority
         sizes="100vw"

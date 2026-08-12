@@ -19,7 +19,7 @@ export const siteConfig = {
     "https://firebasestorage.googleapis.com/v0/b/braindy-brand-guideline.firebasestorage.app/o/MayoRD%2Fmayo%20rd%20logo%20(5).png?alt=media&token=272cafe7-e5ac-41a2-b3a1-b1fdad36444f",
   yelpLogoUrl:
     "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Yelp_Logo.svg/500px-Yelp_Logo.svg.png",
-  rating: { value: "4.0", count: 16 },
+  rating: { value: "4.4", count: 206 },
 }
 
 export const navLinks = [
@@ -105,24 +105,63 @@ export const reviews: Review[] = [
   },
 ]
 
+export interface BlogSection {
+  heading?: string
+  body: string[]
+}
+
 export interface BlogPost {
   slug: string
   title: string
   excerpt: string
   date: string
+  /** ISO 8601 date for BlogPosting JSON-LD (datePublished). */
+  dateISO: string
   category: string
   image: string
+  /** Article body, rendered on the /blog/[slug] detail page. */
+  content: BlogSection[]
 }
 
 export const blogPosts: BlogPost[] = [
   {
     slug: "new-vs-used-tires-in-maryland-which-one-makes-sense-for-your-car",
     title: "New vs. Used Tires in Maryland: Which One Makes Sense for Your Car?",
-    excerpt: "new-vs-used-tires-maryland",
+    excerpt:
+      "New tires or quality used tires? We break down cost, safety, and how long each lasts so Edgewater and Annapolis drivers can pick the right set with confidence.",
     date: "5/26/2026",
+    dateISO: "2026-05-26",
     category: "Tire Buying Guide",
     image:
       "https://firebasestorage.googleapis.com/v0/b/braindy-brand-guideline.firebasestorage.app/o/blog%2Fpost_thumbnail_1779818341971_ChatGPT%20Image%2026%20may%202026%2C%2010_58_41%20a.m.%20(1).png?alt=media&token=a5ef767f-163e-4100-9a48-a562b42ff810",
+    content: [
+      {
+        body: [
+          "Buying tires in Maryland comes down to one honest question: do you need brand-new tires, or will a set of quality used tires get you safely down the road for less? At Mayo RD Tire Shop in Edgewater, we sell both every single day — and the right answer depends on your car, your budget, and how long you plan to keep driving it.",
+        ],
+      },
+      {
+        heading: "When new tires make the most sense",
+        body: [
+          "New tires give you the longest tread life, the best wet-weather grip, and a full manufacturer warranty. If you drive a lot of highway miles between Edgewater and Annapolis, tow a trailer, or want to buy a matched set that will last for years, new is usually the smarter long-term value.",
+          "New is also the right call when the other three tires on your car are already new. Mixing a fresh tire with worn ones can affect handling, so matching tread depth matters.",
+        ],
+      },
+      {
+        heading: "When used tires are the smart buy",
+        body: [
+          "Quality used tires are a great fit when you need to replace one or two tires, you're selling the car soon, or you simply need a safe, affordable option today. Every used tire we sell is inspected for tread depth, sidewall damage, patches, and age before it ever goes on your vehicle.",
+          "For many drivers, a good used tire installed the same day for a fraction of the price is exactly what the situation calls for — and there is no shame in being practical.",
+        ],
+      },
+      {
+        heading: "How to decide",
+        body: [
+          "Ask yourself three things: How long will I keep this car? How many miles do I drive a week? And what is my budget right now? If you plan to keep the car for years and drive daily, lean new. If you need a safe fix today or you're replacing just one tire, used is often perfect.",
+          "Still not sure? Call us or drive in. We'll look at your tires, tell you honestly what we'd do, and never upsell you on something you don't need.",
+        ],
+      },
+    ],
   },
   {
     slug: "hit-a-pothole-in-maryland-tire-problems",
@@ -130,9 +169,48 @@ export const blogPosts: BlogPost[] = [
     excerpt:
       "A simple guide for Maryland drivers to check tire damage, air leaks, bent rims, alignment issues, and steering vibration after hitting a pothole.",
     date: "5/26/2026",
+    dateISO: "2026-05-26",
     category: "Tire Safety",
     image:
       "https://firebasestorage.googleapis.com/v0/b/braindy-brand-guideline.firebasestorage.app/o/blog%2Fpost_thumbnail_1779818008240_ChatGPT%20Image%2026%20may%202026%2C%2010_52_53%20a.m.%20(1).png?alt=media&token=1ab2dd1d-61f9-4dd1-91b9-16ba52ebdf56",
+    content: [
+      {
+        body: [
+          "Maryland winters and heavy rain leave our roads full of potholes, and hitting one at speed can do real damage in a split second. If you clipped a bad one around Edgewater or Annapolis, here are the five things to check right away before a small problem turns into a blowout.",
+        ],
+      },
+      {
+        heading: "1. Visible tire damage",
+        body: [
+          "Look at the tread and especially the sidewall for cuts, gouges, or a bulge. A bulge means the internal structure is damaged and the tire can fail without warning — replace it, don't drive on it.",
+        ],
+      },
+      {
+        heading: "2. Sudden air loss",
+        body: [
+          "Check your tire pressure or watch for a low-pressure warning light. A slow leak from a pothole impact is common and easy to miss until the tire is nearly flat.",
+        ],
+      },
+      {
+        heading: "3. A bent rim",
+        body: [
+          "Potholes can bend or crack an alloy wheel. If you feel a rhythmic vibration or the tire won't hold air even after a patch, the rim may be the real problem.",
+        ],
+      },
+      {
+        heading: "4. Alignment knocked off",
+        body: [
+          "If your car pulls to one side or the steering wheel sits crooked, the impact may have thrown off your alignment. Driving on it wears your tires unevenly and fast.",
+        ],
+      },
+      {
+        heading: "5. Steering wheel vibration",
+        body: [
+          "A shaking steering wheel after a pothole usually points to a knocked-off balance weight or a bent wheel. It's a quick thing for us to diagnose and fix.",
+          "Not sure how bad it is? Drive in or call us — we'll check all five in a few minutes and get you back on the road safely.",
+        ],
+      },
+    ],
   },
   {
     slug: "will-my-tires-pass-maryland-state-inspection",
@@ -140,9 +218,41 @@ export const blogPosts: BlogPost[] = [
     excerpt:
       "Not sure if your tires will pass Maryland State Inspection? Learn what inspectors check, how to spot tire problems, and when to replace your tires before inspection.",
     date: "5/26/2026",
+    dateISO: "2026-05-26",
     category: "Tires",
     image:
       "https://firebasestorage.googleapis.com/v0/b/braindy-brand-guideline.firebasestorage.app/o/blog%2Fpost_thumbnail_1779818116936_ChatGPT%20Image%2026%20may%202026%2C%2010_54_52%20a.m.%20(1).png?alt=media&token=cb6e378c-0e34-4e53-b946-917290d6d0c8",
+    content: [
+      {
+        body: [
+          "Buying a used car or transferring a title in Maryland means passing a state safety inspection, and tires are one of the most common reasons a vehicle gets flagged. Here's what inspectors actually look at so you're not caught off guard.",
+        ],
+      },
+      {
+        heading: "Tread depth",
+        body: [
+          "Maryland requires a minimum tread depth of 2/32 of an inch. An easy home check: insert a penny into the tread with Lincoln's head down. If you can see the top of his head, your tread is too low and the tire will fail.",
+        ],
+      },
+      {
+        heading: "Sidewall and tread condition",
+        body: [
+          "Inspectors reject tires with visible cord or fabric, cuts deep enough to expose the body plies, bulges, or improper repairs. Any of these are automatic failures because they're genuine safety hazards.",
+        ],
+      },
+      {
+        heading: "Matching and proper size",
+        body: [
+          "Your tires need to be the correct size for the vehicle and free of dangerous mismatches. Oversized tires that rub or extend beyond the fenders can also cause a rejection.",
+        ],
+      },
+      {
+        heading: "Get ahead of it",
+        body: [
+          "The good news: tire problems are the easiest inspection item to fix ahead of time. Bring your car to Mayo RD Tire Shop before your inspection and we'll tell you honestly whether your tires will pass — and swap in new or quality used tires the same day if they won't.",
+        ],
+      },
+    ],
   },
 ]
 
