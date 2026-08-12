@@ -14,8 +14,13 @@ import {
 import { hours, siteConfig } from "@/lib/data"
 import { localBusinessSchema, jsonLdProps, pageMetadata } from "@/lib/seo"
 import PhoneCallLink from "@/components/phone-call-link"
+import WhatsAppLink from "@/components/whatsapp-link"
+import DirectionsLink from "@/components/directions-link"
 import LandingStickyBar from "@/components/landing/landing-sticky-bar"
 import OpenStatus from "@/components/landing/open-status"
+
+const LANDING_LABEL = "landing_flat_repair"
+const WHATSAPP_MESSAGE = "Hi! I have a flat tire and need help."
 
 export const metadata: Metadata = pageMetadata({
   title: "Flat Tire Repair Edgewater MD | ~20 Min, Open 7 Days | Mayo RD",
@@ -24,10 +29,6 @@ export const metadata: Metadata = pageMetadata({
   path: "/flat-tire-repair-edgewater-md",
   absoluteTitle: true,
 })
-
-const WHATSAPP_HREF = `https://wa.me/12405958547?text=${encodeURIComponent(
-  "Hi! I have a flat tire and need help.",
-)}`
 
 const steps = [
   { n: "1", title: "Drive in or call", body: "No appointment needed — just come by or call ahead." },
@@ -74,7 +75,10 @@ export default function FlatTireRepairLandingPage() {
             className="h-9 w-auto object-contain sm:h-10"
             priority
           />
-          <PhoneCallLink className="inline-flex items-center gap-2 rounded-lg bg-brand-orange px-4 py-2.5 font-label text-sm font-bold text-white transition-colors hover:bg-brand-orange-hover sm:text-base">
+          <PhoneCallLink
+            label={LANDING_LABEL}
+            className="inline-flex items-center gap-2 rounded-lg bg-brand-orange px-4 py-2.5 font-label text-sm font-bold text-white transition-colors hover:bg-brand-orange-hover sm:text-base"
+          >
             <Phone size={18} />
             <span className="hidden sm:inline">CALL </span>
             {siteConfig.phone}
@@ -97,18 +101,20 @@ export default function FlatTireRepairLandingPage() {
           <OpenStatus className="mt-6 flex items-center gap-2 font-label text-base font-bold sm:text-lg" />
 
           <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-            <PhoneCallLink className="inline-flex items-center justify-center gap-2 rounded-lg bg-brand-orange px-8 py-5 font-label text-xl font-bold text-white transition-colors hover:bg-brand-orange-hover">
+            <PhoneCallLink
+              label={LANDING_LABEL}
+              className="inline-flex items-center justify-center gap-2 rounded-lg bg-brand-orange px-8 py-5 font-label text-xl font-bold text-white transition-colors hover:bg-brand-orange-hover"
+            >
               <Phone size={24} />
               CALL NOW: {siteConfig.phone}
             </PhoneCallLink>
-            <a
-              href={WHATSAPP_HREF}
-              target="_blank"
-              rel="noopener noreferrer"
+            <WhatsAppLink
+              label={LANDING_LABEL}
+              message={WHATSAPP_MESSAGE}
               className="inline-flex items-center justify-center gap-2 rounded-lg border-2 border-brand-surface-light px-7 py-4 font-label text-lg font-bold text-white transition-colors hover:border-brand-orange hover:text-brand-orange"
             >
               Message us on WhatsApp
-            </a>
+            </WhatsAppLink>
           </div>
 
           <p className="mt-6 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm font-medium text-brand-text-muted sm:text-base">
@@ -149,7 +155,10 @@ export default function FlatTireRepairLandingPage() {
               </p>
             </div>
           </div>
-          <PhoneCallLink className="inline-flex flex-shrink-0 items-center justify-center gap-2 rounded-lg bg-brand-orange px-6 py-3.5 font-label text-base font-bold text-white transition-colors hover:bg-brand-orange-hover">
+          <PhoneCallLink
+            label="mobile_assistance"
+            className="inline-flex flex-shrink-0 items-center justify-center gap-2 rounded-lg bg-brand-orange px-6 py-3.5 font-label text-base font-bold text-white transition-colors hover:bg-brand-orange-hover"
+          >
             <Phone size={20} />
             CALL FOR MOBILE SERVICE
           </PhoneCallLink>
@@ -260,7 +269,10 @@ export default function FlatTireRepairLandingPage() {
             </p>
             <p className="mt-3 flex items-start gap-3 text-brand-text-muted">
               <Phone size={20} className="mt-0.5 flex-shrink-0 text-brand-orange" />
-              <PhoneCallLink className="font-bold text-white hover:text-brand-orange">
+              <PhoneCallLink
+                label={LANDING_LABEL}
+                className="font-bold text-white hover:text-brand-orange"
+              >
                 {siteConfig.phone}
               </PhoneCallLink>
             </p>
@@ -280,15 +292,13 @@ export default function FlatTireRepairLandingPage() {
               </ul>
             </div>
 
-            <a
-              href={siteConfig.directionsUrl}
-              target="_blank"
-              rel="noopener noreferrer"
+            <DirectionsLink
+              label={LANDING_LABEL}
               className="mt-8 inline-flex w-fit items-center justify-center gap-2 rounded-lg bg-brand-orange px-7 py-4 font-label text-lg font-bold text-white transition-colors hover:bg-brand-orange-hover"
             >
               <MapPin size={20} />
               GET DIRECTIONS
-            </a>
+            </DirectionsLink>
           </div>
         </div>
       </section>
@@ -302,7 +312,7 @@ export default function FlatTireRepairLandingPage() {
             </p>
             <p>{siteConfig.address.full}</p>
             <p>
-              <PhoneCallLink className="hover:text-brand-orange">
+              <PhoneCallLink label={LANDING_LABEL} className="hover:text-brand-orange">
                 {siteConfig.phone}
               </PhoneCallLink>{" "}
               &middot; Open 7 days &middot; Walk-ins welcome
@@ -320,7 +330,7 @@ export default function FlatTireRepairLandingPage() {
       </footer>
 
       {/* Mobile sticky bottom bar */}
-      <LandingStickyBar />
+      <LandingStickyBar label={LANDING_LABEL} />
     </div>
   )
 }

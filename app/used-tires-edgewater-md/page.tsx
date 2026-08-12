@@ -236,7 +236,7 @@ export default function UsedTiresLandingPage() {
               we have it in stock. No pressure, no spam.
             </p>
           </div>
-          <QuoteForm />
+          <QuoteForm label={LANDING_LABEL} />
         </div>
       </section>
 

@@ -48,7 +48,7 @@ export function trackDirections(label: string) {
 }
 
 // A successful lead form submission. Also counts as an Ads conversion.
-export function trackFormLead(params: EventParams = {}) {
-  trackEvent("form_submit_lead", params)
+export function trackFormLead(label: string) {
+  trackEvent("form_submit_lead", { label })
   trackPhoneConversion()
 }

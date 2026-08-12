@@ -12,6 +12,7 @@ import {
   jsonLdProps,
 } from "@/lib/seo"
 import PhoneCallLink from "@/components/phone-call-link"
+import WhatsAppLink from "@/components/whatsapp-link"
 import FaqAccordion from "@/components/services/faq-accordion"
 
 const MAIN_PATH = "/mobile-tire-service-edgewater-md"
@@ -59,9 +60,7 @@ export default async function ServiceAreaPage({
     { name: data.town, path },
   ])
 
-  const whatsappHref = `https://wa.me/12405958547?text=${encodeURIComponent(
-    `Hi! I need mobile tire assistance in ${data.town}. Here is my location:`,
-  )}`
+  const whatsappMessage = `Hi! I need mobile tire assistance in ${data.town}. Here is my location:`
 
   return (
     <>
@@ -101,18 +100,20 @@ export default async function ServiceAreaPage({
           </div>
 
           <div className="flex flex-col sm:flex-row gap-4">
-            <PhoneCallLink className="bg-brand-orange hover:bg-brand-orange-hover text-white px-7 py-4 rounded-lg font-bold font-label flex items-center justify-center gap-2 transition-colors text-lg">
+            <PhoneCallLink
+              label="mobile_assistance"
+              className="bg-brand-orange hover:bg-brand-orange-hover text-white px-7 py-4 rounded-lg font-bold font-label flex items-center justify-center gap-2 transition-colors text-lg"
+            >
               <Phone size={22} />
               CALL NOW: {siteConfig.phone}
             </PhoneCallLink>
-            <Link
-              href={whatsappHref}
-              target="_blank"
-              rel="noopener noreferrer"
+            <WhatsAppLink
+              label="mobile_assistance"
+              message={whatsappMessage}
               className="border-2 border-brand-surface-light hover:border-brand-orange hover:text-brand-orange text-brand-text px-7 py-4 rounded-lg font-bold font-label flex items-center justify-center gap-2 transition-colors"
             >
               Share your location on WhatsApp
-            </Link>
+            </WhatsAppLink>
           </div>
         </div>
       </section>
@@ -184,10 +185,13 @@ export default async function ServiceAreaPage({
             Open 7 days · Dispatched during shop hours · Hablamos Español
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <PhoneCallLink className="inline-flex items-center justify-center gap-2 bg-brand-dark hover:bg-black text-white px-8 py-4 rounded-lg font-bold font-label text-lg transition-colors">
-              <Phone size={22} />
-              CALL {siteConfig.phone}
-            </PhoneCallLink>
+              <PhoneCallLink
+                label="mobile_assistance"
+                className="inline-flex items-center justify-center gap-2 bg-brand-dark hover:bg-black text-white px-8 py-4 rounded-lg font-bold font-label text-lg transition-colors"
+              >
+                <Phone size={22} />
+                CALL {siteConfig.phone}
+              </PhoneCallLink>
             <Link
               href={MAIN_PATH}
               className="inline-flex items-center gap-2 text-white font-bold font-label hover:underline"
