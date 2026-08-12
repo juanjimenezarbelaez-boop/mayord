@@ -47,6 +47,14 @@ export default function Footer() {
                   </Link>
                 </li>
               ))}
+              <li>
+                <Link
+                  href="/mobile-tire-service-edgewater-md"
+                  className="hover:text-brand-orange transition-colors"
+                >
+                  Mobile Tire Service
+                </Link>
+              </li>
             </ul>
           </div>
 

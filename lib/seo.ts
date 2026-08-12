@@ -144,6 +144,106 @@ export function localBusinessSchema() {
   }
 }
 
+/**
+ * Placeholder service-call fee used in Offer JSON-LD.
+ * Matches the visible "$XX" placeholders across the site — replace with the
+ * real service-call fee once confirmed.
+ */
+export const SERVICE_CALL_FEE_PLACEHOLDER = "0"
+
+/** GeoCircle node covering the ~15-minute (≈16 km) mobile radius. */
+function geoCircleNode() {
+  return {
+    "@type": "GeoCircle",
+    geoMidpoint: {
+      "@type": "GeoCoordinates",
+      latitude: GEO.latitude,
+      longitude: GEO.longitude,
+    },
+    geoRadius: "16000",
+  }
+}
+
+/** Place node for the shop, reused as the mobile service origin location. */
+function shopPlaceNode() {
+  return {
+    "@type": "Place",
+    name: siteConfig.name,
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: siteConfig.address.street,
+      addressLocality: siteConfig.address.city,
+      addressRegion: siteConfig.address.state,
+      postalCode: siteConfig.address.zip,
+      addressCountry: "US",
+    },
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: GEO.latitude,
+      longitude: GEO.longitude,
+    },
+  }
+}
+
+/**
+ * Service JSON-LD for the mobile tire service pages.
+ * Defaults to the full GeoCircle + every covered city; pass `areaServed` to
+ * scope a service-area page to a single town.
+ */
+export function mobileServiceSchema(opts?: {
+  path?: string
+  name?: string
+  description?: string
+  areaServed?: object[]
+}) {
+  const areaServed =
+    opts?.areaServed ??
+    [geoCircleNode(), ...AREAS_SERVED.map((city) => ({ "@type": "City", name: `${city}, MD` }))]
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    serviceType: "Mobile Tire Service",
+    name: opts?.name ?? "Mobile Tire Assistance",
+    ...(opts?.description ? { description: opts.description } : {}),
+    provider: { "@id": BUSINESS_ID },
+    areaServed,
+    availableChannel: {
+      "@type": "ServiceChannel",
+      servicePhone: {
+        "@type": "ContactPoint",
+        telephone: "+1-240-595-8547",
+        contactType: "customer service",
+        availableLanguage: ["en", "es"],
+      },
+      serviceLocation: shopPlaceNode(),
+    },
+    hoursAvailable: OPENING_HOURS,
+    offers: {
+      "@type": "Offer",
+      priceCurrency: "USD",
+      // Placeholder service-call fee — replace with the confirmed amount.
+      price: SERVICE_CALL_FEE_PLACEHOLDER,
+      description:
+        "Service call fee, applied to the cost of your service. Call to confirm current pricing before dispatch.",
+    },
+    url: absoluteUrl(opts?.path ?? "/mobile-tire-service-edgewater-md"),
+  }
+}
+
+/** FAQPage JSON-LD from a list of question/answer pairs. */
+export function faqPageSchema(items: { question: string; answer: string }[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: items.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: { "@type": "Answer", text: item.answer },
+    })),
+  }
+}
+
 /** BreadcrumbList JSON-LD from an ordered list of crumbs. */
 export function breadcrumbSchema(items: { name: string; path: string }[]) {
   return {

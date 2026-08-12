@@ -22,10 +22,26 @@ export const siteConfig = {
   rating: { value: "4.4", count: 206 },
 }
 
-export const navLinks = [
+export interface NavLink {
+  href: string
+  label: string
+  submenu?: { href: string; label: string }[]
+}
+
+export const navLinks: NavLink[] = [
   { href: "/", label: "HOME" },
   { href: "/tires", label: "TIRES" },
-  { href: "/services", label: "SERVICES" },
+  {
+    href: "/services",
+    label: "SERVICES",
+    submenu: [
+      { href: "/services", label: "All Services" },
+      {
+        href: "/mobile-tire-service-edgewater-md",
+        label: "Mobile Tire Service",
+      },
+    ],
+  },
   { href: "/reviews", label: "REVIEWS" },
   { href: "/about", label: "ABOUT US" },
   { href: "/blog", label: "BLOG" },
@@ -124,6 +140,129 @@ export interface BlogPost {
 }
 
 export const blogPosts: BlogPost[] = [
+  {
+    slug: "flat-tire-cant-drive-on-it-edgewater-annapolis",
+    title: "Flat Tire and Can't Drive On It? What To Do in Edgewater & Annapolis",
+    excerpt:
+      "A blown or shredded tire you can't safely drive on? Here's exactly what to do in the Edgewater and Annapolis area — how to stay safe, when to call for mobile help, and when to call a tow.",
+    date: "8/12/2026",
+    dateISO: "2026-08-12",
+    category: "Roadside Help",
+    image: "/blog/flat-tire-roadside.png",
+    content: [
+      {
+        body: [
+          "A flat you can patch is one thing. A tire that's shredded, blown out, or sitting on the rim is another — and driving on it can wreck your wheel and leave you truly stranded. If that's you right now in the Edgewater or Annapolis area, the fastest fix is often {{link:/mobile-tire-service-edgewater-md|mobile tire service in Edgewater}}: we bring the tire and tools to your location so you don't have to move the car at all.",
+        ],
+      },
+      {
+        heading: "First, get to a safe spot",
+        body: [
+          "If you're still moving, ease off the gas, don't slam the brakes, and steer gently onto the shoulder or into the nearest lot. A ruined tire is cheaper than a crash. Once you're stopped, turn on your hazard lights and get yourself and any passengers away from traffic.",
+        ],
+      },
+      {
+        heading: "Decide: can this tire be driven on at all?",
+        body: [
+          "If the tire is completely flat, torn, or off the bead, do not drive on it — even a short distance can bend the rim or damage brake and suspension parts. If it's only low and still holding some air, you may be able to creep slowly to a safe place, but don't count on it.",
+        ],
+      },
+      {
+        heading: "Call for mobile tire help",
+        body: [
+          "During shop hours, seven days a week, we can come to you across Edgewater, Annapolis, Riva, Mayo and the surrounding area. Tell us your tire size (it's printed on the sidewall, like 205/55R16) and where you are, and we'll bring a used or new tire in your size, install your spare, or get you rolling again on the spot. We'll give you an honest arrival estimate when you call.",
+        ],
+      },
+      {
+        heading: "When to call a tow truck instead",
+        body: [
+          "We'll always be straight with you: if your car isn't safe to work on where it sits — you're in a live traffic lane, on a narrow bridge, or the damage goes beyond the tire — a tow is the right call, not mobile service. In those cases we'll tell you so and point you toward the safest option. Honest advice is the whole point.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "how-much-does-mobile-tire-service-cost-in-maryland",
+    title: "How Much Does Mobile Tire Service Cost in Maryland?",
+    excerpt:
+      "A transparent look at how mobile tire service pricing works in Maryland — the service-call fee, how it's applied to your repair, and what actually drives the final cost.",
+    date: "8/12/2026",
+    dateISO: "2026-08-12",
+    category: "Pricing",
+    image: "/blog/mobile-tire-cost.png",
+    content: [
+      {
+        body: [
+          "\"How much is it going to cost?\" is the first thing most people ask when they call for mobile tire service — and fair enough. Here's how the pricing actually works at Mayo RD, in plain terms, so there are no surprises.",
+        ],
+      },
+      {
+        heading: "The service-call fee",
+        body: [
+          "Mobile service starts with a service-call fee that covers coming to your location. The key thing to know: that fee is applied to the cost of your service. So if you end up buying a used or new tire from us, the trip charge goes toward the work — you're not paying twice.",
+        ],
+      },
+      {
+        heading: "What you pay for the tire or repair",
+        body: [
+          "On top of the trip, you pay for whatever the job actually needs: a flat repair, installing your own spare, or a used or new tire in your size. Used tires cost less than new; a simple spare install costs less than a full tire replacement. We tell you the number before we do the work.",
+        ],
+      },
+      {
+        heading: "What can change the price",
+        body: [
+          "A few things move the total: your tire size and type, whether you need a repair versus a replacement, and how far out you are. We confirm all of it by phone before we dispatch, so you approve the price before we ever get in the van.",
+        ],
+      },
+      {
+        heading: "Why we quote by phone",
+        body: [
+          "We don't post a single flat price because honest pricing depends on your specific tire and situation. Call us with your tire size and location and we'll give you a real number — not a lowball that changes when we arrive. No guarantees we can't keep, and no surprise add-ons.",
+        ],
+      },
+    ],
+  },
+  {
+    slug: "spare-tire-vs-mobile-tire-help-whats-safer",
+    title: "Spare Tire vs. Calling for Mobile Tire Help: What's Safer?",
+    excerpt:
+      "Should you put on the spare yourself or call for mobile tire help? A practical, honest comparison of safety, donut-spare limits, and when each option makes the most sense.",
+    date: "8/12/2026",
+    dateISO: "2026-08-12",
+    category: "Tire Safety",
+    image: "/blog/spare-tire-trunk.png",
+    content: [
+      {
+        body: [
+          "When you catch a flat, you've usually got two options: change to the spare yourself, or call someone to come help. Neither is automatically \"right\" — it depends on your spare, where you are, and how comfortable you are on the side of the road. Here's an honest way to decide.",
+        ],
+      },
+      {
+        heading: "Changing the spare yourself",
+        body: [
+          "If you have a full-size spare, you're parked somewhere safe and flat, and you know how to use the jack, changing it yourself is quick and free. The risks are real, though: jacking a car on soft ground or a slope, or working close to passing traffic, is where people get hurt. If any of that is true, it's not worth it.",
+        ],
+      },
+      {
+        heading: "About that donut spare",
+        body: [
+          "Most cars today come with a compact \"donut\" spare, not a full-size one. Donuts are built for limited use only — typically a low speed limit and a short distance, just enough to get to a shop. They offer less grip and no long-term safety. If you're far from home or it's raining, a donut is a stopgap, not a solution.",
+        ],
+      },
+      {
+        heading: "Calling for mobile tire help",
+        body: [
+          "Mobile service makes the most sense when you don't have a usable spare, you're not in a safe spot to change one, or you'd rather not drive on a donut. We come to you, install a proper used or new tire in your size, and you drive away on a real tire instead of a temporary one — no second trip to the shop needed.",
+        ],
+      },
+      {
+        heading: "The bottom line",
+        body: [
+          "If you've got a full-size spare and a safe spot, changing it yourself is fine. If you've got a donut, no spare, or any doubt about safety, calling for help is the smarter, safer move. When in doubt, call us — we'll tell you honestly which one fits your situation.",
+        ],
+      },
+    ],
+  },
   {
     slug: "new-vs-used-tires-in-maryland-which-one-makes-sense-for-your-car",
     title: "New vs. Used Tires in Maryland: Which One Makes Sense for Your Car?",

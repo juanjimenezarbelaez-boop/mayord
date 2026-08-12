@@ -1,9 +1,38 @@
 import type { Metadata } from "next"
+import type { ReactNode } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { notFound } from "next/navigation"
 import { ArrowLeft, Calendar, Tag } from "lucide-react"
 import { blogPosts } from "@/lib/data"
+
+/**
+ * Renders a paragraph, converting inline link tokens `{{link:/path|anchor text}}`
+ * into real internal links so articles can pass ranking signals with descriptive anchors.
+ */
+const LINK_TOKEN = /\{\{link:([^|]+)\|([^}]+)\}\}/g
+function renderRichText(text: string): ReactNode[] {
+  const nodes: ReactNode[] = []
+  let lastIndex = 0
+  let match: RegExpExecArray | null
+  LINK_TOKEN.lastIndex = 0
+  while ((match = LINK_TOKEN.exec(text)) !== null) {
+    if (match.index > lastIndex) nodes.push(text.slice(lastIndex, match.index))
+    const [, href, label] = match
+    nodes.push(
+      <Link
+        key={`${href}-${match.index}`}
+        href={href}
+        className="text-brand-orange font-bold hover:underline"
+      >
+        {label}
+      </Link>,
+    )
+    lastIndex = match.index + match[0].length
+  }
+  if (lastIndex < text.length) nodes.push(text.slice(lastIndex))
+  return nodes
+}
 import {
   pageMetadata,
   breadcrumbSchema,
@@ -104,7 +133,7 @@ export default async function BlogArticlePage({
                         key={j}
                         className="text-gray-700 text-lg leading-relaxed font-medium"
                       >
-                        {paragraph}
+                        {renderRichText(paragraph)}
                       </p>
                     ))}
                   </div>

@@ -22,7 +22,7 @@ export default function BlogCta() {
           CALL: {siteConfig.phone}
         </PhoneCallLink>
         <Link
-          href="/services"
+          href="/mobile-tire-service-edgewater-md"
           className="inline-flex items-center gap-2 text-brand-orange font-bold font-label hover:underline"
         >
           See our mobile tire service

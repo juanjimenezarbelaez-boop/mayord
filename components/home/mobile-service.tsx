@@ -42,13 +42,13 @@ export default function MobileService() {
               Mobile Tire Assistance
             </span>
             <h2 className="text-4xl lg:text-5xl font-bold leading-tight mb-6 text-balance">
-              STUCK NEARBY?
+              MOBILE TIRE SERVICE —
               <br />
-              <span className="text-brand-orange">WE&apos;LL COME TO YOU.</span>
+              <span className="text-brand-orange">WE COME TO YOU.</span>
             </h2>
             <p className="text-lg text-brand-text-muted leading-relaxed mb-8 max-w-lg text-pretty">
-              Flat tire at home, work, or on the road? Our mobile tire assistance
-              covers everything within about 15 minutes of our Edgewater shop.
+              Flat tire at home, work, or on the road? Our mobile tire service covers
+              everything within about 15 minutes of our Edgewater shop.
             </p>
 
             <ul className="flex flex-col gap-4 mb-10">
@@ -76,6 +76,17 @@ export default function MobileService() {
                 Share your location on WhatsApp
               </Link>
             </div>
+
+            <p className="mt-6 text-brand-text-muted">
+              Learn how it works, pricing, and coverage on our{" "}
+              <Link
+                href="/mobile-tire-service-edgewater-md"
+                className="font-bold text-brand-orange hover:underline"
+              >
+                mobile tire service in Edgewater
+              </Link>{" "}
+              page.
+            </p>
           </div>
 
           {/* Right: stylized radius map */}
