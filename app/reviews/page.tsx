@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import Image from "next/image"
 import { Quote, Star } from "lucide-react"
 import { images, reviews, siteConfig } from "@/lib/data"
 
@@ -13,10 +14,13 @@ export default function ReviewsPage() {
     <>
       {/* Hero */}
       <section className="relative pt-32 pb-40 lg:pt-40 lg:pb-48 overflow-hidden bg-brand-orange text-center">
-        <img
+        <Image
           src={images.reviewsHero}
           alt="Reviews background"
-          className="absolute inset-0 w-full h-full object-cover"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover"
         />
         <div className="absolute inset-0 bg-brand-orange/80 pointer-events-none z-0" />
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -74,9 +78,11 @@ export default function ReviewsPage() {
               rel="noreferrer"
               className="inline-flex items-center gap-3 bg-white border-2 border-gray-200 hover:border-[#FF1A1A] px-8 py-4 rounded-lg transition-colors font-bold text-gray-900"
             >
-              <img
+              <Image
                 src={siteConfig.yelpLogoUrl}
                 alt="Yelp"
+                width={80}
+                height={32}
                 className="h-8 w-auto object-contain"
               />
               READ ALL REVIEWS ON YELP

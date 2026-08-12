@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import Image from "next/image"
 import {
   Car,
   DollarSign,
@@ -51,10 +52,13 @@ export default function TiresPage() {
     <>
       {/* Hero */}
       <section className="relative pt-32 pb-40 lg:pt-40 lg:pb-48 overflow-hidden bg-brand-dark">
-        <img
+        <Image
           src={images.tiresHero}
           alt="Stack of new and used tires"
-          className="absolute inset-0 w-full h-full object-cover"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-brand-dark via-brand-dark/80 to-transparent pointer-events-none z-0" />
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -151,23 +155,30 @@ export default function TiresPage() {
                   ))}
                 </div>
               </div>
-              <div className="mt-16 flex-grow rounded-[3rem] overflow-hidden">
-                <img
+              <div className="mt-16 flex-grow rounded-[3rem] overflow-hidden relative min-h-[400px]">
+                <Image
                   src={images.tiresTall}
                   alt="Tire Performance Detail"
-                  className="w-full h-full object-cover shadow-2xl min-h-[400px]"
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  loading="lazy"
+                  className="object-cover shadow-2xl"
                 />
               </div>
             </div>
 
             <div className="w-full lg:w-1/2 flex flex-col gap-4">
               {detailImages.map((src, i) => (
-                <img
-                  key={src}
-                  src={src}
-                  alt={`Tire Detail ${i + 1}`}
-                  className="w-full h-48 object-cover shadow-xl rounded-3xl"
-                />
+                <div key={src} className="relative w-full h-48 rounded-3xl overflow-hidden shadow-xl">
+                  <Image
+                    src={src}
+                    alt={`Tire Detail ${i + 1}`}
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                    loading="lazy"
+                    className="object-cover"
+                  />
+                </div>
               ))}
               <div className="mt-12 bg-brand-dark text-white p-10 md:p-14 border border-brand-surface shadow-2xl relative overflow-hidden rounded-[3rem]">
                 <h3 className="text-3xl md:text-4xl font-bold mb-2 text-brand-orange uppercase leading-none">

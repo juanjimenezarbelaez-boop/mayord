@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import Image from "next/image"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { Menu, Phone, X } from "lucide-react"
@@ -15,9 +16,12 @@ export default function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
         <div className="flex items-center gap-2">
           <Link href="/" className="inline-block relative">
-            <img
+            <Image
               src={siteConfig.logoUrl}
               alt="Mayo RD Tire Shop Logo"
+              width={160}
+              height={40}
+              priority
               className="h-10 w-auto object-contain"
             />
           </Link>

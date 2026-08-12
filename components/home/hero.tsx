@@ -1,3 +1,4 @@
+import Image from "next/image"
 import Link from "next/link"
 import { ChevronRight } from "lucide-react"
 import { images } from "@/lib/data"
@@ -5,10 +6,13 @@ import { images } from "@/lib/data"
 export default function Hero() {
   return (
     <section className="relative pt-32 pb-40 lg:pt-48 lg:pb-56 overflow-hidden">
-      <img
+      <Image
         src={images.homeHero}
         alt="Tire shop interior"
-        className="absolute inset-0 w-full h-full object-cover"
+        fill
+        priority
+        sizes="100vw"
+        className="object-cover"
       />
       <div className="absolute inset-0 bg-gradient-to-r from-brand-dark via-brand-dark/90 to-brand-dark/40 pointer-events-none z-0" />
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

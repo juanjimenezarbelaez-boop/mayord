@@ -1,3 +1,4 @@
+import Image from "next/image"
 import { ExternalLink, Quote, Star } from "lucide-react"
 import { reviews, siteConfig } from "@/lib/data"
 
@@ -21,10 +22,12 @@ export default function ReviewsPreview() {
             </h2>
             <div className="mb-8">
               <div className="mb-4">
-                <img
+                <Image
                   src={siteConfig.yelpLogoUrl}
                   alt="Yelp Logo"
-                  className="h-10 object-contain"
+                  width={100}
+                  height={40}
+                  className="h-10 w-auto object-contain"
                   draggable={false}
                 />
               </div>

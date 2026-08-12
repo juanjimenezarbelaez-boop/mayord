@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import Image from "next/image"
 import Link from "next/link"
 import { ArrowRight, Calendar, Tag } from "lucide-react"
 import { blogPosts, images } from "@/lib/data"
@@ -14,10 +15,13 @@ export default function BlogPage() {
     <>
       {/* Hero */}
       <section className="relative pt-32 pb-40 lg:pt-40 lg:pb-48 overflow-hidden bg-brand-dark">
-        <img
+        <Image
           src={images.blogHero}
           alt="Blog background"
-          className="absolute inset-0 w-full h-full object-cover"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-brand-dark via-brand-dark/80 to-brand-dark/40 pointer-events-none z-0" />
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -42,10 +46,13 @@ export default function BlogPage() {
                 className="group bg-white rounded-[2rem] overflow-hidden border border-gray-100 hover:border-brand-orange transition-all hover:shadow-xl flex flex-col h-full"
               >
                 <div className="h-56 overflow-hidden bg-gray-100 relative">
-                  <img
+                  <Image
                     src={post.image}
                     alt={post.title}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    loading="lazy"
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                 </div>
                 <div className="p-8 flex flex-col flex-grow">

@@ -1,3 +1,4 @@
+import Image from "next/image"
 import { CircleCheck } from "lucide-react"
 import { images } from "@/lib/data"
 
@@ -42,10 +43,12 @@ export default function AboutPreview() {
           </div>
           <div className="flex-1 relative lg:h-[600px] w-full flex items-center justify-center lg:justify-end">
             <div className="relative w-full max-w-md lg:max-w-none lg:w-[600px] h-[500px] lg:h-full lg:absolute lg:-right-32">
-              <img
+              <Image
                 src={images.homeAbout}
                 alt="Tire close up"
-                className="w-full h-full object-cover object-center rounded-2xl lg:rounded-none"
+                fill
+                sizes="(max-width: 1024px) 100vw, 600px"
+                className="object-cover object-center rounded-2xl lg:rounded-none"
                 style={{
                   maskImage:
                     "linear-gradient(to right, transparent, black 20%, black 80%, transparent)",

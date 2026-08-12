@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import Image from "next/image"
 import { images } from "@/lib/data"
 
 export const metadata: Metadata = {
@@ -17,10 +18,13 @@ export default function AboutPage() {
     <>
       {/* Hero */}
       <section className="relative pt-32 pb-40 lg:pt-40 lg:pb-48 overflow-hidden bg-gray-50 text-center">
-        <img
+        <Image
           src={images.aboutHero}
           alt="About background"
-          className="absolute inset-0 w-full h-full object-cover"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover"
         />
         <div className="absolute inset-0 bg-gray-50/90 pointer-events-none z-0" />
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -41,11 +45,14 @@ export default function AboutPage() {
       <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col lg:flex-row gap-16 items-center">
-            <div className="w-full lg:w-1/2">
-              <img
+            <div className="w-full lg:w-1/2 relative aspect-[4/5] rounded-2xl overflow-hidden">
+              <Image
                 src={images.aboutStory}
                 alt="Mechanic showing tires"
-                className="w-full rounded-2xl aspect-[4/5] object-cover"
+                fill
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                loading="lazy"
+                className="object-cover"
               />
             </div>
             <div className="w-full lg:w-1/2">
