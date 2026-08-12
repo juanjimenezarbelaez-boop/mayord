@@ -29,7 +29,10 @@ export default function Hero() {
             Quality new &amp; used tires, expert service, and unbeatable prices.
           </p>
           <div className="flex flex-col sm:flex-row gap-4">
-            <PhoneCallLink className="bg-brand-orange hover:bg-brand-orange-hover text-white px-8 py-4 rounded-lg font-bold font-label flex items-center justify-center gap-2 transition-colors">
+            <PhoneCallLink
+              label="hero"
+              className="bg-brand-orange hover:bg-brand-orange-hover text-white px-8 py-4 rounded-lg font-bold font-label flex items-center justify-center gap-2 transition-colors"
+            >
               <Phone size={20} />
               CALL NOW: {siteConfig.phone}
             </PhoneCallLink>

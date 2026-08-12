@@ -80,7 +80,10 @@ export default function Header() {
           })}
         </nav>
 
-        <PhoneCallLink className="hidden lg:flex items-center gap-2 bg-brand-orange hover:bg-brand-orange-hover text-white px-6 py-2.5 rounded-lg font-bold font-label transition-colors">
+        <PhoneCallLink
+          label="header"
+          className="hidden lg:flex items-center gap-2 bg-brand-orange hover:bg-brand-orange-hover text-white px-6 py-2.5 rounded-lg font-bold font-label transition-colors"
+        >
           <Phone size={18} />
           <span>{siteConfig.phone}</span>
         </PhoneCallLink>
@@ -131,6 +134,7 @@ export default function Header() {
               </div>
             ))}
             <PhoneCallLink
+              label="header"
               onClick={() => setOpen(false)}
               className="flex items-center justify-center gap-2 bg-brand-orange hover:bg-brand-orange-hover text-white px-6 py-3 rounded-lg font-bold transition-colors mt-2"
             >

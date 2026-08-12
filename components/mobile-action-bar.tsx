@@ -2,12 +2,8 @@
 
 import { useEffect, useState } from "react"
 import { MapPin, Phone } from "lucide-react"
-import { siteConfig } from "@/lib/data"
-import { trackPhoneConversion } from "@/lib/gtag"
-
-const WHATSAPP_HREF = `https://wa.me/12405958547?text=${encodeURIComponent(
-  "Hi! I'm interested in your tire services.",
-)}`
+import { siteConfig, whatsappHref } from "@/lib/data"
+import { trackPhoneCall, trackWhatsApp, trackDirections } from "@/lib/gtag"
 
 function WhatsAppIcon({ className = "" }: { className?: string }) {
   return (
@@ -37,16 +33,17 @@ export default function MobileActionBar() {
     >
       <a
         href={siteConfig.phoneHref}
-        onClick={() => trackPhoneConversion()}
+        onClick={() => trackPhoneCall("sticky_bar")}
         className="flex flex-col items-center justify-center gap-1 py-3 font-label font-bold text-xs active:bg-brand-orange-hover"
       >
         <Phone size={20} />
         CALL
       </a>
       <a
-        href={WHATSAPP_HREF}
+        href={whatsappHref()}
         target="_blank"
         rel="noopener noreferrer"
+        onClick={() => trackWhatsApp("sticky_bar")}
         className="flex flex-col items-center justify-center gap-1 py-3 font-label font-bold text-xs border-x border-white/25 active:bg-brand-orange-hover"
       >
         <WhatsAppIcon className="h-5 w-5" />
@@ -56,6 +53,7 @@ export default function MobileActionBar() {
         href={siteConfig.directionsUrl}
         target="_blank"
         rel="noopener noreferrer"
+        onClick={() => trackDirections("sticky_bar")}
         className="flex flex-col items-center justify-center gap-1 py-3 font-label font-bold text-xs active:bg-brand-orange-hover"
       >
         <MapPin size={20} />

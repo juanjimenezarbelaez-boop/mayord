@@ -1,6 +1,7 @@
 import Link from "next/link"
 import { Check, MapPin, Phone } from "lucide-react"
 import PhoneCallLink from "@/components/phone-call-link"
+import WhatsAppLink from "@/components/whatsapp-link"
 import { siteConfig } from "@/lib/data"
 
 const bullets = [
@@ -26,9 +27,7 @@ const communities = [
   "Harwood",
 ]
 
-const whatsappHref = `https://wa.me/12405958547?text=${encodeURIComponent(
-  "Hi! I need mobile tire assistance. Here is my location:",
-)}`
+const WHATSAPP_MESSAGE = "Hi! I need mobile tire assistance. Here is my location:"
 
 export default function MobileService() {
   return (
@@ -63,18 +62,20 @@ export default function MobileService() {
             </ul>
 
             <div className="flex flex-col sm:flex-row gap-4">
-              <PhoneCallLink className="bg-brand-orange hover:bg-brand-orange-hover text-white px-7 py-4 rounded-lg font-bold font-label flex items-center justify-center gap-2 transition-colors">
+              <PhoneCallLink
+                label="mobile_assistance"
+                className="bg-brand-orange hover:bg-brand-orange-hover text-white px-7 py-4 rounded-lg font-bold font-label flex items-center justify-center gap-2 transition-colors"
+              >
                 <Phone size={20} />
                 CALL FOR MOBILE SERVICE: {siteConfig.phone}
               </PhoneCallLink>
-              <Link
-                href={whatsappHref}
-                target="_blank"
-                rel="noopener noreferrer"
+              <WhatsAppLink
+                label="mobile_assistance"
+                message={WHATSAPP_MESSAGE}
                 className="border-2 border-brand-surface-light hover:border-brand-orange hover:text-brand-orange text-brand-text px-7 py-4 rounded-lg font-bold font-label flex items-center justify-center gap-2 transition-colors"
               >
                 Share your location on WhatsApp
-              </Link>
+              </WhatsAppLink>
             </div>
 
             <p className="mt-6 text-brand-text-muted">

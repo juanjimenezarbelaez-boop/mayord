@@ -15,6 +15,7 @@ export default function BlogCta() {
       </p>
       <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
         <PhoneCallLink
+          label="services_card"
           aria-label={`Call Mayo RD Tire Shop at ${siteConfig.phone}`}
           className="bg-brand-orange hover:bg-brand-orange-hover text-white px-8 py-4 rounded-lg font-bold font-label flex items-center justify-center gap-2 transition-colors"
         >

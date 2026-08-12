@@ -4,6 +4,7 @@ import { Camera, ChevronRight, HandHeart, MapPin, Phone, Users } from "lucide-re
 import { images, siteConfig } from "@/lib/data"
 import { pageMetadata, breadcrumbSchema, jsonLdProps } from "@/lib/seo"
 import PhoneCallLink from "@/components/phone-call-link"
+import DirectionsLink from "@/components/directions-link"
 
 export const metadata: Metadata = pageMetadata({
   title: "About Us — Family-Owned Tire Shop in Edgewater, MD",
@@ -156,19 +157,20 @@ export default function AboutPage() {
             one of our own.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <PhoneCallLink className="bg-brand-orange hover:bg-brand-orange-hover text-white px-8 py-4 rounded-lg font-bold font-label flex items-center justify-center gap-2 transition-colors">
+            <PhoneCallLink
+              label="services_card"
+              className="bg-brand-orange hover:bg-brand-orange-hover text-white px-8 py-4 rounded-lg font-bold font-label flex items-center justify-center gap-2 transition-colors"
+            >
               <Phone size={20} />
               CALL: {siteConfig.phone}
             </PhoneCallLink>
-            <a
-              href={siteConfig.directionsUrl}
-              target="_blank"
-              rel="noreferrer"
+            <DirectionsLink
+              label="about_page"
               className="border-2 border-brand-text hover:border-brand-orange hover:text-brand-orange text-brand-text px-8 py-4 rounded-lg font-bold font-label flex items-center justify-center gap-2 transition-colors"
             >
               GET DIRECTIONS
               <ChevronRight size={20} />
-            </a>
+            </DirectionsLink>
           </div>
         </div>
       </section>

@@ -3,6 +3,7 @@ import Image from "next/image"
 import { Clock, ExternalLink, MapPin, Phone } from "lucide-react"
 import ContactForm from "@/components/contact-form"
 import PhoneCallLink from "@/components/phone-call-link"
+import DirectionsLink from "@/components/directions-link"
 import { images, siteConfig } from "@/lib/data"
 import { pageMetadata, breadcrumbSchema, jsonLdProps } from "@/lib/seo"
 
@@ -62,7 +63,10 @@ export default function ContactPage() {
                   <Phone size={32} />
                 </div>
                 <h3 className="text-2xl font-bold text-gray-900 mb-2">Call Us</h3>
-                <PhoneCallLink className="text-xl font-bold text-brand-orange hover:underline">
+                <PhoneCallLink
+                  label="services_card"
+                  className="text-xl font-bold text-brand-orange hover:underline"
+                >
                   {siteConfig.phone}
                 </PhoneCallLink>
                 <p className="text-gray-500 font-medium mt-2">Hablamos Espa&ntilde;ol</p>
@@ -109,14 +113,12 @@ export default function ContactPage() {
                   {siteConfig.address.city}, {siteConfig.address.state}{" "}
                   {siteConfig.address.zip}
                 </p>
-                <a
-                  href={siteConfig.directionsUrl}
-                  target="_blank"
-                  rel="noreferrer"
+                <DirectionsLink
+                  label="contact_page"
                   className="inline-flex items-center gap-2 text-brand-orange font-bold font-label hover:underline"
                 >
                   GET DIRECTIONS <ExternalLink size={16} />
-                </a>
+                </DirectionsLink>
               </div>
             </div>
 

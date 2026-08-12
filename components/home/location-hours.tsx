@@ -1,4 +1,5 @@
 import { hours, siteConfig } from "@/lib/data"
+import DirectionsLink from "@/components/directions-link"
 
 export default function LocationHours() {
   return (
@@ -32,14 +33,12 @@ export default function LocationHours() {
                   {siteConfig.address.zip}
                 </p>
               </div>
-              <a
-                href={siteConfig.directionsUrl}
-                target="_blank"
-                rel="noreferrer"
+              <DirectionsLink
+                label="location_hours"
                 className="inline-block bg-brand-dark hover:bg-brand-orange text-white px-6 py-3 rounded-2xl font-bold transition-colors text-sm"
               >
                 Get directions
-              </a>
+              </DirectionsLink>
             </div>
           </div>
 
