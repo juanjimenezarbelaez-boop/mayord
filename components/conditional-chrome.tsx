@@ -15,6 +15,7 @@ const BARE_ROUTES = [
   "/used-tires-edgewater-md",
   "/flat-tire-repair-edgewater-md",
   "/mobile-tire-repair-edgewater-md",
+  "/tpms-service-edgewater-md",
 ]
 
 export default function ConditionalChrome({ children }: { children: ReactNode }) {
