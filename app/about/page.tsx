@@ -104,14 +104,6 @@ export default function AboutPage() {
                   Afro-American &amp; Latino family serving the Edgewater and
                   Annapolis community.
                 </p>
-                <p>
-                  When you call, you talk to family. When you drive in, family
-                  works on your car. That&apos;s why{" "}
-                  <span className="font-bold text-gray-900">
-                    &quot;Hablamos Espa&ntilde;ol&quot;
-                  </span>{" "}
-                  isn&apos;t a slogan here &mdash; it&apos;s who we are.
-                </p>
               </div>
 
               {/* Values row */}
