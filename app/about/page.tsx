@@ -19,7 +19,7 @@ const breadcrumbs = breadcrumbSchema([
 ])
 
 const stats = [
-  { value: "Since 2020", label: "Serving the community" },
+  { value: "Since 2017", label: "Serving the community" },
   { value: "1k+", label: "Tires Sold" },
   { value: "100%", label: "Satisfaction" },
 ]
@@ -56,7 +56,7 @@ export default function AboutPage() {
         <div className="absolute inset-0 bg-gray-50/90 pointer-events-none z-0" />
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h4 className="text-brand-orange font-label font-bold tracking-wider mb-4">
-            SINCE 2020
+            SINCE 2017
           </h4>
           <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 text-brand-dark">
             ABOUT <span className="text-brand-orange">OUR SHOP</span>
