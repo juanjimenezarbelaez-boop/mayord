@@ -95,13 +95,20 @@ function SourceSummaryCard({
   source,
   rating,
   count,
+  href,
 }: {
   source: SourceKey
   rating: number
   count: number
+  href: string
 }) {
   return (
-    <div className="flex items-center gap-3 rounded-xl border border-gray-100 bg-white px-4 py-3">
+    <a
+      href={href}
+      target="_blank"
+      rel="noreferrer"
+      className="group flex items-center gap-3 rounded-xl border border-gray-100 bg-white px-4 py-3 transition-colors hover:border-gray-300"
+    >
       {source === "google" ? (
         <GoogleGlyph className="h-6 w-6 shrink-0" />
       ) : (
@@ -122,7 +129,11 @@ function SourceSummaryCard({
         </div>
         <p className="text-xs font-medium text-gray-500">{count} reviews</p>
       </div>
-    </div>
+      <ExternalLink
+        size={16}
+        className="ml-auto text-gray-300 transition-colors group-hover:text-gray-500"
+      />
+    </a>
   )
 }
 
@@ -261,6 +272,7 @@ export default function ReviewsPreview() {
                       source="google"
                       rating={source.summary.google.rating}
                       count={source.summary.google.count}
+                      href={siteConfig.googleUrl}
                     />
                   )}
                   {hasYelp && (
@@ -268,6 +280,7 @@ export default function ReviewsPreview() {
                       source="yelp"
                       rating={source.summary.yelp.rating}
                       count={source.summary.yelp.count}
+                      href={siteConfig.yelpUrl}
                     />
                   )}
                 </div>
@@ -275,12 +288,12 @@ export default function ReviewsPreview() {
             </div>
 
             <a
-              href={siteConfig.yelpUrl}
+              href={filter === "yelp" ? siteConfig.yelpUrl : siteConfig.googleUrl}
               target="_blank"
               rel="noreferrer"
               className="inline-flex bg-brand-orange hover:bg-brand-orange-hover text-white px-8 py-4 rounded-lg font-bold font-label items-center justify-center gap-2 transition-colors w-full sm:w-auto"
             >
-              READ MORE REVIEWS
+              {filter === "yelp" ? "READ MORE ON YELP" : "READ MORE ON GOOGLE"}
               <ExternalLink size={20} />
             </a>
           </div>
