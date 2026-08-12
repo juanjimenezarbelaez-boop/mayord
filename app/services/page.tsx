@@ -1,89 +1,184 @@
 import type { Metadata } from "next"
-import Image from "next/image"
 import {
-  Crosshair,
-  Disc,
+  Clock,
+  Cog,
+  Gauge,
+  Languages,
+  MapPin,
+  Phone,
+  RotateCw,
   Settings,
-  Shield,
   ShoppingBag,
+  Sparkles,
   Star,
-  Tag,
+  Truck,
+  Users,
   Wrench,
 } from "lucide-react"
-import { images } from "@/lib/data"
+import { siteConfig } from "@/lib/data"
+import PhoneCallLink from "@/components/phone-call-link"
+import FaqAccordion, { type FaqItem } from "@/components/services/faq-accordion"
+import ServiceRadiusMap from "@/components/services/service-radius-map"
 
 export const metadata: Metadata = {
-  title: "Services | Mayo RD Tire Shop",
+  title: "Tire Services in Edgewater, MD | Mayo RD Tire Shop",
   description:
-    "Tire mounting, repair, and balancing in Edgewater, Maryland. Expert technicians, quality equipment, affordable prices.",
+    "Flat tire repair, mounting, balancing, rotation, TPMS service and mobile tire assistance in Edgewater, MD. Walk-ins welcome, most services in ~20 minutes, open 7 days. We come to you within ~15 minutes.",
 }
-
-const highlights = [
-  {
-    icon: Shield,
-    title: "EXPERT TECHNICIANS",
-    description: "Skilled service you can trust.",
-  },
-  {
-    icon: Settings,
-    title: "QUALITY EQUIPMENT",
-    description: "Precision service for a smooth ride.",
-  },
-  {
-    icon: Tag,
-    title: "AFFORDABLE PRICES",
-    description: "Top-notch service that fits your budget.",
-  },
-]
 
 const services = [
   {
     icon: ShoppingBag,
-    title: "TIRE",
-    accent: "SALES",
-    description: "New & used tires from top brands,\nin stock and ready to install.",
-    image: images.servicesHero,
-  },
-  {
-    icon: Disc,
-    title: "TIRE",
-    accent: "MOUNTING",
-    description: "Professional mounting\ndone right the first time.",
-    image: images.serviceMounting,
+    name: "Tire Sales (New & Used)",
+    description: "Hundreds of new & used tires in stock, ready to install today.",
+    price: "From $XX",
+    time: "~20 min",
   },
   {
     icon: Wrench,
-    title: "TIRE",
-    accent: "REPAIR",
-    description: "Punctures, leaks, and more\n- we've got you covered.",
-    image: images.serviceRepair,
+    name: "Flat Tire Repair",
+    description: "Fast, reliable patches and plugs to get you safely back on the road.",
+    price: "From $XX",
+    time: "~20 min",
   },
   {
-    icon: Crosshair,
-    title: "TIRE",
-    accent: "BALANCING",
-    description: "Smooth ride, better handling,\nand longer tire life.",
-    image: images.serviceBalancing,
+    icon: Truck,
+    name: "Mobile Tire Assistance",
+    description: "Can't drive on it? We come to you within ~15 min of Edgewater.",
+    price: "From $XX",
+    time: "During shop hours",
+    featured: true,
+    extra:
+      "Service call from $XX (applied to your service) • Available during shop hours • Dispatched by phone",
+  },
+  {
+    icon: Settings,
+    name: "Tire Mounting",
+    description: "Professional mounting done right the first time, every time.",
+    price: "From $XX",
+    time: "~20 min",
+  },
+  {
+    icon: Gauge,
+    name: "Tire Balancing",
+    description: "Smooth ride, better handling, and longer tire life.",
+    price: "From $XX",
+    time: "~20 min",
+  },
+  {
+    icon: RotateCw,
+    name: "Tire Rotation",
+    description: "Extend tire life and keep tread wear even. Quick in-and-out.",
+    price: "From $XX",
+    time: "~15 min",
+  },
+  {
+    icon: Cog,
+    name: "TPMS Sensor Installation & Reprogramming",
+    description: "Install, program and reprogram TPMS sensors for all makes.",
+    price: "From $XX",
+    time: "~30 min",
+  },
+  {
+    icon: Gauge,
+    name: "TPMS & Valve Stems",
+    description: "Keep pressure readings accurate with fresh sensors and valve stems.",
+    price: "From $XX",
+    time: "~20 min",
+  },
+  {
+    icon: Sparkles,
+    name: "Rim Cleaning",
+    description: "Professional rim and wheel cleaning for a like-new look.",
+    price: "From $XX",
+    time: "~20 min",
   },
 ]
+
+const communities = [
+  "Edgewater",
+  "Mayo",
+  "Riva",
+  "Selby-on-the-Bay",
+  "Beverly Beach",
+  "Londontowne",
+  "Annapolis",
+  "Parole",
+  "Hillsmere Shores",
+  "Davidsonville",
+  "Galesville",
+  "Harwood",
+]
+
+const reasons = [
+  { icon: Star, title: "4.4★", subtitle: "206 reviews on Google & Yelp" },
+  { icon: Clock, title: "~20 min", subtitle: "In & out, most services" },
+  { icon: Phone, title: "Open 7 Days", subtitle: "Walk-ins always welcome" },
+  { icon: Users, title: "Family-Owned", subtitle: "& operated locally" },
+  { icon: Languages, title: "Hablamos", subtitle: "Español" },
+]
+
+const faqs: FaqItem[] = [
+  {
+    question: "Do I need an appointment?",
+    answer:
+      "No — walk-ins are always welcome. Just drive in and we'll take care of you, usually in about 20 minutes. We're open 7 days a week.",
+  },
+  {
+    question: "How long does a tire change take?",
+    answer:
+      "Most tire changes, repairs, and balancing are done in about 20 minutes. We pride ourselves on getting you in and out fast.",
+  },
+  {
+    question: "Do you come to me if I can't drive on my tire?",
+    answer:
+      "Yes. If your tire is too damaged to drive on, our mobile tire assistance comes to you within about 15 minutes of Edgewater during shop hours. Just call and we'll dispatch a technician.",
+  },
+  {
+    question: "How far does your mobile service go?",
+    answer:
+      "We cover roughly a 15-minute radius around 175 Mayo Rd — Edgewater, Mayo, Riva, Annapolis, and nearby communities. A little farther out? Call us and we'll confirm in one minute.",
+  },
+  {
+    question: "Can you fix my TPMS light?",
+    answer:
+      "Absolutely. We install, program, and reprogram TPMS sensors for all makes and models to get that dashboard light off and keep your pressure readings accurate.",
+  },
+  {
+    question: "How often should I rotate my tires?",
+    answer:
+      "Most drivers should rotate every 5,000-7,500 miles to keep tread wear even and extend tire life. It's a quick in-and-out service.",
+  },
+  {
+    question: "Do you have my tire size in stock?",
+    answer:
+      "We keep hundreds of new and used tires in stock across popular sizes. Call us with your size and we'll confirm availability in a minute.",
+  },
+]
+
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((f) => ({
+    "@type": "Question",
+    name: f.question,
+    acceptedAnswer: { "@type": "Answer", text: f.answer },
+  })),
+}
 
 export default function ServicesPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
+
       {/* Hero */}
-      <section className="relative pt-32 pb-32 lg:pt-40 lg:pb-40 overflow-hidden bg-brand-dark">
-        <Image
-          src={images.servicesHero}
-          alt="Mechanic shop exterior"
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-brand-dark via-brand-dark/90 to-brand-dark/60 pointer-events-none z-0" />
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="relative overflow-hidden bg-brand-dark pt-32 pb-20 lg:pt-40 lg:pb-28">
+        <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl">
-            <h1 className="text-6xl sm:text-7xl lg:text-8xl font-bold mb-4 text-white uppercase leading-[0.9]">
+            <h1 className="text-6xl font-bold uppercase leading-[0.9] text-white sm:text-7xl lg:text-8xl">
               MOUNTED.
               <br />
               <span className="text-brand-orange">REPAIRED.</span>
@@ -91,102 +186,212 @@ export default function ServicesPage() {
               BALANCED.
             </h1>
             <div className="mt-8 inline-block">
-              <h2 className="text-3xl sm:text-4xl text-white font-bold bg-brand-orange px-4 py-2 italic uppercase">
+              <h2 className="bg-brand-orange px-4 py-2 text-3xl font-bold uppercase italic text-white sm:text-4xl">
                 WE KEEP YOU ROLLING.
               </h2>
+            </div>
+
+            <div className="mt-10 flex flex-col items-start gap-5">
+              <PhoneCallLink className="inline-flex items-center justify-center gap-3 rounded-lg bg-brand-orange px-8 py-4 font-label text-xl font-bold uppercase tracking-wide text-white transition-colors hover:bg-brand-orange-hover">
+                <Phone size={24} />
+                CALL {siteConfig.phone}
+              </PhoneCallLink>
+              <p className="font-label text-sm font-medium uppercase tracking-wide text-brand-text-muted sm:text-base">
+                No appointment needed • Most services done in ~20 minutes • Open 7
+                days • We come to you within ~15 min
+              </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Highlights */}
-      <section className="py-16 bg-brand-dark border-y border-brand-surface">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-            {highlights.map((item) => (
-              <div key={item.title} className="flex items-start gap-4">
-                <div className="w-16 h-16 rounded-xl flex items-center justify-center flex-shrink-0 text-brand-orange">
-                  <item.icon size={48} strokeWidth={1.5} />
+      {/* Emergency strip */}
+      <section className="bg-black py-10">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+            <div className="flex flex-col justify-between gap-6 rounded-2xl border-2 border-brand-orange bg-brand-dark p-8">
+              <div>
+                <h3 className="font-heading text-2xl font-bold uppercase text-white">
+                  Flat Tire?
+                </h3>
+                <p className="mt-2 text-brand-text-muted">
+                  Drive in — most repairs done in ~20 minutes.
+                </p>
+              </div>
+              <PhoneCallLink className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-brand-orange px-6 py-3 font-label font-bold uppercase tracking-wide text-white transition-colors hover:bg-brand-orange-hover sm:w-auto">
+                <Phone size={20} />
+                Call Now
+              </PhoneCallLink>
+            </div>
+
+            <div className="flex flex-col justify-between gap-6 rounded-2xl border-2 border-brand-orange bg-brand-dark p-8">
+              <div>
+                <h3 className="font-heading text-2xl font-bold uppercase text-white">
+                  Can&apos;t Drive On It?
+                </h3>
+                <p className="mt-2 text-brand-text-muted">
+                  We come to you — mobile tire assistance within ~15 minutes of
+                  Edgewater.
+                </p>
+              </div>
+              <PhoneCallLink className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-brand-orange px-6 py-3 font-label font-bold uppercase tracking-wide text-white transition-colors hover:bg-brand-orange-hover sm:w-auto">
+                <Truck size={20} />
+                Call For Mobile Service
+              </PhoneCallLink>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Service cards grid */}
+      <section className="bg-brand-dark py-20 lg:py-24">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="mb-14 text-center">
+            <h2 className="text-4xl font-bold uppercase text-white sm:text-5xl">
+              OUR <span className="text-brand-orange">SERVICES</span>
+            </h2>
+            <p className="mx-auto mt-4 max-w-2xl text-lg text-brand-text-muted">
+              Everything your tires need, done fast and done right — in the shop or
+              on the road.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {services.map((service) => (
+              <div
+                key={service.name}
+                className={`relative flex flex-col rounded-2xl p-8 transition-all ${
+                  service.featured
+                    ? "border-2 border-brand-orange bg-brand-surface shadow-[0_8px_40px_rgba(255,94,0,0.12)]"
+                    : "border border-brand-surface-light bg-brand-surface/60 hover:border-brand-orange/40"
+                }`}
+              >
+                {service.featured && (
+                  <span className="absolute right-5 top-5 rounded-full bg-brand-orange px-3 py-1 font-label text-xs font-bold uppercase tracking-widest text-white">
+                    We Come To You
+                  </span>
+                )}
+                <div
+                  className={`mb-6 inline-flex h-16 w-16 items-center justify-center rounded-full ${
+                    service.featured
+                      ? "bg-brand-orange/15 text-brand-orange"
+                      : "bg-brand-dark text-brand-orange"
+                  }`}
+                >
+                  <service.icon size={30} strokeWidth={1.5} />
                 </div>
-                <div className="pt-2">
-                  <h3 className="text-xl font-bold text-white mb-1 uppercase tracking-wide leading-none">
-                    {item.title}
-                  </h3>
-                  <p className="text-brand-text-muted mt-2 font-medium text-lg leading-tight">
-                    {item.description}
+                <h3 className="font-heading text-xl font-bold uppercase leading-tight text-white">
+                  {service.name}
+                </h3>
+                <p className="mt-3 flex-grow leading-relaxed text-brand-text-muted">
+                  {service.description}
+                </p>
+
+                {service.extra && (
+                  <p className="mt-4 rounded-lg bg-brand-dark/60 p-3 text-sm text-brand-text-muted">
+                    {service.extra}
                   </p>
+                )}
+
+                <div className="mt-6 flex items-center gap-4 border-t border-brand-surface-light pt-5">
+                  <span className="font-label text-lg font-bold text-white">
+                    {service.price}
+                  </span>
+                  <span className="flex items-center gap-1.5 text-sm text-brand-text-muted">
+                    <Clock size={15} className="text-brand-orange" />
+                    {service.time}
+                  </span>
                 </div>
+
+                <PhoneCallLink className="mt-5 inline-flex items-center justify-center gap-2 rounded-lg bg-brand-orange px-6 py-3 font-label font-bold uppercase tracking-wide text-white transition-colors hover:bg-brand-orange-hover">
+                  <Phone size={18} />
+                  Call Now
+                </PhoneCallLink>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Service rows */}
-      <section className="bg-brand-dark">
-        {services.map((service) => (
-          <div
-            key={service.accent}
-            className="flex flex-col md:flex-row border-b border-brand-surface min-h-[300px]"
-          >
-            <div className="w-full md:w-1/2 p-8 md:p-16 flex items-center justify-start md:justify-end">
-              <div className="flex items-center gap-8 max-w-lg w-full">
-                <div className="w-24 h-24 rounded-full border border-brand-orange flex items-center justify-center flex-shrink-0 text-brand-orange">
-                  <service.icon size={48} strokeWidth={1} />
-                </div>
-                <div>
-                  <h2 className="text-4xl lg:text-5xl font-bold text-white uppercase leading-[1.1] mb-2 whitespace-pre-line">
-                    {service.title}
-                    {"\n"}
-                    <span className="text-brand-orange">{service.accent}</span>
-                  </h2>
-                  <p className="text-brand-text-muted text-lg tracking-wide whitespace-pre-line font-medium leading-snug">
-                    {service.description}
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div className="relative w-full md:w-1/2 min-h-[250px]">
-              <Image
-                src={service.image}
-                alt={`${service.title} ${service.accent}`}
-                fill
-                sizes="(max-width: 768px) 100vw, 50vw"
-                loading="lazy"
-                className="object-cover grayscale opacity-80"
-              />
-              <div className="absolute inset-0 bg-gradient-to-r from-brand-dark via-brand-dark/40 to-transparent pointer-events-none md:block hidden z-0" />
-            </div>
-          </div>
-        ))}
-      </section>
+      {/* We come to you */}
+      <section className="border-y border-brand-surface bg-black py-20 lg:py-24">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 items-center gap-14 lg:grid-cols-2">
+            <div>
+              <h2 className="text-4xl font-bold uppercase leading-[0.95] text-white sm:text-5xl">
+                STUCK NEARBY?
+                <br />
+                <span className="text-brand-orange">WE&apos;LL COME TO YOU.</span>
+              </h2>
+              <p className="mt-5 text-lg text-brand-text-muted">
+                Our mobile tire assistance covers roughly a 15-minute radius around
+                the shop. Communities we serve:
+              </p>
 
-      {/* CTA banner */}
-      <section className="bg-black py-12 md:py-16 border-t-[6px] border-brand-orange">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col lg:flex-row items-center justify-between gap-8">
-            <div className="text-center lg:text-left">
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold uppercase italic leading-none mb-2 text-white">
-                DRIVEN BY <span className="text-brand-orange">QUALITY.</span>
-              </h2>
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold uppercase italic leading-none text-white">
-                FOCUSED ON <span className="text-brand-orange">YOU.</span>
-              </h2>
-            </div>
-            <div className="bg-brand-dark border border-brand-surface p-6 md:p-8 rounded-2xl flex flex-col items-center max-w-sm text-center">
-              <div className="flex text-brand-orange mb-3">
-                {[0, 1, 2, 3, 4].map((i) => (
-                  <Star key={i} size={32} className="fill-current" />
+              <div className="mt-8 grid grid-cols-2 gap-x-8 gap-y-3">
+                {communities.map((c) => (
+                  <div key={c} className="flex items-center gap-3">
+                    <MapPin size={18} className="flex-shrink-0 text-brand-orange" />
+                    <span className="font-medium text-white">{c}</span>
+                  </div>
                 ))}
               </div>
-              <p className="text-white font-bold text-2xl uppercase tracking-wide">
-                HIGHLY RATED
-                <br />
-                BY OUR
-                <br />
-                <span className="text-brand-orange">CUSTOMERS!</span>
+
+              <p className="mt-8 font-label text-sm font-medium uppercase tracking-wide text-brand-text-muted">
+                A little farther out? Call us — we&apos;ll confirm in one minute.
               </p>
+
+              <PhoneCallLink className="mt-6 inline-flex items-center justify-center gap-3 rounded-lg bg-brand-orange px-8 py-4 font-label text-lg font-bold uppercase tracking-wide text-white transition-colors hover:bg-brand-orange-hover">
+                <Phone size={22} />
+                CALL {siteConfig.phone}
+              </PhoneCallLink>
             </div>
+
+            <ServiceRadiusMap />
+          </div>
+        </div>
+      </section>
+
+      {/* Why drivers choose Mayo RD */}
+      <section className="bg-brand-dark py-16">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <h2 className="mb-12 text-center text-3xl font-bold uppercase text-white sm:text-4xl">
+            WHY DRIVERS CHOOSE <span className="text-brand-orange">MAYO RD</span>
+          </h2>
+          <div className="grid grid-cols-2 gap-8 md:grid-cols-3 lg:grid-cols-5">
+            {reasons.map((r) => (
+              <div key={r.title} className="flex flex-col items-center text-center">
+                <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-brand-surface text-brand-orange">
+                  <r.icon size={30} strokeWidth={1.5} />
+                </div>
+                <p className="font-heading text-2xl font-bold text-white">
+                  {r.title}
+                </p>
+                <p className="mt-1 text-sm text-brand-text-muted">{r.subtitle}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="border-t border-brand-surface bg-black py-20 lg:py-24">
+        <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+          <div className="mb-12 text-center">
+            <h2 className="text-4xl font-bold uppercase text-white sm:text-5xl">
+              FREQUENTLY ASKED <span className="text-brand-orange">QUESTIONS</span>
+            </h2>
+          </div>
+          <FaqAccordion items={faqs} />
+
+          <div className="mt-14 text-center">
+            <p className="mb-5 text-lg text-brand-text-muted">
+              Still have a question? We&apos;ll answer in one minute.
+            </p>
+            <PhoneCallLink className="inline-flex items-center justify-center gap-3 rounded-lg bg-brand-orange px-8 py-4 font-label text-lg font-bold uppercase tracking-wide text-white transition-colors hover:bg-brand-orange-hover">
+              <Phone size={22} />
+              CALL {siteConfig.phone}
+            </PhoneCallLink>
           </div>
         </div>
       </section>
