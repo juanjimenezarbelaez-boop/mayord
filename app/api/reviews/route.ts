@@ -132,9 +132,22 @@ async function fetchYelp(): Promise<{
 export async function GET() {
   const [google, yelp] = await Promise.all([fetchGoogle(), fetchYelp()])
 
+  // Import lazily to avoid a value-level circular import with this module's types.
+  const { realReviewsFallback } = await import("@/lib/reviews-fallback")
+
   const reviews: NormalizedReview[] = []
   if (google) reviews.push(...google.reviews)
   if (yelp) reviews.push(...yelp.reviews)
+
+  // When neither live source returns usable review data, serve the real,
+  // captured Google + Yelp data so the section always reflects real numbers.
+  if (reviews.length === 0) {
+    return NextResponse.json(realReviewsFallback, {
+      headers: {
+        "Cache-Control": "public, s-maxage=3600, stale-while-revalidate=86400",
+      },
+    })
+  }
 
   // Weighted average across sources by their rating count.
   let ratingSum = 0

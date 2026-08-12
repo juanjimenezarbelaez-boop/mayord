@@ -3,7 +3,8 @@
 import { useState } from "react"
 import useSWR from "swr"
 import { ExternalLink, Quote, Star } from "lucide-react"
-import { reviews as staticReviews, siteConfig } from "@/lib/data"
+import { siteConfig } from "@/lib/data"
+import { realReviewsFallback } from "@/lib/reviews-fallback"
 import type { NormalizedReview, ReviewsResponse } from "@/app/api/reviews/route"
 
 const fetcher = (url: string) =>
@@ -12,37 +13,8 @@ const fetcher = (url: string) =>
     return res.json() as Promise<ReviewsResponse>
   })
 
-// Split the bundled reviews across sources so the organized layout is never empty.
-const staticGoogle: NormalizedReview[] = staticReviews
-  .filter((_, i) => i % 2 === 0)
-  .map((r, i) => ({
-    id: `static-google-${i}`,
-    author: r.author,
-    quote: r.quote,
-    rating: 5,
-    source: "google" as const,
-  }))
-
-const staticYelp: NormalizedReview[] = staticReviews
-  .filter((_, i) => i % 2 === 1)
-  .map((r, i) => ({
-    id: `static-yelp-${i}`,
-    author: r.author,
-    quote: r.quote,
-    rating: 5,
-    source: "yelp" as const,
-  }))
-
-const fallback: ReviewsResponse = {
-  averageRating: Number(siteConfig.rating.value),
-  totalCount: siteConfig.rating.count,
-  reviews: [...staticGoogle, ...staticYelp],
-  sources: { google: true, yelp: true },
-  summary: {
-    google: { rating: 4.6, count: 11, available: true },
-    yelp: { rating: 4.0, count: 16, available: true },
-  },
-}
+// Real, current Google + Yelp data — used until the live APIs are enabled.
+const fallback: ReviewsResponse = realReviewsFallback
 
 type SourceKey = "google" | "yelp"
 type FilterKey = "all" | SourceKey
