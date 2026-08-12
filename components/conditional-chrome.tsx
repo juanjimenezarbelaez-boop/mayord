@@ -11,7 +11,7 @@ import WhatsAppButton from "@/components/whatsapp-button"
  * global site chrome (nav header, full footer, floating WhatsApp button).
  * Used for standalone Google Ads landing pages.
  */
-const BARE_ROUTES = ["/used-tires-edgewater-md"]
+const BARE_ROUTES = ["/used-tires-edgewater-md", "/flat-tire-repair-edgewater-md"]
 
 export default function ConditionalChrome({ children }: { children: ReactNode }) {
   const pathname = usePathname()
