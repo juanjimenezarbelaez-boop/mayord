@@ -17,7 +17,27 @@ function WhatsAppIcon({ className = "" }: { className?: string }) {
 }
 
 // Always-visible bottom action bar for the ads landing page (mobile only).
-export default function LandingStickyBar() {
+// `callOnly` renders a single full-width CALL button for call-only campaigns.
+export default function LandingStickyBar({ callOnly = false }: { callOnly?: boolean }) {
+  if (callOnly) {
+    return (
+      <div
+        className="fixed inset-x-0 bottom-0 z-50 bg-brand-orange text-white lg:hidden"
+        role="navigation"
+        aria-label="Call the shop"
+      >
+        <a
+          href={siteConfig.phoneHref}
+          onClick={() => trackPhoneConversion()}
+          className="flex items-center justify-center gap-2 py-4 font-label text-base font-bold active:bg-brand-orange-hover"
+        >
+          <Phone size={20} />
+          CALL NOW: {siteConfig.phone}
+        </a>
+      </div>
+    )
+  }
+
   return (
     <div
       className="fixed inset-x-0 bottom-0 z-50 grid grid-cols-3 bg-brand-orange text-white lg:hidden"
