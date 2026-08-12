@@ -21,15 +21,19 @@ const NO_FOOTER_ROUTES = [
   "/tire-balancing-edgewater-md",
   "/tire-rotation-edgewater-md",
   "/rim-cleaning-edgewater-md",
+  "/es/llantas-usadas-edgewater-md",
+  "/es/reparacion-de-llantas-edgewater-md",
+  "/es/sensores-tpms-edgewater-md",
 ]
 
 /** Routes that render their own fully standalone page with no site chrome at all. */
-const BARE_ROUTES = ["/thank-you"]
+const BARE_ROUTES = ["/thank-you", "/es/gracias"]
 
 export default function ConditionalChrome({ children }: { children: ReactNode }) {
   const pathname = usePathname()
   const isBare = BARE_ROUTES.includes(pathname)
   const hideFooter = NO_FOOTER_ROUTES.includes(pathname)
+  const locale = pathname?.startsWith("/es") ? "es" : "en"
 
   if (isBare) {
     return <main>{children}</main>
@@ -37,10 +41,10 @@ export default function ConditionalChrome({ children }: { children: ReactNode })
 
   return (
     <>
-      <Header />
+      <Header locale={locale} />
       <main>{children}</main>
-      {!hideFooter && <Footer />}
-      <WhatsAppButton />
+      {!hideFooter && <Footer locale={locale} />}
+      <WhatsAppButton locale={locale} />
     </>
   )
 }

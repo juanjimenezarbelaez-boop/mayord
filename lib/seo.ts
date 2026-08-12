@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import { siteConfig } from "@/lib/data"
+import { localeAlternates, esLocaleAlternates } from "@/lib/i18n"
 
 /** Canonical production origin. Used for metadataBase, canonicals, and JSON-LD @id/url. */
 export const SITE_URL = "https://mayord.us"
@@ -295,6 +296,8 @@ type PageMetaInput = {
   ogType?: "website" | "article"
   /** When true, bypass the layout title template (used for the home page). */
   absoluteTitle?: boolean
+  /** Locale of this page — drives OpenGraph locale + hreflang alternates. Defaults to "en". */
+  locale?: "en" | "es"
 }
 
 /** Build per-page Metadata with canonical + complete OpenGraph + Twitter card. */
@@ -305,18 +308,24 @@ export function pageMetadata({
   image = OG_IMAGE,
   ogType = "website",
   absoluteTitle = false,
+  locale = "en",
 }: PageMetaInput): Metadata {
+  const languages = locale === "es" ? esLocaleAlternates(path) : localeAlternates(path)
+
   return {
     title: absoluteTitle ? { absolute: title } : title,
     description,
-    alternates: { canonical: path },
+    alternates: {
+      canonical: path,
+      ...(languages ? { languages } : {}),
+    },
     openGraph: {
       type: ogType,
       title,
       description,
       url: path,
       siteName: siteConfig.name,
-      locale: "en_US",
+      locale: locale === "es" ? "es_US" : "en_US",
       images: [
         {
           url: image,

@@ -1,40 +1,78 @@
 import Image from "next/image"
 import { CircleCheck } from "lucide-react"
 import { images } from "@/lib/data"
+import type { Locale } from "@/lib/i18n"
 
-const highlights = [
-  "Family-owned & operated by the Hagans family",
-  "New tires from top brands",
-  "Carefully inspected used tires",
-  "Fast, reliable and friendly service",
-  "Honest recommendations",
-  "Proudly serving Maryland for years",
-]
+const highlightsByLocale = {
+  en: [
+    "Family-owned & operated by the Hagans family",
+    "New tires from top brands",
+    "Carefully inspected used tires",
+    "Fast, reliable and friendly service",
+    "Honest recommendations",
+    "Proudly serving Maryland for years",
+  ],
+  es: [
+    "Somos la familia Hagans, dueños y operadores del taller",
+    "Llantas nuevas de las mejores marcas",
+    "Llantas usadas cuidadosamente inspeccionadas",
+    "Servicio rápido, confiable y amable",
+    "Recomendaciones honestas",
+    "Sirviendo a Maryland con orgullo por años",
+  ],
+}
 
-export default function AboutPreview() {
+const copy = {
+  en: {
+    eyebrow: "ABOUT MAYORD",
+    heading: (
+      <>
+        DRIVEN BY
+        <br />
+        <span className="text-brand-orange">QUALITY</span>.
+        <br />
+        FOCUSED ON <span className="text-brand-orange">YOU</span>.
+      </>
+    ),
+    body: "Mayo RD Tire Shop is a trusted local business in Maryland known for honest work and outstanding customer service. Our bright orange shop is more than just a place to fix tires—it's a place where our community comes first.",
+    badge: "Proudly Afro-American & Latino owned",
+  },
+  es: {
+    eyebrow: "SOBRE MAYORD",
+    heading: (
+      <>
+        GUIADOS POR LA
+        <br />
+        <span className="text-brand-orange">CALIDAD</span>.
+        <br />
+        ENFOCADOS EN <span className="text-brand-orange">USTED</span>.
+      </>
+    ),
+    body: "Mayo RD Tire Shop es un negocio local de confianza en Maryland, conocido por su trabajo honesto y su excelente servicio al cliente. Nuestro taller naranja es más que un lugar para arreglar llantas: es un lugar donde nuestra comunidad es lo primero.",
+    badge: "Somos la familia Hagans — herencia afroamericana y latina",
+  },
+}
+
+export default function AboutPreview({ locale = "en" }: { locale?: Locale }) {
+  const highlights = highlightsByLocale[locale]
+  const t = copy[locale]
+
   return (
     <section className="bg-brand-dark py-24 border-t border-brand-surface-light overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col lg:flex-row items-center gap-16">
           <div className="flex-1 z-10">
             <h4 className="text-brand-orange font-label font-bold tracking-wider mb-4">
-              ABOUT MAYORD
+              {t.eyebrow}
             </h4>
             <h2 className="text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-              DRIVEN BY
-              <br />
-              <span className="text-brand-orange">QUALITY</span>.
-              <br />
-              FOCUSED ON <span className="text-brand-orange">YOU</span>.
+              {t.heading}
             </h2>
             <p className="text-lg text-brand-text-muted mb-3 max-w-lg leading-relaxed">
-              Mayo RD Tire Shop is a trusted local business in Maryland known for
-              honest work and outstanding customer service. Our bright orange shop
-              is more than just a place to fix tires&mdash;it&apos;s a place where
-              our community comes first.
+              {t.body}
             </p>
             <p className="text-sm font-label font-bold tracking-wider text-brand-orange mb-10">
-              Proudly Afro-American &amp; Latino owned
+              {t.badge}
             </p>
             <ul className="space-y-4">
               {highlights.map((item) => (

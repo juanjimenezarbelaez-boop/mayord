@@ -2,8 +2,59 @@ import Image from "next/image"
 import Link from "next/link"
 import { Clock, DoorOpen, Facebook, MapPin, Phone, Truck } from "lucide-react"
 import { navLinks, siteConfig } from "@/lib/data"
+import { esNavLinks, type Locale } from "@/lib/i18n"
 
-export default function Footer() {
+const copy = {
+  en: {
+    description:
+      "Premium quality new & used tires and expert services in Maryland. Honesty and customer satisfaction are our top priorities.",
+    quickLinks: "QUICK LINKS",
+    contact: "CONTACT",
+    mobileTireService: "Mobile Tire Service",
+    hours: (
+      <>
+        Mon-Wed, Fri-Sat: 8am-6:30pm
+        <br />
+        Thu: 8am-6pm
+        <br />
+        Sun: 9am-4pm
+      </>
+    ),
+    walkIns: "Walk-ins welcome — no appointment needed",
+    mobileRadius: "Mobile assistance within ~15 min of Edgewater",
+    rights: "All rights reserved.",
+    privacy: "Privacy Policy",
+    terms: "Terms of Service",
+    mobileServiceHref: "/mobile-tire-service-edgewater-md",
+  },
+  es: {
+    description:
+      "Llantas nuevas y usadas de primera calidad y servicios expertos en Maryland. La honestidad y la satisfacción del cliente son nuestra prioridad.",
+    quickLinks: "ENLACES RÁPIDOS",
+    contact: "CONTACTO",
+    mobileTireService: "Servicio Móvil de Llantas",
+    hours: (
+      <>
+        Lun-Mié, Vie-Sáb: 8am-6:30pm
+        <br />
+        Jue: 8am-6pm
+        <br />
+        Dom: 9am-4pm
+      </>
+    ),
+    walkIns: "Se atiende sin cita previa",
+    mobileRadius: "Asistencia móvil a ~15 minutos de Edgewater",
+    rights: "Todos los derechos reservados.",
+    privacy: "Política de Privacidad",
+    terms: "Términos de Servicio",
+    mobileServiceHref: "/es/servicio-movil-de-llantas-edgewater-md",
+  },
+}
+
+export default function Footer({ locale = "en" }: { locale?: Locale }) {
+  const t = copy[locale]
+  const links = locale === "es" ? esNavLinks : navLinks
+
   return (
     <footer className="bg-brand-dark pt-20 pb-8 border-t border-brand-surface-light">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -16,10 +67,7 @@ export default function Footer() {
               height={48}
               className="h-12 w-auto object-contain mb-6"
             />
-            <p className="text-brand-text-muted max-w-sm mb-6">
-              Premium quality new &amp; used tires and expert services in Maryland. Honesty
-              and customer satisfaction are our top priorities.
-            </p>
+            <p className="text-brand-text-muted max-w-sm mb-6">{t.description}</p>
             <div className="flex items-center gap-4">
               <a
                 href={siteConfig.facebookUrl}
@@ -34,10 +82,10 @@ export default function Footer() {
 
           <div>
             <h4 className="text-white font-label font-bold tracking-wider mb-6">
-              QUICK LINKS
+              {t.quickLinks}
             </h4>
             <ul className="space-y-3 font-medium text-brand-text-muted">
-              {navLinks.map((link) => (
+              {links.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
@@ -49,10 +97,10 @@ export default function Footer() {
               ))}
               <li>
                 <Link
-                  href="/mobile-tire-service-edgewater-md"
+                  href={t.mobileServiceHref}
                   className="hover:text-brand-orange transition-colors"
                 >
-                  Mobile Tire Service
+                  {t.mobileTireService}
                 </Link>
               </li>
             </ul>
@@ -60,7 +108,7 @@ export default function Footer() {
 
           <div>
             <h4 className="text-white font-label font-bold tracking-wider mb-6">
-              CONTACT
+              {t.contact}
             </h4>
             <ul className="space-y-4 text-brand-text-muted">
               <li className="flex items-start gap-3">
@@ -73,21 +121,15 @@ export default function Footer() {
               </li>
               <li className="flex items-start gap-3">
                 <Clock size={20} className="text-brand-orange mt-1 flex-shrink-0" />
-                <span>
-                  Mon-Wed, Fri-Sat: 8am-6:30pm
-                  <br />
-                  Thu: 8am-6pm
-                  <br />
-                  Sun: 9am-4pm
-                </span>
+                <span>{t.hours}</span>
               </li>
               <li className="flex items-start gap-3">
                 <DoorOpen size={20} className="text-brand-orange mt-1 flex-shrink-0" />
-                <span>Walk-ins welcome — no appointment needed</span>
+                <span>{t.walkIns}</span>
               </li>
               <li className="flex items-start gap-3">
                 <Truck size={20} className="text-brand-orange mt-1 flex-shrink-0" />
-                <span>Mobile assistance within ~15 min of Edgewater</span>
+                <span>{t.mobileRadius}</span>
               </li>
             </ul>
           </div>
@@ -95,14 +137,14 @@ export default function Footer() {
 
         <div className="pt-8 border-t border-brand-surface-light text-center flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-brand-text-muted text-sm font-medium">
-            &copy; {new Date().getFullYear()} Mayo RD Tire Shop. All rights reserved.
+            &copy; {new Date().getFullYear()} {siteConfig.name}. {t.rights}
           </p>
           <div className="flex gap-4 text-sm font-medium text-brand-text-muted">
             <a href="#" className="hover:text-white transition-colors">
-              Privacy Policy
+              {t.privacy}
             </a>
             <a href="#" className="hover:text-white transition-colors">
-              Terms of Service
+              {t.terms}
             </a>
           </div>
         </div>

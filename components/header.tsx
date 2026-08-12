@@ -6,17 +6,21 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { ChevronDown, Menu, Phone, X } from "lucide-react"
 import { navLinks, siteConfig } from "@/lib/data"
+import { esNavLinks, getAlternatePath, type Locale } from "@/lib/i18n"
 import PhoneCallLink from "@/components/phone-call-link"
 
-export default function Header() {
+export default function Header({ locale = "en" }: { locale?: Locale }) {
   const [open, setOpen] = useState(false)
   const pathname = usePathname()
+  const links = locale === "es" ? esNavLinks : navLinks
+  const alternatePath = getAlternatePath(pathname || "/")
+  const homeHref = locale === "es" ? "/es" : "/"
 
   return (
     <header className="sticky top-0 z-50 bg-brand-dark/95 backdrop-blur border-b border-brand-surface-light">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <Link href="/" className="inline-block relative">
+          <Link href={homeHref} className="inline-block relative">
             <Image
               src={siteConfig.logoUrl}
               alt="Mayo RD Tire Shop Logo"
@@ -29,7 +33,7 @@ export default function Header() {
         </div>
 
         <nav className="hidden lg:flex items-center gap-8 font-label text-sm font-bold tracking-wider text-brand-text">
-          {navLinks.map((link) => {
+          {links.map((link) => {
             const isActive =
               pathname === link.href ||
               (link.href === "/services" && pathname.startsWith("/mobile-tire-service"))
@@ -80,13 +84,28 @@ export default function Header() {
           })}
         </nav>
 
-        <PhoneCallLink
-          label="header"
-          className="hidden lg:flex items-center gap-2 bg-brand-orange hover:bg-brand-orange-hover text-white px-6 py-2.5 rounded-lg font-bold font-label transition-colors"
-        >
-          <Phone size={18} />
-          <span>{siteConfig.phone}</span>
-        </PhoneCallLink>
+        <div className="hidden lg:flex items-center gap-5">
+          <Link
+            href={alternatePath}
+            className="flex items-center gap-1 font-label text-sm font-bold tracking-wider text-brand-text-muted"
+            aria-label={locale === "es" ? "Switch to English" : "Cambiar a español"}
+          >
+            <span className={locale === "en" ? "text-white" : "hover:text-brand-orange transition-colors"}>
+              EN
+            </span>
+            <span aria-hidden="true">|</span>
+            <span className={locale === "es" ? "text-white" : "hover:text-brand-orange transition-colors"}>
+              ES
+            </span>
+          </Link>
+          <PhoneCallLink
+            label="header"
+            className="flex items-center gap-2 bg-brand-orange hover:bg-brand-orange-hover text-white px-6 py-2.5 rounded-lg font-bold font-label transition-colors"
+          >
+            <Phone size={18} />
+            <span>{siteConfig.phone}</span>
+          </PhoneCallLink>
+        </div>
 
         <button
           onClick={() => setOpen(!open)}
@@ -100,7 +119,16 @@ export default function Header() {
       {open && (
         <div className="lg:hidden bg-brand-dark border-t border-brand-surface-light">
           <nav className="flex flex-col px-4 py-6 gap-4 font-label text-sm font-bold tracking-wider">
-            {navLinks.map((link) => (
+            <Link
+              href={alternatePath}
+              onClick={() => setOpen(false)}
+              className="flex items-center gap-1 text-brand-text-muted"
+            >
+              <span className={locale === "en" ? "text-white" : ""}>EN</span>
+              <span aria-hidden="true">|</span>
+              <span className={locale === "es" ? "text-white" : ""}>ES</span>
+            </Link>
+            {links.map((link) => (
               <div key={link.href} className="flex flex-col gap-3">
                 <Link
                   href={link.href}

@@ -3,13 +3,62 @@ import { Check, MapPin, Phone } from "lucide-react"
 import PhoneCallLink from "@/components/phone-call-link"
 import WhatsAppLink from "@/components/whatsapp-link"
 import { siteConfig } from "@/lib/data"
+import type { Locale } from "@/lib/i18n"
 
-const bullets = [
-  "Tire change or flat assistance on location",
-  "Available during shop hours, 7 days a week",
-  "Service call fee applies, credited toward your service",
-  "Dispatched by phone for the fastest response",
-]
+const copy = {
+  en: {
+    badge: "Mobile Tire Assistance",
+    heading: (
+      <>
+        MOBILE TIRE SERVICE —
+        <br />
+        <span className="text-brand-orange">WE COME TO YOU.</span>
+      </>
+    ),
+    body: "Flat tire at home, work, or on the road? Our mobile tire service covers everything within about 15 minutes of our Edgewater shop.",
+    bullets: [
+      "Tire change or flat assistance on location",
+      "Available during shop hours, 7 days a week",
+      "Service call fee applies, credited toward your service",
+      "Dispatched by phone for the fastest response",
+    ],
+    callCta: "CALL FOR MOBILE SERVICE: ",
+    whatsappCta: "Share your location on WhatsApp",
+    whatsappMessage: "Hi! I need mobile tire assistance. Here is my location:",
+    learnMorePre: "Learn how it works, pricing, and coverage on our ",
+    learnMoreLink: "mobile tire service in Edgewater",
+    learnMorePost: " page.",
+    learnMoreHref: "/mobile-tire-service-edgewater-md",
+    radiusLabel: "~15 min radius",
+    mapFooter: "A little farther out? Call — we'll confirm in one minute.",
+  },
+  es: {
+    badge: "Asistencia Móvil de Llantas",
+    heading: (
+      <>
+        SERVICIO MÓVIL DE LLANTAS —
+        <br />
+        <span className="text-brand-orange">VAMOS HASTA DONDE USTED ESTÁ.</span>
+      </>
+    ),
+    body: "¿Llanta ponchada en casa, el trabajo o en el camino? Nuestro servicio móvil cubre todo dentro de unos 15 minutos de nuestro taller en Edgewater.",
+    bullets: [
+      "Cambio de llanta o asistencia por ponchadura en su ubicación",
+      "Disponible en horario de taller, los 7 días de la semana",
+      "Se aplica un cargo por visita, que se acredita a su servicio",
+      "Se despacha por teléfono para la respuesta más rápida",
+    ],
+    callCta: "LLAME PARA SERVICIO MÓVIL: ",
+    whatsappCta: "Comparta su ubicación por WhatsApp",
+    whatsappMessage: "¡Hola! Necesito asistencia móvil de llantas. Aquí está mi ubicación:",
+    learnMorePre: "Conozca cómo funciona, los precios y la cobertura en nuestra página de ",
+    learnMoreLink: "servicio móvil de llantas en Edgewater",
+    learnMorePost: ".",
+    learnMoreHref: "/es/servicio-movil-de-llantas-edgewater-md",
+    radiusLabel: "~15 min de radio",
+    mapFooter: "¿Un poco más lejos? Llámenos — le confirmamos en un minuto.",
+  },
+}
 
 // 12 covered communities distributed around the radius circle.
 const communities = [
@@ -27,9 +76,9 @@ const communities = [
   "Harwood",
 ]
 
-const WHATSAPP_MESSAGE = "Hi! I need mobile tire assistance. Here is my location:"
+export default function MobileService({ locale = "en" }: { locale?: Locale }) {
+  const t = copy[locale]
 
-export default function MobileService() {
   return (
     <section className="bg-brand-dark py-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -38,20 +87,17 @@ export default function MobileService() {
           <div>
             <span className="inline-flex items-center gap-2 rounded-full bg-brand-orange/10 px-4 py-1.5 font-label text-xs font-bold uppercase tracking-widest text-brand-orange mb-6">
               <MapPin size={14} />
-              Mobile Tire Assistance
+              {t.badge}
             </span>
             <h2 className="text-4xl lg:text-5xl font-bold leading-tight mb-6 text-balance">
-              MOBILE TIRE SERVICE —
-              <br />
-              <span className="text-brand-orange">WE COME TO YOU.</span>
+              {t.heading}
             </h2>
             <p className="text-lg text-brand-text-muted leading-relaxed mb-8 max-w-lg text-pretty">
-              Flat tire at home, work, or on the road? Our mobile tire service covers
-              everything within about 15 minutes of our Edgewater shop.
+              {t.body}
             </p>
 
             <ul className="flex flex-col gap-4 mb-10">
-              {bullets.map((bullet) => (
+              {t.bullets.map((bullet) => (
                 <li key={bullet} className="flex items-start gap-3">
                   <span className="mt-0.5 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-brand-orange/15">
                     <Check size={14} className="text-brand-orange" />
@@ -67,26 +113,27 @@ export default function MobileService() {
                 className="bg-brand-orange hover:bg-brand-orange-hover text-white px-7 py-4 rounded-lg font-bold font-label flex items-center justify-center gap-2 transition-colors"
               >
                 <Phone size={20} />
-                CALL FOR MOBILE SERVICE: {siteConfig.phone}
+                {t.callCta}
+                {siteConfig.phone}
               </PhoneCallLink>
               <WhatsAppLink
                 label="mobile_assistance"
-                message={WHATSAPP_MESSAGE}
+                message={t.whatsappMessage}
                 className="border-2 border-brand-surface-light hover:border-brand-orange hover:text-brand-orange text-brand-text px-7 py-4 rounded-lg font-bold font-label flex items-center justify-center gap-2 transition-colors"
               >
-                Share your location on WhatsApp
+                {t.whatsappCta}
               </WhatsAppLink>
             </div>
 
             <p className="mt-6 text-brand-text-muted">
-              Learn how it works, pricing, and coverage on our{" "}
+              {t.learnMorePre}
               <Link
-                href="/mobile-tire-service-edgewater-md"
+                href={t.learnMoreHref}
                 className="font-bold text-brand-orange hover:underline"
               >
-                mobile tire service in Edgewater
-              </Link>{" "}
-              page.
+                {t.learnMoreLink}
+              </Link>
+              {t.learnMorePost}
             </p>
           </div>
 
@@ -100,7 +147,7 @@ export default function MobileService() {
 
               {/* radius label */}
               <span className="absolute left-1/2 top-[9%] -translate-x-1/2 font-label text-xs font-bold uppercase tracking-widest text-brand-orange">
-                ~15 min radius
+                {t.radiusLabel}
               </span>
 
               {/* community markers distributed around the circle */}
@@ -146,7 +193,7 @@ export default function MobileService() {
             </div>
 
             <p className="mt-6 text-center text-sm text-brand-text-muted">
-              A little farther out? Call — we&apos;ll confirm in one minute.
+              {t.mapFooter}
             </p>
           </div>
         </div>
