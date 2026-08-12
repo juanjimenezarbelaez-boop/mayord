@@ -91,7 +91,7 @@ export const reviews: Review[] = [
   },
   {
     quote:
-      "I drove up to this shop needing a used tire and 10 minutes and $50 later I had a tire on my car! Very much recommend this place after driving by it for many years. Had to follow the signs to the office, but overall they were very helpful and very quick.",
+      "I drove up to this shop needing a used tire and 10 minutes later I had a tire on my car! Very much recommend this place after driving by it for many years. Had to follow the signs to the office, but overall they were very helpful and very quick.",
     author: "Rachel M.",
   },
   {

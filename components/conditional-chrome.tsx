@@ -16,6 +16,10 @@ const BARE_ROUTES = [
   "/flat-tire-repair-edgewater-md",
   "/mobile-tire-repair-edgewater-md",
   "/tpms-service-edgewater-md",
+  "/tire-mounting-edgewater-md",
+  "/tire-balancing-edgewater-md",
+  "/tire-rotation-edgewater-md",
+  "/rim-cleaning-edgewater-md",
   "/thank-you",
 ]
 

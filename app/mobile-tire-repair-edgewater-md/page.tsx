@@ -255,8 +255,8 @@ export default function MobileTireRepairLandingPage() {
             ))}
           </div>
           <p className="mt-10 rounded-xl border border-brand-surface-light bg-brand-surface/40 px-5 py-4 text-brand-text-muted text-pretty">
-            <span className="font-bold text-white">Service call from $XX</span> — applied
-            to your service. No surprises.
+            <span className="font-bold text-white">A service call fee applies</span> —
+            it&apos;s credited toward your service. No surprises.
           </p>
           <PhoneCallLink label={LANDING_LABEL} className="mt-6 inline-flex items-center justify-center gap-2 rounded-lg bg-brand-orange px-7 py-4 font-label text-lg font-bold text-white transition-colors hover:bg-brand-orange-hover">
             <Phone size={22} />

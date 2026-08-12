@@ -1,73 +1,89 @@
 import type { Metadata } from "next"
+import Link from "next/link"
 import Image from "next/image"
 import {
-  BadgeCheck,
+  CheckCircle2,
   Clock,
+  Gauge,
   MapPin,
   Phone,
   ShieldCheck,
   Star,
-  Timer,
-  Users,
+  Wrench,
 } from "lucide-react"
 import { hours, siteConfig } from "@/lib/data"
 import { localBusinessSchema, jsonLdProps, pageMetadata } from "@/lib/seo"
 import PhoneCallLink from "@/components/phone-call-link"
 import WhatsAppLink from "@/components/whatsapp-link"
 import DirectionsLink from "@/components/directions-link"
-import QuoteForm from "@/components/landing/quote-form"
 import LandingStickyBar from "@/components/landing/landing-sticky-bar"
+import OpenStatus from "@/components/landing/open-status"
+import FaqAccordion, { type FaqItem } from "@/components/services/faq-accordion"
 
-const LANDING_LABEL = "landing_used_tires"
-const WHATSAPP_MESSAGE = "Hi! I'd like to check used tire availability."
+const LANDING_LABEL = "landing_tire_mounting"
+const WHATSAPP_MESSAGE = "Hi! I need tires mounted, can you help?"
 
 export const metadata: Metadata = pageMetadata({
-  title: "Used Tires Edgewater MD | Quality-Inspected & Installed | Mayo RD Tire Shop",
+  title: "Tire Mounting Edgewater MD | ~20 Min, No Appointment | Mayo RD",
   description:
-    "Quality-inspected used tires in Edgewater, MD — mounting & balancing included. Hundreds in stock, top brands, in and out in ~20 minutes. Call 240-595-8547 to check your size.",
-  path: "/used-tires-edgewater-md",
+    "Professional tire mounting in Edgewater, MD — new or used tires, torque-to-spec, TPMS relearn included. No appointment, most jobs done in about 20 minutes. Call 240-595-8547.",
+  path: "/tire-mounting-edgewater-md",
   absoluteTitle: true,
 })
 
-const reasons = [
+const steps = [
+  { n: "1", title: "Bring your tires or buy from us", body: "Already have tires? Bring them in. Need a set? We've got hundreds in stock." },
+  { n: "2", title: "We mount, balance & torque to spec", body: "Every wheel is spin-balanced and lug nuts torqued to your vehicle's exact spec." },
+  { n: "3", title: "Drive off vibration-free", body: "No wobble, no wheel weights rattling loose — done right the first time." },
+]
+
+const covered = [
+  {
+    icon: Wrench,
+    title: "New & used tire mounting",
+    body: "Whether you bought tires here or brought your own, we mount them correctly on your rims.",
+  },
+  {
+    icon: Gauge,
+    title: "Computerized wheel balancing",
+    body: "Every mount includes a spin-balance to eliminate vibration at highway speed.",
+  },
   {
     icon: ShieldCheck,
-    title: "Every tire inspected",
-    body: "We check tread depth, sidewalls, and age on every used tire before it goes on your car. No junk.",
+    title: "TPMS sensor relearn",
+    body: "We reset and relearn your TPMS sensors during mounting so your dashboard light stays off.",
   },
   {
-    icon: BadgeCheck,
-    title: "Top brands in stock",
-    body: "Michelin, Goodyear, Firestone, Continental and more — hundreds of tires across popular sizes.",
-  },
-  {
-    icon: Timer,
-    title: "In and out in ~20 minutes",
-    body: "Walk in, no appointment needed. Most installs are done while you wait.",
-  },
-  {
-    icon: Users,
-    title: "Family business — honest advice",
-    body: "We're a local family shop. We'll tell you the truth about what you need and what you don't.",
+    icon: CheckCircle2,
+    title: "Torque-to-spec lug nuts",
+    body: "Lug nuts are torqued to your vehicle's exact spec — not just tightened by feel.",
   },
 ]
 
-const reviews = [
+const faqs: FaqItem[] = [
   {
-    name: "Rachel M.",
-    quote: "10 minutes later I had a tire on my car.",
+    question: "Do I need an appointment for tire mounting?",
+    answer:
+      "No — walk-ins are always welcome. Drive in with your tires or buy a set from us, and we'll usually have you done in about 20 minutes.",
   },
   {
-    name: "Gina S.",
-    quote: "Quick in and out. Great local business.",
+    question: "Can you mount tires I bought somewhere else?",
+    answer:
+      "Yes. Bring in your own tires and we'll mount, balance, and torque them to spec just like we would with tires purchased here.",
   },
   {
-    name: "Trent J.",
-    quote: "Fast, honest, and fairly priced.",
+    question: "Does mounting include balancing?",
+    answer:
+      "Every tire mount includes a computerized wheel balance at no extra step — it's part of doing the job right.",
+  },
+  {
+    question: "Will mounting fix my TPMS light?",
+    answer:
+      "In most cases, yes. We relearn and reset TPMS sensors during mounting so your warning light clears. If a sensor itself has failed, we'll let you know and can replace it the same visit.",
   },
 ]
 
-export default function UsedTiresLandingPage() {
+export default function TireMountingLandingPage() {
   return (
     <div className="bg-brand-dark text-brand-text pb-20 lg:pb-0">
       <script {...jsonLdProps(localBusinessSchema())} />
@@ -98,20 +114,23 @@ export default function UsedTiresLandingPage() {
       <section className="relative overflow-hidden border-b border-brand-surface-light">
         <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20 lg:py-24">
           <h1 className="font-label text-4xl font-bold uppercase leading-[1.05] tracking-tight text-white text-balance sm:text-5xl lg:text-6xl">
-            Used Tires in <span className="text-brand-orange">Edgewater, MD</span>
+            New Tires? <span className="text-brand-orange">Mounted Right, Every Time.</span>
           </h1>
           <p className="mt-5 max-w-2xl text-lg text-brand-text-muted text-pretty sm:text-xl">
-            Quality-inspected used tires, mounted &amp; balanced. Hundreds in
-            stock — call to check your size.
+            Professional mounting, computerized balancing, and torque-to-spec
+            lug nuts &mdash; no appointment, most jobs done in about{" "}
+            <span className="font-bold text-white">20 minutes</span>.
           </p>
 
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+          <OpenStatus className="mt-6 flex items-center gap-2 font-label text-base font-bold sm:text-lg" />
+
+          <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
             <PhoneCallLink
               label={LANDING_LABEL}
-              className="inline-flex items-center justify-center gap-2 rounded-lg bg-brand-orange px-7 py-4 font-label text-lg font-bold text-white transition-colors hover:bg-brand-orange-hover"
+              className="inline-flex items-center justify-center gap-2 rounded-lg bg-brand-orange px-8 py-5 font-label text-xl font-bold text-white transition-colors hover:bg-brand-orange-hover"
             >
-              <Phone size={20} />
-              CALL {siteConfig.phone} — CHECK MY SIZE
+              <Phone size={24} />
+              CALL NOW: {siteConfig.phone}
             </PhoneCallLink>
             <WhatsAppLink
               label={LANDING_LABEL}
@@ -132,56 +151,112 @@ export default function UsedTiresLandingPage() {
             <span aria-hidden="true">&middot;</span>
             <span>Family-Owned</span>
             <span aria-hidden="true">&middot;</span>
-            <span>Open 7 Days</span>
-            <span aria-hidden="true">&middot;</span>
             <span>No appointment needed</span>
           </p>
         </div>
       </section>
 
-      {/* 2. Fit anchor cards */}
-      <section className="border-b border-brand-surface-light">
-        <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
-          <div className="grid gap-4 sm:grid-cols-3">
-            {["PASSENGER", "SUV / TRUCK", "COMMERCIAL / LT"].map((label) => (
-              <div
-                key={label}
-                className="rounded-2xl border border-brand-surface-light bg-brand-surface p-6 text-center"
-              >
-                <p className="font-label text-sm font-bold tracking-wider text-brand-text-muted">
-                  {label}
-                </p>
-                <p className="mt-2 font-label text-lg font-bold text-white">
-                  In stock, ready to install
-                </p>
-              </div>
-            ))}
+      {/* 2. Cross-path banner: need tires first? */}
+      <section className="border-b border-brand-surface-light bg-brand-orange/10">
+        <div className="mx-auto flex max-w-6xl flex-col gap-5 px-4 py-8 sm:px-6 lg:flex-row lg:items-center lg:justify-between">
+          <div className="flex items-start gap-4">
+            <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl bg-brand-orange/20 text-brand-orange">
+              <Wrench size={26} />
+            </div>
+            <div>
+              <p className="font-label text-xl font-bold uppercase tracking-tight text-white">
+                Need tires before mounting?
+              </p>
+              <p className="mt-1 text-brand-text-muted text-pretty">
+                Browse our{" "}
+                <Link href="/tires" className="font-bold text-brand-orange hover:underline">
+                  new &amp; used tire inventory
+                </Link>{" "}
+                &mdash; we&apos;ll mount them the same visit.
+              </p>
+            </div>
           </div>
-          <p className="mt-5 text-center text-sm font-medium text-brand-text-muted">
-            Every used tire includes mounting &amp; balancing.
-          </p>
+          <PhoneCallLink
+            label="tires_from_mounting"
+            className="inline-flex flex-shrink-0 items-center justify-center gap-2 rounded-lg bg-brand-orange px-6 py-3.5 font-label text-base font-bold text-white transition-colors hover:bg-brand-orange-hover"
+          >
+            <Phone size={20} />
+            CHECK AVAILABILITY
+          </PhoneCallLink>
         </div>
       </section>
 
-      {/* 3. Why buy used from Mayo RD */}
+      {/* 3. 3-step strip */}
+      <section className="border-b border-brand-surface-light">
+        <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
+          <div className="grid gap-6 sm:grid-cols-3">
+            {steps.map((step, i) => (
+              <div key={step.n} className="relative flex items-start gap-4">
+                <span className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-brand-orange font-label text-xl font-bold text-white">
+                  {step.n}
+                </span>
+                <div>
+                  <h3 className="font-label text-lg font-bold text-white">
+                    {step.title}
+                  </h3>
+                  <p className="mt-1 text-brand-text-muted text-pretty">{step.body}</p>
+                </div>
+                {i < steps.length - 1 && (
+                  <span
+                    className="absolute -right-3 top-6 hidden text-2xl text-brand-orange sm:block"
+                    aria-hidden="true"
+                  >
+                    &rarr;
+                  </span>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 4. Trust row + review */}
+      <section className="border-b border-brand-surface-light">
+        <div className="mx-auto flex max-w-6xl flex-col items-center gap-8 px-4 py-16 text-center sm:px-6">
+          <div className="flex flex-col items-center gap-2">
+            <div className="flex gap-1 text-brand-orange" aria-hidden="true">
+              {Array.from({ length: 5 }).map((_, i) => (
+                <Star key={i} size={22} className="fill-current" />
+              ))}
+            </div>
+            <p className="font-label text-lg font-bold text-white">
+              4.4 stars &middot; 206 reviews
+            </p>
+          </div>
+          <figure className="max-w-2xl">
+            <blockquote className="text-xl font-medium text-white text-pretty sm:text-2xl">
+              &ldquo;Absolutely no nonsense&hellip; in and out in 20 minutes.
+              Service was excellent!&rdquo;
+            </blockquote>
+            <figcaption className="mt-4 font-label text-sm font-bold tracking-wide text-brand-text-muted">
+              &mdash; Josh G.
+            </figcaption>
+          </figure>
+        </div>
+      </section>
+
+      {/* 5. What's included */}
       <section className="border-b border-brand-surface-light">
         <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
           <h2 className="font-label text-3xl font-bold uppercase tracking-tight text-white text-balance sm:text-4xl">
-            Why buy used from Mayo RD
+            Every mount includes
           </h2>
           <div className="mt-10 grid gap-6 sm:grid-cols-2">
-            {reasons.map((reason) => (
-              <div key={reason.title} className="flex items-start gap-4">
+            {covered.map((item) => (
+              <div key={item.title} className="flex items-start gap-4">
                 <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl bg-brand-orange/15 text-brand-orange">
-                  <reason.icon size={24} />
+                  <item.icon size={24} />
                 </div>
                 <div>
                   <h3 className="font-label text-lg font-bold text-white">
-                    {reason.title}
+                    {item.title}
                   </h3>
-                  <p className="mt-1 text-brand-text-muted text-pretty">
-                    {reason.body}
-                  </p>
+                  <p className="mt-1 text-brand-text-muted text-pretty">{item.body}</p>
                 </div>
               </div>
             ))}
@@ -189,49 +264,19 @@ export default function UsedTiresLandingPage() {
         </div>
       </section>
 
-      {/* 4. Reviews */}
+      {/* 6. FAQ */}
       <section className="border-b border-brand-surface-light">
-        <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
-          <div className="grid gap-6 sm:grid-cols-3">
-            {reviews.map((review) => (
-              <figure
-                key={review.name}
-                className="rounded-2xl border border-brand-surface-light bg-brand-surface p-6"
-              >
-                <div className="mb-3 flex gap-0.5 text-brand-orange" aria-hidden="true">
-                  {Array.from({ length: 5 }).map((_, i) => (
-                    <Star key={i} size={16} className="fill-current" />
-                  ))}
-                </div>
-                <blockquote className="text-lg font-medium text-white text-pretty">
-                  &ldquo;{review.quote}&rdquo;
-                </blockquote>
-                <figcaption className="mt-4 font-label text-sm font-bold tracking-wide text-brand-text-muted">
-                  {review.name}
-                </figcaption>
-              </figure>
-            ))}
+        <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
+          <h2 className="text-center font-label text-3xl font-bold uppercase tracking-tight text-white text-balance sm:text-4xl">
+            Common Questions
+          </h2>
+          <div className="mt-10">
+            <FaqAccordion items={faqs} />
           </div>
         </div>
       </section>
 
-      {/* 5. Mini form */}
-      <section className="border-b border-brand-surface-light">
-        <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 py-16 sm:px-6 lg:grid-cols-2">
-          <div>
-            <h2 className="font-label text-3xl font-bold uppercase tracking-tight text-white text-balance sm:text-4xl">
-              Check availability in one text
-            </h2>
-            <p className="mt-4 max-w-md text-lg text-brand-text-muted text-pretty">
-              Send your tire size or vehicle and we&apos;ll text you back to confirm
-              we have it in stock. No pressure, no spam.
-            </p>
-          </div>
-          <QuoteForm label={LANDING_LABEL} />
-        </div>
-      </section>
-
-      {/* 6. Map + hours + directions */}
+      {/* 7. Map + hours + directions */}
       <section>
         <div className="mx-auto grid max-w-6xl gap-8 px-4 py-16 sm:px-6 lg:grid-cols-2">
           <div className="overflow-hidden rounded-2xl border border-brand-surface-light">
@@ -249,7 +294,7 @@ export default function UsedTiresLandingPage() {
 
           <div className="flex flex-col justify-center">
             <h2 className="font-label text-3xl font-bold uppercase tracking-tight text-white sm:text-4xl">
-              Visit the shop
+              Come straight in
             </h2>
             <p className="mt-4 flex items-start gap-3 text-brand-text-muted">
               <MapPin size={20} className="mt-0.5 flex-shrink-0 text-brand-orange" />
@@ -317,7 +362,7 @@ export default function UsedTiresLandingPage() {
         </div>
       </footer>
 
-      {/* 7. Mobile sticky bottom bar */}
+      {/* Mobile sticky bottom bar */}
       <LandingStickyBar label={LANDING_LABEL} />
     </div>
   )

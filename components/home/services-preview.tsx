@@ -15,7 +15,7 @@ const services = [
   {
     icon: ShoppingBag,
     title: ["TIRE", "SALES"],
-    description: "New & used tires at the best prices.",
+    description: "New & used tires, ready to install today.",
   },
   {
     icon: Wrench,

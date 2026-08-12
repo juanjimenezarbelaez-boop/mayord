@@ -7,7 +7,7 @@ import { siteConfig } from "@/lib/data"
 const bullets = [
   "Tire change or flat assistance on location",
   "Available during shop hours, 7 days a week",
-  "Service call from $XX — applied to your service",
+  "Service call fee applies, credited toward your service",
   "Dispatched by phone for the fastest response",
 ]
 

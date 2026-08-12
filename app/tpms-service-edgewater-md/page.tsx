@@ -72,7 +72,7 @@ const faqs: FaqItem[] = [
   {
     question: "How much does it cost?",
     answer:
-      "TPMS service starts from $XX per sensor, which includes the sensor, installation, programming to your vehicle, and resetting the warning light. Call us with your year, make, and model for an exact price.",
+      "Cost depends on your vehicle's sensor type, and it includes the sensor, installation, programming to your vehicle, and resetting the warning light. Call us with your year, make, and model and we'll give you the exact number.",
   },
 ]
 
@@ -109,8 +109,7 @@ export default function TpmsServiceLandingPage() {
           </h1>
           <p className="mt-5 max-w-2xl text-lg text-brand-text-muted text-pretty sm:text-xl">
             TPMS sensor installation, programming &amp; reprogramming for all makes and
-            models. From <span className="font-bold text-white">$XX per sensor</span>,
-            done while you wait.
+            models, done while you wait. Call for a quick quote.
           </p>
 
           <OpenStatus className="mt-6 flex items-center gap-2 font-label text-base font-bold sm:text-lg" />
@@ -169,14 +168,14 @@ export default function TpmsServiceLandingPage() {
         </div>
       </section>
 
-      {/* 3. What's included — one price */}
+      {/* 3. What's included */}
       <section className="border-b border-brand-surface-light">
         <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
           <div className="rounded-3xl border border-brand-orange/40 bg-brand-surface p-8 sm:p-10">
             <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
               <div>
                 <h2 className="font-label text-3xl font-bold uppercase tracking-tight text-white sm:text-4xl">
-                  One price, everything included
+                  Everything included, no surprises
                 </h2>
                 <ul className="mt-6 grid gap-3 sm:grid-cols-2">
                   {included.map((item) => (
@@ -187,17 +186,13 @@ export default function TpmsServiceLandingPage() {
                   ))}
                 </ul>
               </div>
-              <div className="flex flex-shrink-0 flex-col items-center rounded-2xl bg-brand-dark px-8 py-6 text-center">
-                <span className="font-label text-sm font-bold uppercase tracking-wide text-brand-text-muted">
-                  From
-                </span>
-                <span className="font-label text-5xl font-bold text-brand-orange">
-                  $XX
-                </span>
-                <span className="font-label text-sm font-bold uppercase tracking-wide text-brand-text-muted">
-                  per sensor
-                </span>
-              </div>
+              <PhoneCallLink
+                label={LANDING_LABEL}
+                className="inline-flex flex-shrink-0 items-center justify-center gap-2 rounded-2xl bg-brand-orange px-8 py-6 font-label text-lg font-bold text-white transition-colors hover:bg-brand-orange-hover"
+              >
+                <Phone size={20} />
+                CALL FOR PRICING
+              </PhoneCallLink>
             </div>
           </div>
         </div>
