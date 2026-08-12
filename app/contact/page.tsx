@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import Image from "next/image"
 import { Clock, ExternalLink, MapPin, Phone } from "lucide-react"
 import ContactForm from "@/components/contact-form"
+import PhoneCallLink from "@/components/phone-call-link"
 import { images, siteConfig } from "@/lib/data"
 
 export const metadata: Metadata = {
@@ -53,12 +54,9 @@ export default function ContactPage() {
                   <Phone size={32} />
                 </div>
                 <h3 className="text-2xl font-bold text-gray-900 mb-2">Call Us</h3>
-                <a
-                  href={siteConfig.phoneHref}
-                  className="text-xl font-bold text-brand-orange hover:underline"
-                >
+                <PhoneCallLink className="text-xl font-bold text-brand-orange hover:underline">
                   {siteConfig.phone}
-                </a>
+                </PhoneCallLink>
                 <p className="text-gray-500 font-medium mt-2">Hablamos Espa&ntilde;ol</p>
               </div>
 

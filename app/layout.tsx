@@ -1,8 +1,10 @@
 import type { Metadata } from "next"
+import Script from "next/script"
 import { Work_Sans, Lexend, Space_Grotesk } from "next/font/google"
 import Header from "@/components/header"
 import Footer from "@/components/footer"
 import WhatsAppButton from "@/components/whatsapp-button"
+import { GA_CONVERSION_ID } from "@/lib/gtag"
 import "./globals.css"
 
 const workSans = Work_Sans({
@@ -38,6 +40,20 @@ export default function RootLayout({
         <main>{children}</main>
         <Footer />
         <WhatsAppButton />
+
+        {/* Google Tag (gtag.js) — Google Ads */}
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA_CONVERSION_ID}`}
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${GA_CONVERSION_ID}');
+          `}
+        </Script>
       </body>
     </html>
   )

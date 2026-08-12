@@ -1,5 +1,5 @@
 import { Car, Phone, Tractor, Truck } from "lucide-react"
-import { siteConfig } from "@/lib/data"
+import PhoneCallLink from "@/components/phone-call-link"
 
 const categories = [
   {
@@ -79,13 +79,10 @@ export default function TireSizes() {
               We have hundreds of tires in stock. Call us to check availability!
             </p>
           </div>
-          <a
-            href={siteConfig.phoneHref}
-            className="bg-white text-gray-900 px-8 py-4 rounded-lg font-bold font-label flex items-center justify-center gap-2 hover:bg-gray-100 transition-colors whitespace-nowrap"
-          >
+          <PhoneCallLink className="bg-white text-gray-900 px-8 py-4 rounded-lg font-bold font-label flex items-center justify-center gap-2 hover:bg-gray-100 transition-colors whitespace-nowrap">
             <Phone size={20} />
             CHECK INVENTORY
-          </a>
+          </PhoneCallLink>
         </div>
       </div>
     </section>
