@@ -27,15 +27,15 @@ const stats = [
 const values = [
   {
     icon: HandHeart,
-    text: "Honest work — family reputation on the line",
+    text: "Honest work, fair pricing, every single day",
   },
   {
     icon: Users,
-    text: "Two cultures, one standard of service",
+    text: "Decades of hands-on experience, zero shortcuts",
   },
   {
     icon: MapPin,
-    text: "Your neighbors, not a chain",
+    text: "Your local neighbors, never a chain",
   },
 ]
 
