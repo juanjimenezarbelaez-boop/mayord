@@ -99,10 +99,11 @@ export default function AboutPage() {
               </h2>
               <div className="space-y-6 text-gray-600 text-lg leading-relaxed font-medium mb-10">
                 <p>
-                  Mayo RD Tire Shop is owned and operated by the Hagans family
-                  &mdash; Reggie, his spouse, and their son Miguel. A proud
-                  Afro-American &amp; Latino family serving the Edgewater and
-                  Annapolis community.
+                  Mayo RD Tire Shop is a family-owned and operated business
+                  proudly serving the Edgewater and Annapolis communities since
+                  2017. Built on hard work, dedication, and quality service, we
+                  take pride in taking care of our neighbors and keeping our
+                  community moving safely.
                 </p>
               </div>
 
