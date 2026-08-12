@@ -1,0 +1,93 @@
+import Link from "next/link"
+import { Clock, Facebook, MapPin, Phone } from "lucide-react"
+import { navLinks, siteConfig } from "@/lib/data"
+
+export default function Footer() {
+  return (
+    <footer className="bg-brand-dark pt-20 pb-8 border-t border-brand-surface-light">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+          <div className="col-span-1 md:col-span-2">
+            <img
+              src={siteConfig.logoUrl}
+              alt="Mayo RD Tire Shop Logo"
+              className="h-12 w-auto object-contain mb-6"
+            />
+            <p className="text-brand-text-muted max-w-sm mb-6">
+              Premium quality used tires and expert services in Maryland. Honesty
+              and customer satisfaction are our top priorities.
+            </p>
+            <div className="flex items-center gap-4">
+              <a
+                href={siteConfig.facebookUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-white hover:bg-[#1877F2] hover:text-white transition-all"
+              >
+                <Facebook size={20} className="fill-current" />
+              </a>
+            </div>
+          </div>
+
+          <div>
+            <h4 className="text-white font-label font-bold tracking-wider mb-6">
+              QUICK LINKS
+            </h4>
+            <ul className="space-y-3 font-medium text-brand-text-muted">
+              {navLinks.map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className="hover:text-brand-orange transition-colors capitalize"
+                  >
+                    {link.label.charAt(0) + link.label.slice(1).toLowerCase()}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="text-white font-label font-bold tracking-wider mb-6">
+              CONTACT
+            </h4>
+            <ul className="space-y-4 text-brand-text-muted">
+              <li className="flex items-start gap-3">
+                <MapPin size={20} className="text-brand-orange mt-1 flex-shrink-0" />
+                <span>{siteConfig.address.full}</span>
+              </li>
+              <li className="flex items-center gap-3">
+                <Phone size={20} className="text-brand-orange flex-shrink-0" />
+                <span>{siteConfig.phone}</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <Clock size={20} className="text-brand-orange mt-1 flex-shrink-0" />
+                <span>
+                  Mon-Wed, Fri-Sat: 8am-6:30pm
+                  <br />
+                  Thu: 8am-6pm
+                  <br />
+                  Sun: 9am-4pm
+                </span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="pt-8 border-t border-brand-surface-light text-center flex flex-col md:flex-row items-center justify-between gap-4">
+          <p className="text-brand-text-muted text-sm font-medium">
+            &copy; {new Date().getFullYear()} Mayo Rd Tire Shop. All rights reserved.
+          </p>
+          <div className="flex gap-4 text-sm font-medium text-brand-text-muted">
+            <a href="#" className="hover:text-white transition-colors">
+              Privacy Policy
+            </a>
+            <a href="#" className="hover:text-white transition-colors">
+              Terms of Service
+            </a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  )
+}
