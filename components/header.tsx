@@ -6,6 +6,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { Menu, Phone, X } from "lucide-react"
 import { navLinks, siteConfig } from "@/lib/data"
+import PhoneCallLink from "@/components/phone-call-link"
 
 export default function Header() {
   const [open, setOpen] = useState(false)
@@ -43,13 +44,10 @@ export default function Header() {
           ))}
         </nav>
 
-        <a
-          href={siteConfig.phoneHref}
-          className="hidden lg:flex items-center gap-2 bg-brand-orange hover:bg-brand-orange-hover text-white px-6 py-2.5 rounded-lg font-bold font-label transition-colors"
-        >
+        <PhoneCallLink className="hidden lg:flex items-center gap-2 bg-brand-orange hover:bg-brand-orange-hover text-white px-6 py-2.5 rounded-lg font-bold font-label transition-colors">
           <Phone size={18} />
           <span>{siteConfig.phone}</span>
-        </a>
+        </PhoneCallLink>
 
         <button
           onClick={() => setOpen(!open)}
@@ -77,13 +75,13 @@ export default function Header() {
                 {link.label}
               </Link>
             ))}
-            <a
-              href={siteConfig.phoneHref}
+            <PhoneCallLink
+              onClick={() => setOpen(false)}
               className="flex items-center justify-center gap-2 bg-brand-orange hover:bg-brand-orange-hover text-white px-6 py-3 rounded-lg font-bold transition-colors mt-2"
             >
               <Phone size={18} />
               <span>{siteConfig.phone}</span>
-            </a>
+            </PhoneCallLink>
           </nav>
         </div>
       )}
