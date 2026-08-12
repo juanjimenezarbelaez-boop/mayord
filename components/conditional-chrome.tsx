@@ -24,6 +24,11 @@ const NO_FOOTER_ROUTES = [
   "/es/llantas-usadas-edgewater-md",
   "/es/reparacion-de-llantas-edgewater-md",
   "/es/sensores-tpms-edgewater-md",
+  "/es/limpieza-de-rines-edgewater-md",
+  "/es/balanceo-de-llantas-edgewater-md",
+  "/es/montaje-de-llantas-edgewater-md",
+  "/es/rotacion-de-llantas-edgewater-md",
+  "/es/reparacion-movil-de-llantas-edgewater-md",
 ]
 
 /** Routes that render their own fully standalone page with no site chrome at all. */
