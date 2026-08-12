@@ -15,11 +15,18 @@ export interface NormalizedReview {
   timeAgo?: string
 }
 
+export interface SourceSummary {
+  rating: number
+  count: number
+  available: boolean
+}
+
 export interface ReviewsResponse {
   averageRating: number
   totalCount: number
   reviews: NormalizedReview[]
   sources: { google: boolean; yelp: boolean }
+  summary: { google: SourceSummary; yelp: SourceSummary }
 }
 
 async function fetchGoogle(): Promise<{
@@ -145,6 +152,18 @@ export async function GET() {
     totalCount: countSum,
     reviews,
     sources: { google: Boolean(google), yelp: Boolean(yelp) },
+    summary: {
+      google: {
+        rating: google?.rating ?? 0,
+        count: google?.count ?? 0,
+        available: Boolean(google),
+      },
+      yelp: {
+        rating: yelp?.rating ?? 0,
+        count: yelp?.count ?? 0,
+        available: Boolean(yelp),
+      },
+    },
   }
 
   return NextResponse.json(payload, {

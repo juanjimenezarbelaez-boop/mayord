@@ -1,7 +1,7 @@
 "use client"
 
+import { useState } from "react"
 import useSWR from "swr"
-import Image from "next/image"
 import { ExternalLink, Quote, Star } from "lucide-react"
 import { reviews as staticReviews, siteConfig } from "@/lib/data"
 import type { NormalizedReview, ReviewsResponse } from "@/app/api/reviews/route"
@@ -12,18 +12,91 @@ const fetcher = (url: string) =>
     return res.json() as Promise<ReviewsResponse>
   })
 
-// Static fallback derived from the bundled reviews so the section is never empty.
-const fallback: ReviewsResponse = {
-  averageRating: Number(siteConfig.rating.value),
-  totalCount: siteConfig.rating.count,
-  reviews: staticReviews.map((r, i) => ({
-    id: `static-${i}`,
+// Split the bundled reviews across sources so the organized layout is never empty.
+const staticGoogle: NormalizedReview[] = staticReviews
+  .filter((_, i) => i % 2 === 0)
+  .map((r, i) => ({
+    id: `static-google-${i}`,
     author: r.author,
     quote: r.quote,
     rating: 5,
-    source: "google",
-  })),
-  sources: { google: false, yelp: false },
+    source: "google" as const,
+  }))
+
+const staticYelp: NormalizedReview[] = staticReviews
+  .filter((_, i) => i % 2 === 1)
+  .map((r, i) => ({
+    id: `static-yelp-${i}`,
+    author: r.author,
+    quote: r.quote,
+    rating: 5,
+    source: "yelp" as const,
+  }))
+
+const fallback: ReviewsResponse = {
+  averageRating: Number(siteConfig.rating.value),
+  totalCount: siteConfig.rating.count,
+  reviews: [...staticGoogle, ...staticYelp],
+  sources: { google: true, yelp: true },
+  summary: {
+    google: { rating: 4.6, count: 11, available: true },
+    yelp: { rating: 4.0, count: 16, available: true },
+  },
+}
+
+type SourceKey = "google" | "yelp"
+type FilterKey = "all" | SourceKey
+
+const SOURCE_META: Record<SourceKey, { label: string; badge: string; ring: string }> = {
+  google: {
+    label: "Google",
+    badge: "bg-white text-gray-700 border border-gray-200",
+    ring: "ring-[#4285F4]",
+  },
+  yelp: {
+    label: "Yelp",
+    badge: "bg-[#FF1A1A] text-white border border-[#FF1A1A]",
+    ring: "ring-[#FF1A1A]",
+  },
+}
+
+function GoogleGlyph({ className = "" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} aria-hidden="true">
+      <path
+        fill="#4285F4"
+        d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.27-4.74 3.27-8.1Z"
+      />
+      <path
+        fill="#34A853"
+        d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84A11 11 0 0 0 12 23Z"
+      />
+      <path
+        fill="#FBBC05"
+        d="M5.84 14.1a6.6 6.6 0 0 1 0-4.2V7.06H2.18a11 11 0 0 0 0 9.88l3.66-2.84Z"
+      />
+      <path
+        fill="#EA4335"
+        d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06L5.84 9.9C6.71 7.31 9.14 5.38 12 5.38Z"
+      />
+    </svg>
+  )
+}
+
+function SourceBadge({ source }: { source: SourceKey }) {
+  const meta = SOURCE_META[source]
+  return (
+    <span
+      className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-bold ${meta.badge}`}
+    >
+      {source === "google" ? (
+        <GoogleGlyph className="h-3.5 w-3.5" />
+      ) : (
+        <span className="font-black tracking-tight">yelp</span>
+      )}
+      {source === "google" && meta.label}
+    </span>
+  )
 }
 
 function RatingStars({ rating, size = 20 }: { rating: number; size?: number }) {
@@ -46,25 +119,68 @@ function RatingStars({ rating, size = 20 }: { rating: number; size?: number }) {
   )
 }
 
+function SourceSummaryCard({
+  source,
+  rating,
+  count,
+}: {
+  source: SourceKey
+  rating: number
+  count: number
+}) {
+  return (
+    <div className="flex items-center gap-3 rounded-xl border border-gray-100 bg-white px-4 py-3">
+      {source === "google" ? (
+        <GoogleGlyph className="h-6 w-6 shrink-0" />
+      ) : (
+        <span className="text-lg font-black text-[#FF1A1A]">yelp</span>
+      )}
+      <div className="leading-tight">
+        <div className="flex items-center gap-2">
+          <span className="text-xl font-bold">{rating.toFixed(1)}</span>
+          <div className="flex text-brand-orange">
+            {[0, 1, 2, 3, 4].map((i) => (
+              <Star
+                key={i}
+                size={13}
+                className={i < Math.round(rating) ? "fill-current" : "text-gray-300"}
+              />
+            ))}
+          </div>
+        </div>
+        <p className="text-xs font-medium text-gray-500">{count} reviews</p>
+      </div>
+    </div>
+  )
+}
+
 function ReviewCard({ review }: { review: NormalizedReview }) {
   return (
     <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 flex flex-col">
-      <div className="text-brand-orange mb-6">
-        <Quote size={32} />
+      <div className="mb-6 flex items-center justify-between">
+        <div className="text-brand-orange">
+          <Quote size={32} />
+        </div>
+        <SourceBadge source={review.source} />
       </div>
       <p className="text-gray-700 font-medium text-lg mb-8 flex-1 line-clamp-6 whitespace-pre-line">
         &quot;{review.quote}&quot;
       </p>
       <div>
         <p className="font-bold mb-2">&mdash; {review.author}</p>
-        <div className="flex text-brand-orange gap-1">
-          {[0, 1, 2, 3, 4].map((i) => (
-            <Star
-              key={i}
-              size={16}
-              className={i < Math.round(review.rating) ? "fill-current" : "text-gray-300"}
-            />
-          ))}
+        <div className="flex items-center gap-3">
+          <div className="flex text-brand-orange gap-1">
+            {[0, 1, 2, 3, 4].map((i) => (
+              <Star
+                key={i}
+                size={16}
+                className={i < Math.round(review.rating) ? "fill-current" : "text-gray-300"}
+              />
+            ))}
+          </div>
+          {review.timeAgo && (
+            <span className="text-xs text-gray-400">{review.timeAgo}</span>
+          )}
         </div>
       </div>
     </div>
@@ -74,7 +190,10 @@ function ReviewCard({ review }: { review: NormalizedReview }) {
 function CardSkeleton() {
   return (
     <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 flex flex-col animate-pulse">
-      <div className="h-8 w-8 bg-gray-200 rounded mb-6" />
+      <div className="mb-6 flex items-center justify-between">
+        <div className="h-8 w-8 bg-gray-200 rounded" />
+        <div className="h-6 w-20 bg-gray-200 rounded-full" />
+      </div>
       <div className="space-y-3 flex-1 mb-8">
         <div className="h-4 bg-gray-200 rounded w-full" />
         <div className="h-4 bg-gray-200 rounded w-11/12" />
@@ -90,6 +209,8 @@ function CardSkeleton() {
 }
 
 export default function ReviewsPreview() {
+  const [filter, setFilter] = useState<FilterKey>("all")
+
   const { data, isLoading } = useSWR<ReviewsResponse>("/api/reviews", fetcher, {
     fallbackData: fallback,
     revalidateOnFocus: false,
@@ -102,9 +223,23 @@ export default function ReviewsPreview() {
   const source = data && data.reviews.length > 0 ? data : fallback
   const averageRating = source.averageRating || fallback.averageRating
   const totalCount = source.totalCount || fallback.totalCount
-  const featured = source.reviews.slice(0, 3)
 
   const showSkeleton = isLoading && (!data || data.reviews.length === 0)
+
+  const hasGoogle = source.summary.google.available && source.summary.google.count > 0
+  const hasYelp = source.summary.yelp.available && source.summary.yelp.count > 0
+
+  const filters: { key: FilterKey; label: string; enabled: boolean }[] = [
+    { key: "all", label: "All", enabled: true },
+    { key: "google", label: "Google", enabled: hasGoogle },
+    { key: "yelp", label: "Yelp", enabled: hasYelp },
+  ]
+
+  const filtered =
+    filter === "all"
+      ? source.reviews
+      : source.reviews.filter((r) => r.source === filter)
+  const featured = filtered.slice(0, 6)
 
   return (
     <section className="bg-gray-50 text-gray-900 py-24">
@@ -121,18 +256,9 @@ export default function ReviewsPreview() {
               <br />
               TOP RATED.
             </h2>
+
             <div className="mb-8">
-              <div className="mb-4">
-                <Image
-                  src={siteConfig.yelpLogoUrl}
-                  alt="Yelp Logo"
-                  width={100}
-                  height={40}
-                  className="h-10 w-auto object-contain"
-                  draggable={false}
-                />
-              </div>
-              <div className="flex items-center gap-4 mb-2">
+              <div className="flex items-center gap-4 mb-4">
                 {showSkeleton ? (
                   <>
                     <div className="h-12 w-20 bg-gray-200 rounded animate-pulse" />
@@ -147,14 +273,35 @@ export default function ReviewsPreview() {
                   </>
                 )}
               </div>
-              <p className="text-gray-500 font-medium">
+              <p className="text-gray-500 font-medium mb-6">
                 {showSkeleton ? (
-                  <span className="inline-block h-4 w-24 bg-gray-200 rounded animate-pulse align-middle" />
+                  <span className="inline-block h-4 w-40 bg-gray-200 rounded animate-pulse align-middle" />
                 ) : (
-                  `${totalCount} reviews`
+                  `${totalCount} reviews across Google & Yelp`
                 )}
               </p>
+
+              {/* Per-source breakdown */}
+              {!showSkeleton && (
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-3">
+                  {hasGoogle && (
+                    <SourceSummaryCard
+                      source="google"
+                      rating={source.summary.google.rating}
+                      count={source.summary.google.count}
+                    />
+                  )}
+                  {hasYelp && (
+                    <SourceSummaryCard
+                      source="yelp"
+                      rating={source.summary.yelp.rating}
+                      count={source.summary.yelp.count}
+                    />
+                  )}
+                </div>
+              )}
             </div>
+
             <a
               href={siteConfig.yelpUrl}
               target="_blank"
@@ -166,12 +313,45 @@ export default function ReviewsPreview() {
             </a>
           </div>
 
-          <div className="flex-1 grid grid-cols-1 md:grid-cols-3 gap-6">
-            {showSkeleton
-              ? [0, 1, 2].map((i) => <CardSkeleton key={i} />)
-              : featured.map((review) => (
-                  <ReviewCard key={review.id} review={review} />
-                ))}
+          <div className="flex-1">
+            {/* Source filter tabs */}
+            <div className="mb-6 flex flex-wrap gap-2">
+              {filters
+                .filter((f) => f.enabled)
+                .map((f) => {
+                  const active = filter === f.key
+                  return (
+                    <button
+                      key={f.key}
+                      type="button"
+                      onClick={() => setFilter(f.key)}
+                      className={`inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-bold transition-colors ${
+                        active
+                          ? "bg-gray-900 text-white"
+                          : "bg-white text-gray-600 border border-gray-200 hover:border-gray-400"
+                      }`}
+                    >
+                      {f.key === "google" && <GoogleGlyph className="h-4 w-4" />}
+                      {f.key === "yelp" && (
+                        <span
+                          className={`font-black ${active ? "text-white" : "text-[#FF1A1A]"}`}
+                        >
+                          yelp
+                        </span>
+                      )}
+                      {f.key !== "yelp" && f.label}
+                    </button>
+                  )
+                })}
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+              {showSkeleton
+                ? [0, 1, 2].map((i) => <CardSkeleton key={i} />)
+                : featured.map((review) => (
+                    <ReviewCard key={review.id} review={review} />
+                  ))}
+            </div>
           </div>
         </div>
       </div>
