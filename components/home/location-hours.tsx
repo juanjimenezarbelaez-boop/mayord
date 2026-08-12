@@ -1,14 +1,21 @@
-import { hours, siteConfig } from "@/lib/data"
+import { hours, hoursEs, siteConfig } from "@/lib/data"
+import type { Locale } from "@/lib/i18n"
 import DirectionsLink from "@/components/directions-link"
 
-export default function LocationHours() {
+const copy = {
+  en: { heading: "Location & Hours", directions: "Get directions" },
+  es: { heading: "Ubicación y Horario", directions: "Cómo llegar" },
+}
+
+export default function LocationHours({ locale = "en" }: { locale?: Locale }) {
+  const t = copy[locale]
+  const hoursList = locale === "es" ? hoursEs : hours
+
   return (
     <section className="bg-white py-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-12">
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900">
-            Location &amp; Hours
-          </h2>
+          <h2 className="text-4xl md:text-5xl font-bold text-gray-900">{t.heading}</h2>
         </div>
         <div className="flex flex-col lg:flex-row gap-16 items-start">
           <div className="flex-1 w-full text-gray-900">
@@ -37,14 +44,14 @@ export default function LocationHours() {
                 label="location_hours"
                 className="inline-block bg-brand-dark hover:bg-brand-orange text-white px-6 py-3 rounded-2xl font-bold transition-colors text-sm"
               >
-                Get directions
+                {t.directions}
               </DirectionsLink>
             </div>
           </div>
 
           <div className="lg:w-[400px] w-full text-gray-900">
             <ul className="space-y-5 font-medium text-lg text-gray-700 mb-8">
-              {hours.map((entry) => (
+              {hoursList.map((entry) => (
                 <li key={entry.day} className="flex gap-8">
                   <span className="w-16 font-semibold">{entry.day}</span>
                   <span>{entry.time}</span>

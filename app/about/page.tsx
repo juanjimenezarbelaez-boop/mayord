@@ -19,7 +19,7 @@ const breadcrumbs = breadcrumbSchema([
 ])
 
 const stats = [
-  { value: "Since 2020", label: "Serving the community" },
+  { value: "Since 2017", label: "Serving the community" },
   { value: "1k+", label: "Tires Sold" },
   { value: "100%", label: "Satisfaction" },
 ]
@@ -27,15 +27,15 @@ const stats = [
 const values = [
   {
     icon: HandHeart,
-    text: "Honest work — family reputation on the line",
+    text: "Honest work, fair pricing, every single day",
   },
   {
     icon: Users,
-    text: "Two cultures, one standard of service",
+    text: "Decades of hands-on experience, zero shortcuts",
   },
   {
     icon: MapPin,
-    text: "Your neighbors, not a chain",
+    text: "Your local neighbors, never a chain",
   },
 ]
 
@@ -56,7 +56,7 @@ export default function AboutPage() {
         <div className="absolute inset-0 bg-gray-50/90 pointer-events-none z-0" />
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h4 className="text-brand-orange font-label font-bold tracking-wider mb-4">
-            SINCE 2020
+            SINCE 2017
           </h4>
           <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 text-brand-dark">
             ABOUT <span className="text-brand-orange">OUR SHOP</span>
@@ -99,10 +99,11 @@ export default function AboutPage() {
               </h2>
               <div className="space-y-6 text-gray-600 text-lg leading-relaxed font-medium mb-10">
                 <p>
-                  Mayo RD Tire Shop is owned and operated by the Hagans family
-                  &mdash; Reggie, his spouse, and their son Miguel. A proud
-                  Afro-American &amp; Latino family serving the Edgewater and
-                  Annapolis community.
+                  Mayo RD Tire Shop is a family-owned and operated business
+                  proudly serving the Edgewater and Annapolis communities since
+                  2017. Built on hard work, dedication, and quality service, we
+                  take pride in taking care of our neighbors and keeping our
+                  community moving safely.
                 </p>
               </div>
 

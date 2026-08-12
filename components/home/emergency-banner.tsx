@@ -1,26 +1,48 @@
 import { Phone, Truck, Wrench } from "lucide-react"
+import type { Locale } from "@/lib/i18n"
 import PhoneCallLink from "@/components/phone-call-link"
 
-const panels = [
-  {
-    icon: Wrench,
-    heading: "FLAT TIRE? NAIL IN YOUR TIRE?",
-    body: "Drive in now — most repairs done in ~20 minutes. Open 7 days.",
-    cta: "CALL NOW",
-    featured: false,
-    label: "services_card",
-  },
-  {
-    icon: Truck,
-    heading: "CAN'T DRIVE ON IT? WE COME TO YOU.",
-    body: "Mobile tire assistance within ~15 minutes of Edgewater.",
-    cta: "CALL FOR MOBILE SERVICE",
-    featured: true,
-    label: "mobile_assistance",
-  },
-]
+const panelsByLocale = {
+  en: [
+    {
+      icon: Wrench,
+      heading: "FLAT TIRE? NAIL IN YOUR TIRE?",
+      body: "Drive in now — most repairs done in ~20 minutes. Open 7 days.",
+      cta: "CALL NOW",
+      featured: false,
+      label: "services_card",
+    },
+    {
+      icon: Truck,
+      heading: "CAN'T DRIVE ON IT? WE COME TO YOU.",
+      body: "Mobile tire assistance within ~15 minutes of Edgewater.",
+      cta: "CALL FOR MOBILE SERVICE",
+      featured: true,
+      label: "mobile_assistance",
+    },
+  ],
+  es: [
+    {
+      icon: Wrench,
+      heading: "¿SE LE PONCHÓ UNA LLANTA?",
+      body: "Venga ahora — la mayoría de reparaciones en ~20 minutos. Abierto 7 días.",
+      cta: "LLAME AHORA",
+      featured: false,
+      label: "services_card",
+    },
+    {
+      icon: Truck,
+      heading: "¿NO PUEDE MANEJAR? VAMOS HASTA DONDE USTED ESTÁ.",
+      body: "Asistencia móvil de llantas a ~15 minutos de Edgewater.",
+      cta: "LLAME PARA SERVICIO MÓVIL",
+      featured: true,
+      label: "mobile_assistance",
+    },
+  ],
+}
 
-export default function EmergencyBanner() {
+export default function EmergencyBanner({ locale = "en" }: { locale?: Locale }) {
+  const panels = panelsByLocale[locale]
   return (
     <section className="bg-brand-dark pb-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

@@ -1,8 +1,10 @@
 import { MapPin } from "lucide-react"
+import type { Locale } from "@/lib/i18n"
 
 // Stylized (non-cartographic) radius diagram: concentric rings around the shop
 // pin, communicating an approximate ~15-minute service radius around 175 Mayo Rd.
-export default function ServiceRadiusMap() {
+export default function ServiceRadiusMap({ locale = "en" }: { locale?: Locale }) {
+  const radiusLabel = locale === "es" ? "~15 min de radio" : "~15 min radius"
   const nearby = [
     { label: "Mayo", top: "26%", left: "72%" },
     { label: "Riva", top: "20%", left: "34%" },
@@ -20,7 +22,7 @@ export default function ServiceRadiusMap() {
 
       {/* radius label */}
       <span className="absolute left-1/2 top-[13%] -translate-x-1/2 font-label text-xs font-bold uppercase tracking-widest text-brand-orange">
-        ~15 min radius
+        {radiusLabel}
       </span>
 
       {/* nearby community markers */}

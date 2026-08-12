@@ -2,8 +2,37 @@
 
 import { useEffect, useState } from "react"
 import { hours } from "@/lib/data"
+import type { Locale } from "@/lib/i18n"
 
 const DAY_ORDER = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+
+// Map the shop's Eastern weekday code to a Spanish display day.
+const DAY_ES: Record<string, string> = {
+  Sun: "domingo",
+  Mon: "lunes",
+  Tue: "martes",
+  Wed: "miércoles",
+  Thu: "jueves",
+  Fri: "viernes",
+  Sat: "sábado",
+}
+
+const strings = {
+  en: {
+    openUntil: (close: string) => `Open today until ${close}`,
+    opensToday: (open: string) => `Closed now — opens today at ${open}`,
+    opensTomorrow: (open: string) => `Closed now — opens tomorrow at ${open}`,
+    opensDay: (day: string, open: string) => `Closed now — opens ${day} at ${open}`,
+    callToConfirm: "Call to confirm today's hours",
+  },
+  es: {
+    openUntil: (close: string) => `Abierto hoy hasta las ${close}`,
+    opensToday: (open: string) => `Cerrado ahora — abre hoy a las ${open}`,
+    opensTomorrow: (open: string) => `Cerrado ahora — abre mañana a las ${open}`,
+    opensDay: (day: string, open: string) => `Cerrado ahora — abre el ${day} a las ${open}`,
+    callToConfirm: "Llame para confirmar el horario de hoy",
+  },
+}
 
 /** Parse a label like "6:30 PM" into minutes-since-midnight. */
 function toMinutes(label: string): number | null {
@@ -35,7 +64,8 @@ function nowInEastern(): { weekday: string; minutes: number } {
   return { weekday, minutes: hour * 60 + minute }
 }
 
-function computeStatus(): { open: boolean; text: string } {
+function computeStatus(locale: Locale): { open: boolean; text: string } {
+  const s = strings[locale]
   const { weekday, minutes } = nowInEastern()
   const today = hours.find((row) => row.day === weekday)
 
@@ -45,11 +75,11 @@ function computeStatus(): { open: boolean; text: string } {
     const closeMin = toMinutes(closeLabel)
     if (openMin !== null && closeMin !== null) {
       if (minutes >= openMin && minutes < closeMin) {
-        return { open: true, text: `Open today until ${closeLabel.trim()}` }
+        return { open: true, text: s.openUntil(closeLabel.trim()) }
       }
       // Before opening today
       if (minutes < openMin) {
-        return { open: false, text: `Closed now — opens today at ${openLabel.trim()}` }
+        return { open: false, text: s.opensToday(openLabel.trim()) }
       }
     }
   }
@@ -61,29 +91,32 @@ function computeStatus(): { open: boolean; text: string } {
     const row = hours.find((r) => r.day === nextDay)
     if (row) {
       const openLabel = row.time.split(" - ")[0].trim()
-      const when = i === 1 ? "tomorrow" : nextDay
-      return { open: false, text: `Closed now — opens ${when} at ${openLabel}` }
+      if (i === 1) return { open: false, text: s.opensTomorrow(openLabel) }
+      const dayName = locale === "es" ? DAY_ES[nextDay] : nextDay
+      return { open: false, text: s.opensDay(dayName, openLabel) }
     }
   }
-  return { open: false, text: "Call to confirm today's hours" }
+  return { open: false, text: s.callToConfirm }
 }
 
 export default function OpenStatus({
   className = "",
   openPrefix = "",
+  locale = "en",
 }: {
   className?: string
   /** Optional text prepended only when the shop is currently open. */
   openPrefix?: string
+  locale?: Locale
 }) {
   const [status, setStatus] = useState<{ open: boolean; text: string } | null>(null)
 
   useEffect(() => {
-    setStatus(computeStatus())
+    setStatus(computeStatus(locale))
     // Re-check every minute in case the visitor lingers across open/close.
-    const id = setInterval(() => setStatus(computeStatus()), 60_000)
+    const id = setInterval(() => setStatus(computeStatus(locale)), 60_000)
     return () => clearInterval(id)
-  }, [])
+  }, [locale])
 
   // Stable placeholder before mount to avoid hydration mismatch.
   if (!status) {

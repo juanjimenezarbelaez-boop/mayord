@@ -1,5 +1,4 @@
 import type { Metadata } from "next"
-import Image from "next/image"
 import {
   BadgeCheck,
   Clock,
@@ -71,28 +70,6 @@ export default function UsedTiresLandingPage() {
   return (
     <div className="bg-brand-dark text-brand-text pb-20 lg:pb-0">
       <script {...jsonLdProps(localBusinessSchema())} />
-
-      {/* Minimal header: logo + click-to-call only */}
-      <header className="sticky top-0 z-40 border-b border-brand-surface-light bg-brand-dark/95 backdrop-blur">
-        <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3 sm:px-6">
-          <Image
-            src={siteConfig.logoUrl}
-            alt="Mayo RD Tire Shop"
-            width={160}
-            height={40}
-            className="h-9 w-auto object-contain sm:h-10"
-            priority
-          />
-          <PhoneCallLink
-            label={LANDING_LABEL}
-            className="inline-flex items-center gap-2 rounded-lg bg-brand-orange px-4 py-2.5 font-label text-sm font-bold text-white transition-colors hover:bg-brand-orange-hover sm:text-base"
-          >
-            <Phone size={18} />
-            <span className="hidden sm:inline">CALL </span>
-            {siteConfig.phone}
-          </PhoneCallLink>
-        </div>
-      </header>
 
       {/* 1. Hero */}
       <section className="relative overflow-hidden border-b border-brand-surface-light">

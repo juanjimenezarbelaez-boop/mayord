@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import Script from "next/script"
 import { Work_Sans, Lexend, Space_Grotesk } from "next/font/google"
 import ConditionalChrome from "@/components/conditional-chrome"
+import HtmlLangSetter from "@/components/html-lang-setter"
 import { GA_CONVERSION_ID, GTAG_ID } from "@/lib/gtag"
 import { siteConfig } from "@/lib/data"
 import { SITE_URL, OG_IMAGE, localBusinessSchema, jsonLdProps } from "@/lib/seo"
@@ -56,6 +57,7 @@ export default function RootLayout({
         className={`${workSans.variable} ${lexend.variable} ${spaceGrotesk.variable} font-sans bg-brand-dark text-brand-text min-h-screen`}
       >
         <script {...jsonLdProps(localBusinessSchema())} />
+        <HtmlLangSetter />
         <ConditionalChrome>{children}</ConditionalChrome>
 
         {/* Google Tag (gtag.js) — loads the Google tag / Ads conversion tag.

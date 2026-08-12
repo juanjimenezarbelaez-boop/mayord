@@ -3,41 +3,128 @@
 import { useState } from "react"
 import { Check, Clock, MessageCircle, Phone, Send } from "lucide-react"
 import { siteConfig, whatsappHref } from "@/lib/data"
+import type { Locale } from "@/lib/i18n"
 import { trackPhoneCall, trackWhatsApp, trackFormLead } from "@/lib/gtag"
 
-const interestOptions = [
-  "Used Tires",
-  "New Tires",
-  "Flat Tire Repair",
-  "Mobile Tire Assistance",
-  "Mounting & Balancing",
-  "Tire Rotation",
-  "TPMS Sensors / Sensor Light On",
-  "Rim Cleaning",
-  "Other",
-]
+const interestOptionsByLocale = {
+  en: [
+    "Used Tires",
+    "New Tires",
+    "Flat Tire Repair",
+    "Mobile Tire Assistance",
+    "Mounting & Balancing",
+    "Tire Rotation",
+    "TPMS Sensors / Sensor Light On",
+    "Rim Cleaning",
+    "Other",
+  ],
+  es: [
+    "Llantas Usadas",
+    "Llantas Nuevas",
+    "Reparación de Ponchadura",
+    "Asistencia Móvil de Llantas",
+    "Montaje y Balanceo",
+    "Rotación de Llantas",
+    "Sensores TPMS / Luz de Sensor Encendida",
+    "Limpieza de Rines",
+    "Otro",
+  ],
+}
 
 // Interests that need immediate phone dispatch rather than a form submission.
-const urgentInterests = new Set(["Flat Tire Repair", "Mobile Tire Assistance"])
+const urgentInterests = new Set([
+  "Flat Tire Repair",
+  "Mobile Tire Assistance",
+  "Reparación de Ponchadura",
+  "Asistencia Móvil de Llantas",
+])
 
-const confirmationHours = [
-  { day: "Mon - Wed", time: "8:00 AM - 6:30 PM" },
-  { day: "Thursday", time: "8:00 AM - 6:00 PM" },
-  { day: "Friday", time: "8:00 AM - 6:30 PM" },
-  { day: "Saturday", time: "8:00 AM - 6:30 PM" },
-  { day: "Sunday", time: "9:00 AM - 4:00 PM" },
-]
+const confirmationHoursByLocale = {
+  en: [
+    { day: "Mon - Wed", time: "8:00 AM - 6:30 PM" },
+    { day: "Thursday", time: "8:00 AM - 6:00 PM" },
+    { day: "Friday", time: "8:00 AM - 6:30 PM" },
+    { day: "Saturday", time: "8:00 AM - 6:30 PM" },
+    { day: "Sunday", time: "9:00 AM - 4:00 PM" },
+  ],
+  es: [
+    { day: "Lun - Mié", time: "8:00 AM - 6:30 PM" },
+    { day: "Jueves", time: "8:00 AM - 6:00 PM" },
+    { day: "Viernes", time: "8:00 AM - 6:30 PM" },
+    { day: "Sábado", time: "8:00 AM - 6:30 PM" },
+    { day: "Domingo", time: "9:00 AM - 4:00 PM" },
+  ],
+}
 
-const CONTACT_WHATSAPP_MESSAGE = "Hi! I'd like a quote on tires."
+const t = {
+  en: {
+    whatsappMessage: "Hi! I'd like a quote on tires.",
+    successTitle: "Thanks! Your quote request is in.",
+    successBody:
+      "We reply within the hour during business hours. Prefer to talk now? Give us a call or send a WhatsApp message.",
+    callOrText: "CALL OR TEXT",
+    hablamos: "Hablamos Español",
+    whatsappUs: "WHATSAPP US",
+    hours: "HOURS",
+    name: "Name",
+    namePlaceholder: "Your name",
+    phoneLabel: "Phone — we'll call or text you back",
+    vehicle: "Tire size or vehicle",
+    vehiclePlaceholder: "e.g. 205/55R16 or 2018 Honda Civic",
+    interestLabel: "I am interested in...",
+    selectOption: "Select an option",
+    messageLabel: "Message",
+    optional: "(optional)",
+    messagePlaceholder: "Tell us what you need...",
+    emailLabel: "Email",
+    urgentPre: "Need help right now? Don't wait for the form — call us: ",
+    urgentPost: ". Mobile service is dispatched by phone.",
+    sending: "SENDING...",
+    submit: "GET MY QUOTE",
+    footerPre: "We reply within the hour during business hours. Prefer to talk? Call ",
+    footerPost: " — Hablamos Español.",
+  },
+  es: {
+    whatsappMessage: "¡Hola! Me gustaría una cotización de llantas.",
+    successTitle: "¡Gracias! Recibimos su solicitud de cotización.",
+    successBody:
+      "Respondemos dentro de una hora en horario de atención. ¿Prefiere hablar ahora? Llámenos o envíenos un mensaje por WhatsApp.",
+    callOrText: "LLAME O ESCRIBA",
+    hablamos: "Hablamos Español",
+    whatsappUs: "ESCRÍBANOS POR WHATSAPP",
+    hours: "HORARIO",
+    name: "Nombre",
+    namePlaceholder: "Su nombre",
+    phoneLabel: "Teléfono — le llamamos o escribimos de vuelta",
+    vehicle: "Medida de llanta o vehículo",
+    vehiclePlaceholder: "ej. 205/55R16 o Honda Civic 2018",
+    interestLabel: "Estoy interesado en...",
+    selectOption: "Seleccione una opción",
+    messageLabel: "Mensaje",
+    optional: "(opcional)",
+    messagePlaceholder: "Cuéntenos qué necesita...",
+    emailLabel: "Correo electrónico",
+    urgentPre: "¿Necesita ayuda ahora mismo? No espere el formulario — llámenos: ",
+    urgentPost: ". El servicio móvil se despacha por teléfono.",
+    sending: "ENVIANDO...",
+    submit: "QUIERO MI COTIZACIÓN",
+    footerPre: "Respondemos dentro de una hora en horario de atención. ¿Prefiere hablar? Llame ",
+    footerPost: " — Hablamos Español.",
+  },
+}
 
 const inputClasses =
   "w-full bg-white text-gray-900 placeholder:text-gray-500 border border-gray-300 rounded-xl px-4 py-3.5 focus:border-brand-orange focus:ring-2 focus:ring-brand-orange/20 outline-none transition-all font-semibold"
 
-export default function ContactForm() {
+export default function ContactForm({ locale = "en" }: { locale?: Locale }) {
   const [submitted, setSubmitted] = useState(false)
   const [sending, setSending] = useState(false)
   const [interest, setInterest] = useState("")
 
+  const c = t[locale]
+  const interestOptions = interestOptionsByLocale[locale]
+  const confirmationHours = confirmationHoursByLocale[locale]
+  const CONTACT_WHATSAPP_MESSAGE = c.whatsappMessage
   const showUrgentAlert = urgentInterests.has(interest)
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -57,12 +144,9 @@ export default function ContactForm() {
         <div className="w-16 h-16 bg-brand-orange/10 rounded-full flex items-center justify-center text-brand-orange mb-6 mx-auto">
           <Check size={32} />
         </div>
-        <h3 className="text-2xl font-bold text-gray-900 mb-2">
-          Thanks! Your quote request is in.
-        </h3>
+        <h3 className="text-2xl font-bold text-gray-900 mb-2">{c.successTitle}</h3>
         <p className="text-gray-500 font-medium mb-8 max-w-md mx-auto">
-          We reply within the hour during business hours. Prefer to talk now?
-          Give us a call or send a WhatsApp message.
+          {c.successBody}
         </p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-lg mx-auto text-left">
@@ -70,7 +154,7 @@ export default function ContactForm() {
             <div className="flex items-center gap-2 text-brand-orange mb-3">
               <Phone size={20} />
               <span className="font-label font-bold text-sm tracking-widest">
-                CALL OR TEXT
+                {c.callOrText}
               </span>
             </div>
             <a
@@ -80,9 +164,7 @@ export default function ContactForm() {
             >
               {siteConfig.phone}
             </a>
-            <p className="text-sm text-gray-500 font-medium mt-1">
-              Hablamos Espa&ntilde;ol
-            </p>
+            <p className="text-sm text-gray-500 font-medium mt-1">{c.hablamos}</p>
             <a
               href={whatsappHref(CONTACT_WHATSAPP_MESSAGE)}
               target="_blank"
@@ -91,7 +173,7 @@ export default function ContactForm() {
               className="mt-4 inline-flex items-center justify-center gap-2 w-full bg-[#25D366] hover:bg-[#1fb959] text-white px-4 py-3 rounded-xl font-bold font-label transition-colors"
             >
               <MessageCircle size={18} />
-              WHATSAPP US
+              {c.whatsappUs}
             </a>
           </div>
 
@@ -99,7 +181,7 @@ export default function ContactForm() {
             <div className="flex items-center gap-2 text-brand-orange mb-3">
               <Clock size={20} />
               <span className="font-label font-bold text-sm tracking-widest">
-                HOURS
+                {c.hours}
               </span>
             </div>
             <ul className="space-y-1.5 text-sm text-gray-600 font-medium">
@@ -126,20 +208,20 @@ export default function ContactForm() {
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         <div>
           <label htmlFor="name" className="block text-sm font-bold text-gray-900 mb-2">
-            Name
+            {c.name}
           </label>
           <input
             required
             id="name"
             name="name"
             type="text"
-            placeholder="Your name"
+            placeholder={c.namePlaceholder}
             className={inputClasses}
           />
         </div>
         <div>
           <label htmlFor="phone" className="block text-sm font-bold text-gray-900 mb-2">
-            Phone &mdash; we&apos;ll call or text you back
+            {c.phoneLabel}
           </label>
           <input
             required
@@ -156,20 +238,20 @@ export default function ContactForm() {
 
       <div>
         <label htmlFor="vehicle" className="block text-sm font-bold text-gray-900 mb-2">
-          Tire size or vehicle
+          {c.vehicle}
         </label>
         <input
           id="vehicle"
           name="vehicle"
           type="text"
-          placeholder="e.g. 205/55R16 or 2018 Honda Civic"
+          placeholder={c.vehiclePlaceholder}
           className={inputClasses}
         />
       </div>
 
       <div>
         <label htmlFor="interest" className="block text-sm font-bold text-gray-900 mb-2">
-          I am interested in...
+          {c.interestLabel}
         </label>
         <select
           required
@@ -180,7 +262,7 @@ export default function ContactForm() {
           className="w-full bg-white text-gray-900 border border-gray-300 rounded-xl px-4 py-3.5 focus:border-brand-orange focus:ring-2 focus:ring-brand-orange/20 outline-none transition-all font-semibold"
         >
           <option value="" disabled className="text-gray-500">
-            Select an option
+            {c.selectOption}
           </option>
           {interestOptions.map((option) => (
             <option key={option} value={option} className="text-gray-900">
@@ -192,20 +274,20 @@ export default function ContactForm() {
 
       <div>
         <label htmlFor="message" className="block text-sm font-bold text-gray-900 mb-2">
-          Message <span className="font-medium text-gray-400">(optional)</span>
+          {c.messageLabel} <span className="font-medium text-gray-400">{c.optional}</span>
         </label>
         <textarea
           id="message"
           name="message"
           rows={4}
-          placeholder="Tell us what you need..."
+          placeholder={c.messagePlaceholder}
           className={`${inputClasses} resize-y`}
         />
       </div>
 
       <div>
         <label htmlFor="email" className="block text-sm font-bold text-gray-900 mb-2">
-          Email <span className="font-medium text-gray-400">(optional)</span>
+          {c.emailLabel} <span className="font-medium text-gray-400">{c.optional}</span>
         </label>
         <input
           id="email"
@@ -224,7 +306,7 @@ export default function ContactForm() {
         >
           <Phone size={20} className="text-brand-orange mt-0.5 flex-shrink-0" />
           <p className="text-sm font-semibold text-gray-900 leading-relaxed">
-            Need help right now? Don&apos;t wait for the form &mdash; call us:{" "}
+            {c.urgentPre}
             <a
               href={siteConfig.phoneHref}
               onClick={() => trackPhoneCall("mobile_assistance")}
@@ -232,7 +314,7 @@ export default function ContactForm() {
             >
               {siteConfig.phone}
             </a>
-            . Mobile service is dispatched by phone.
+            {c.urgentPost}
           </p>
         </div>
       )}
@@ -243,19 +325,19 @@ export default function ContactForm() {
           disabled={sending}
           className="w-full sm:w-auto bg-brand-orange hover:bg-brand-orange-hover text-white px-8 py-4 rounded-xl font-bold font-label flex items-center justify-center gap-2 transition-colors disabled:opacity-70"
         >
-          {sending ? "SENDING..." : "GET MY QUOTE"}
+          {sending ? c.sending : c.submit}
           <Send size={20} />
         </button>
         <p className="text-sm text-gray-500 font-medium mt-4 leading-relaxed">
-          We reply within the hour during business hours. Prefer to talk? Call{" "}
+          {c.footerPre}
           <a
             href={siteConfig.phoneHref}
             onClick={() => trackPhoneCall("contact_page")}
             className="text-brand-orange font-bold hover:underline"
           >
             {siteConfig.phone}
-          </a>{" "}
-          &mdash; Hablamos Espa&ntilde;ol.
+          </a>
+          {c.footerPost}
         </p>
       </div>
     </form>
