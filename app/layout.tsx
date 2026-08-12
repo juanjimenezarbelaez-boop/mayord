@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import { Work_Sans, Lexend, Space_Grotesk } from "next/font/google"
 import Header from "@/components/header"
 import Footer from "@/components/footer"
+import WhatsAppButton from "@/components/whatsapp-button"
 import "./globals.css"
 
 const workSans = Work_Sans({
@@ -36,6 +37,7 @@ export default function RootLayout({
         <Header />
         <main>{children}</main>
         <Footer />
+        <WhatsAppButton />
       </body>
     </html>
   )
