@@ -73,6 +73,16 @@ export const hours = [
   { day: "Sun", time: "9:00 AM - 4:00 PM" },
 ]
 
+export const hoursEs = [
+  { day: "Lun", time: "8:00 AM - 6:30 PM" },
+  { day: "Mar", time: "8:00 AM - 6:30 PM" },
+  { day: "Mié", time: "8:00 AM - 6:30 PM" },
+  { day: "Jue", time: "8:00 AM - 6:00 PM" },
+  { day: "Vie", time: "8:00 AM - 6:30 PM" },
+  { day: "Sáb", time: "8:00 AM - 6:30 PM" },
+  { day: "Dom", time: "9:00 AM - 4:00 PM" },
+]
+
 export interface Review {
   quote: string
   author: string

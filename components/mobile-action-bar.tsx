@@ -3,7 +3,13 @@
 import { useEffect, useState } from "react"
 import { MapPin, Phone } from "lucide-react"
 import { siteConfig, whatsappHref } from "@/lib/data"
+import type { Locale } from "@/lib/i18n"
 import { trackPhoneCall, trackWhatsApp, trackDirections } from "@/lib/gtag"
+
+const copy = {
+  en: { call: "CALL", whatsapp: "WHATSAPP", directions: "DIRECTIONS" },
+  es: { call: "LLAMAR", whatsapp: "WHATSAPP", directions: "CÓMO LLEGAR" },
+}
 
 function WhatsAppIcon({ className = "" }: { className?: string }) {
   return (
@@ -13,8 +19,9 @@ function WhatsAppIcon({ className = "" }: { className?: string }) {
   )
 }
 
-export default function MobileActionBar() {
+export default function MobileActionBar({ locale = "en" }: { locale?: Locale }) {
   const [visible, setVisible] = useState(false)
+  const t = copy[locale]
 
   useEffect(() => {
     const onScroll = () => setVisible(window.scrollY > window.innerHeight * 0.8)
@@ -37,7 +44,7 @@ export default function MobileActionBar() {
         className="flex flex-col items-center justify-center gap-1 py-3 font-label font-bold text-xs active:bg-brand-orange-hover"
       >
         <Phone size={20} />
-        CALL
+        {t.call}
       </a>
       <a
         href={whatsappHref()}
@@ -47,7 +54,7 @@ export default function MobileActionBar() {
         className="flex flex-col items-center justify-center gap-1 py-3 font-label font-bold text-xs border-x border-white/25 active:bg-brand-orange-hover"
       >
         <WhatsAppIcon className="h-5 w-5" />
-        WHATSAPP
+        {t.whatsapp}
       </a>
       <a
         href={siteConfig.directionsUrl}
@@ -57,7 +64,7 @@ export default function MobileActionBar() {
         className="flex flex-col items-center justify-center gap-1 py-3 font-label font-bold text-xs active:bg-brand-orange-hover"
       >
         <MapPin size={20} />
-        DIRECTIONS
+        {t.directions}
       </a>
     </div>
   )

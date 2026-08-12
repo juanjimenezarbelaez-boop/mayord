@@ -2,7 +2,13 @@
 
 import { MapPin, Phone } from "lucide-react"
 import { siteConfig, whatsappHref } from "@/lib/data"
+import type { Locale } from "@/lib/i18n"
 import { trackPhoneCall, trackWhatsApp, trackDirections } from "@/lib/gtag"
+
+const copy = {
+  en: { callNow: "CALL NOW: ", call: "CALL", whatsapp: "WHATSAPP", directions: "DIRECTIONS" },
+  es: { callNow: "LLAME AHORA: ", call: "LLAMAR", whatsapp: "WHATSAPP", directions: "CÓMO LLEGAR" },
+}
 
 function WhatsAppIcon({ className = "" }: { className?: string }) {
   return (
@@ -17,10 +23,13 @@ function WhatsAppIcon({ className = "" }: { className?: string }) {
 export default function LandingStickyBar({
   callOnly = false,
   label = "sticky_bar",
+  locale = "en",
 }: {
   callOnly?: boolean
   label?: string
+  locale?: Locale
 }) {
+  const t = copy[locale]
   if (callOnly) {
     return (
       <div
@@ -34,7 +43,7 @@ export default function LandingStickyBar({
           className="flex items-center justify-center gap-2 py-4 font-label text-base font-bold active:bg-brand-orange-hover"
         >
           <Phone size={20} />
-          CALL NOW: {siteConfig.phone}
+          {t.callNow}{siteConfig.phone}
         </a>
       </div>
     )
@@ -52,7 +61,7 @@ export default function LandingStickyBar({
         className="flex flex-col items-center justify-center gap-1 py-3 font-label font-bold text-xs active:bg-brand-orange-hover"
       >
         <Phone size={20} />
-        CALL
+        {t.call}
       </a>
       <a
         href={whatsappHref()}
@@ -62,7 +71,7 @@ export default function LandingStickyBar({
         className="flex flex-col items-center justify-center gap-1 py-3 font-label font-bold text-xs border-x border-white/25 active:bg-brand-orange-hover"
       >
         <WhatsAppIcon className="h-5 w-5" />
-        WHATSAPP
+        {t.whatsapp}
       </a>
       <a
         href={siteConfig.directionsUrl}
@@ -72,7 +81,7 @@ export default function LandingStickyBar({
         className="flex flex-col items-center justify-center gap-1 py-3 font-label font-bold text-xs active:bg-brand-orange-hover"
       >
         <MapPin size={20} />
-        DIRECTIONS
+        {t.directions}
       </a>
     </div>
   )

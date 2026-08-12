@@ -4,8 +4,44 @@ import { useState } from "react"
 import useSWR from "swr"
 import { ExternalLink, Quote, Star } from "lucide-react"
 import { siteConfig } from "@/lib/data"
+import type { Locale } from "@/lib/i18n"
 import { realReviewsFallback } from "@/lib/reviews-fallback"
 import type { NormalizedReview, ReviewsResponse } from "@/app/api/reviews/route"
+
+const copy = {
+  en: {
+    eyebrow: "WHAT OUR CUSTOMERS SAY",
+    heading: (
+      <>
+        EXCELLENT
+        <br />
+        SERVICE.
+        <br />
+        TOP RATED.
+      </>
+    ),
+    leaveReview: "Leave us a review",
+    reviewsAcross: (count: number) => `${count} reviews across Google & Yelp`,
+    reviewsWord: "reviews",
+    all: "All",
+  },
+  es: {
+    eyebrow: "LO QUE DICEN NUESTROS CLIENTES",
+    heading: (
+      <>
+        SERVICIO
+        <br />
+        EXCELENTE.
+        <br />
+        TOP RATED.
+      </>
+    ),
+    leaveReview: "Déjenos una reseña",
+    reviewsAcross: (count: number) => `${count} reseñas en Google y Yelp`,
+    reviewsWord: "reseñas",
+    all: "Todas",
+  },
+}
 
 const fetcher = (url: string) =>
   fetch(url).then((res) => {
@@ -191,8 +227,9 @@ function CardSkeleton() {
   )
 }
 
-export default function ReviewsPreview() {
+export default function ReviewsPreview({ locale = "en" }: { locale?: Locale }) {
   const [filter, setFilter] = useState<FilterKey>("all")
+  const t = copy[locale]
 
   const { data, isLoading } = useSWR<ReviewsResponse>("/api/reviews", fetcher, {
     fallbackData: fallback,
@@ -213,7 +250,7 @@ export default function ReviewsPreview() {
   const hasYelp = source.summary.yelp.available && source.summary.yelp.count > 0
 
   const filters: { key: FilterKey; label: string; enabled: boolean }[] = [
-    { key: "all", label: "All", enabled: true },
+    { key: "all", label: t.all, enabled: true },
     { key: "google", label: "Google", enabled: hasGoogle },
     { key: "yelp", label: "Yelp", enabled: hasYelp },
   ]
@@ -230,14 +267,10 @@ export default function ReviewsPreview() {
         <div className="flex flex-col lg:flex-row gap-16">
           <div className="flex-1 lg:max-w-sm">
             <h4 className="text-brand-orange font-label font-bold tracking-wider mb-4">
-              WHAT OUR CUSTOMERS SAY
+              {t.eyebrow}
             </h4>
             <h2 className="text-4xl lg:text-5xl font-bold mb-4 leading-tight">
-              EXCELLENT
-              <br />
-              SERVICE.
-              <br />
-              TOP RATED.
+              {t.heading}
             </h2>
 
             <a
@@ -246,7 +279,7 @@ export default function ReviewsPreview() {
               rel="noreferrer"
               className="inline-flex items-center gap-1.5 text-brand-orange font-bold hover:underline mb-8"
             >
-              Leave us a review
+              {t.leaveReview}
               <ExternalLink size={16} />
             </a>
 
@@ -270,7 +303,7 @@ export default function ReviewsPreview() {
                 {showSkeleton ? (
                   <span className="inline-block h-4 w-40 bg-gray-200 rounded animate-pulse align-middle" />
                 ) : (
-                  `${totalCount} reviews across Google & Yelp`
+                  t.reviewsAcross(totalCount)
                 )}
               </p>
 
