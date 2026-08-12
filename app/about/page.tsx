@@ -9,7 +9,7 @@ import DirectionsLink from "@/components/directions-link"
 export const metadata: Metadata = pageMetadata({
   title: "About Us — Family-Owned Tire Shop in Edgewater, MD",
   description:
-    "Mayo RD Tire Shop is owned and operated by the Hagans family — a proud African American & Latino family serving Edgewater and Annapolis, MD. When you call, you talk to family. Hablamos Español.",
+    "Mayo RD Tire Shop is owned and operated by the Hagans family — a proud Afro-American & Latino family serving Edgewater and Annapolis, MD. When you call, you talk to family. Hablamos Español.",
   path: "/about",
 })
 
@@ -101,7 +101,7 @@ export default function AboutPage() {
                 <p>
                   Mayo RD Tire Shop is owned and operated by the Hagans family
                   &mdash; Reggie, his spouse, and their son Miguel. A proud
-                  African American &amp; Latino family serving the Edgewater and
+                  Afro-American &amp; Latino family serving the Edgewater and
                   Annapolis community.
                 </p>
                 <p>
