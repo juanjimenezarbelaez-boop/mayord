@@ -27,7 +27,6 @@ const brands = ["FIRESTONE", "GOODYEAR", "MICHELIN", "CONTINENTAL"]
 
 const qualities = [
   { icon: Search, title: "INSPECTED", description: "For your safety and confidence." },
-  { icon: DollarSign, title: "LOW PRICES", description: "That fit your budget." },
   { icon: Package, title: "ALL BRANDS", description: "New & used, all sizes available." },
   { icon: ThumbsUp, title: "GUARANTEED QUALITY", description: "Tires ready to drive." },
 ]
@@ -88,7 +87,7 @@ export default function TiresPage() {
               QUALITY NEW &amp; USED TIRES
             </h2>
             <p className="text-xl text-brand-orange font-bold uppercase tracking-widest">
-              INSPECTED &bull; RELIABLE &bull; UNBEATABLE PRICES
+              INSPECTED &bull; RELIABLE &bull; INSTALLED SAME DAY
             </p>
           </div>
 

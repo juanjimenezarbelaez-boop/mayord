@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import Link from "next/link"
 import {
+  ArrowRight,
   Clock,
   Cog,
   Gauge,
@@ -40,12 +41,14 @@ const services = [
     name: "Tire Sales (New & Used)",
     description: "Hundreds of new & used tires in stock, ready to install today.",
     time: "~20 min",
+    href: "/tires",
   },
   {
     icon: Wrench,
     name: "Flat Tire Repair",
     description: "Fast, reliable patches and plugs to get you safely back on the road.",
     time: "~20 min",
+    href: "/flat-tire-repair-edgewater-md",
   },
   {
     icon: Truck,
@@ -54,42 +57,49 @@ const services = [
     time: "During shop hours",
     featured: true,
     extra: "Available during shop hours • Dispatched by phone • Call for details",
+    href: "/mobile-tire-service-edgewater-md",
   },
   {
     icon: Settings,
     name: "Tire Mounting",
     description: "Professional mounting done right the first time, every time.",
     time: "~20 min",
+    href: "/tire-mounting-edgewater-md",
   },
   {
     icon: Gauge,
     name: "Tire Balancing",
     description: "Smooth ride, better handling, and longer tire life.",
     time: "~20 min",
+    href: "/tire-balancing-edgewater-md",
   },
   {
     icon: RotateCw,
     name: "Tire Rotation",
     description: "Extend tire life and keep tread wear even. Quick in-and-out.",
     time: "~15 min",
+    href: "/tire-rotation-edgewater-md",
   },
   {
     icon: Cog,
     name: "TPMS Sensor Installation & Reprogramming",
     description: "Install, program and reprogram TPMS sensors for all makes.",
     time: "~30 min",
+    href: "/tpms-service-edgewater-md",
   },
   {
     icon: Gauge,
     name: "TPMS & Valve Stems",
     description: "Keep pressure readings accurate with fresh sensors and valve stems.",
     time: "~20 min",
+    href: "/tpms-service-edgewater-md",
   },
   {
     icon: Sparkles,
     name: "Rim Cleaning",
     description: "Professional rim and wheel cleaning for a like-new look.",
     time: "~20 min",
+    href: "/rim-cleaning-edgewater-md",
   },
 ]
 
@@ -285,9 +295,11 @@ export default function ServicesPage() {
                 >
                   <service.icon size={30} strokeWidth={1.5} />
                 </div>
-                <h3 className="font-heading text-xl font-bold uppercase leading-tight text-white">
-                  {service.name}
-                </h3>
+                <Link href={service.href} className="group/title">
+                  <h3 className="font-heading text-xl font-bold uppercase leading-tight text-white transition-colors group-hover/title:text-brand-orange">
+                    {service.name}
+                  </h3>
+                </Link>
                 <p className="mt-3 flex-grow leading-relaxed text-brand-text-muted">
                   {service.description}
                 </p>
@@ -305,10 +317,19 @@ export default function ServicesPage() {
                   </span>
                 </div>
 
-                <PhoneCallLink label="services_card" className="mt-5 inline-flex items-center justify-center gap-2 rounded-lg bg-brand-orange px-6 py-3 font-label font-bold uppercase tracking-wide text-white transition-colors hover:bg-brand-orange-hover">
-                  <Phone size={18} />
-                  Call Now
-                </PhoneCallLink>
+                <div className="mt-5 flex flex-col gap-3">
+                  <PhoneCallLink label="services_card" className="inline-flex items-center justify-center gap-2 rounded-lg bg-brand-orange px-6 py-3 font-label font-bold uppercase tracking-wide text-white transition-colors hover:bg-brand-orange-hover">
+                    <Phone size={18} />
+                    Call Now
+                  </PhoneCallLink>
+                  <Link
+                    href={service.href}
+                    className="inline-flex items-center justify-center gap-1.5 font-label text-sm font-bold uppercase tracking-wide text-brand-text-muted transition-colors hover:text-brand-orange"
+                  >
+                    Learn more
+                    <ArrowRight size={15} />
+                  </Link>
+                </div>
               </div>
             ))}
           </div>
