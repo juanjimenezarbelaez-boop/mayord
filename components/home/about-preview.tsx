@@ -2,6 +2,7 @@ import { CircleCheck } from "lucide-react"
 import { images } from "@/lib/data"
 
 const highlights = [
+  "New tires from top brands",
   "Carefully inspected used tires",
   "Fast, reliable and friendly service",
   "Honest recommendations",

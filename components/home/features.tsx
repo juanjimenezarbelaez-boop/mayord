@@ -3,7 +3,7 @@ import { CircleCheck, Settings, Users, Wrench } from "lucide-react"
 const features = [
   {
     icon: CircleCheck,
-    title: ["QUALITY", "USED TIRES"],
+    title: ["NEW &", "USED TIRES"],
     description: "Carefully inspected for safety and performance.",
   },
   {

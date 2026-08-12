@@ -12,7 +12,7 @@ import { images } from "@/lib/data"
 export const metadata: Metadata = {
   title: "Our Tires | Mayo RD Tire Shop",
   description:
-    "Massive inventory of high-quality used tires for all vehicle types. Reliable, affordable, and fully inspected.",
+    "Massive inventory of high-quality new & used tires for all vehicle types. Reliable, affordable, and fully inspected.",
 }
 
 const brands = ["FIRESTONE", "GOODYEAR", "MICHELIN", "CONTINENTAL"]
@@ -20,7 +20,7 @@ const brands = ["FIRESTONE", "GOODYEAR", "MICHELIN", "CONTINENTAL"]
 const qualities = [
   { icon: Search, title: "INSPECTED", description: "For your safety and confidence." },
   { icon: DollarSign, title: "LOW PRICES", description: "That fit your budget." },
-  { icon: Package, title: "ALL BRANDS", description: "All sizes available." },
+  { icon: Package, title: "ALL BRANDS", description: "New & used, all sizes available." },
   { icon: ThumbsUp, title: "GUARANTEED QUALITY", description: "Tires ready to drive." },
 ]
 
@@ -62,7 +62,7 @@ export default function TiresPage() {
             OUR <span className="text-brand-orange">TIRES</span>
           </h1>
           <p className="text-xl sm:text-2xl text-brand-text-muted mb-8 max-w-3xl mx-auto font-medium">
-            We offer a massive inventory of high-quality used tires for all
+            We offer a massive inventory of high-quality new and used tires for all
             vehicle types. Reliable, affordable, and fully inspected.
           </p>
         </div>
@@ -73,7 +73,7 @@ export default function TiresPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl lg:text-5xl font-bold text-white mb-4">
-              QUALITY USED TIRES
+              QUALITY NEW &amp; USED TIRES
             </h2>
             <p className="text-xl text-brand-orange font-bold uppercase tracking-widest">
               INSPECTED &bull; RELIABLE &bull; UNBEATABLE PRICES

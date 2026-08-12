@@ -21,14 +21,14 @@ export default function Hero() {
             <span className="text-brand-orange">REAL SERVICE.</span>
           </h1>
           <p className="text-xl sm:text-2xl text-brand-text mb-10 max-w-2xl font-medium">
-            Quality used tires, expert service, and unbeatable prices.
+            Quality new &amp; used tires, expert service, and unbeatable prices.
           </p>
           <div className="flex flex-col sm:flex-row gap-4">
             <Link
               href="/tires"
               className="bg-brand-orange hover:bg-brand-orange-hover text-white px-8 py-4 rounded-lg font-bold font-label flex items-center justify-center gap-2 transition-colors"
             >
-              SHOP USED TIRES
+              SHOP NEW &amp; USED TIRES
               <ChevronRight size={20} />
             </Link>
             <Link

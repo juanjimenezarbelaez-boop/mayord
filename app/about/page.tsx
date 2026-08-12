@@ -4,7 +4,7 @@ import { images } from "@/lib/data"
 export const metadata: Metadata = {
   title: "About Us | Mayo RD Tire Shop",
   description:
-    "We are a locally owned tire shop dedicated to providing the community with high-quality used tires and honest services.",
+    "We are a locally owned tire shop dedicated to providing the community with high-quality new & used tires and honest services.",
 }
 
 const stats = [
@@ -32,7 +32,7 @@ export default function AboutPage() {
           </h1>
           <p className="text-xl sm:text-2xl text-gray-600 max-w-3xl mx-auto font-medium">
             We are a locally owned tire shop dedicated to providing the community
-            with high-quality used tires and honest services.
+            with high-quality new and used tires and honest services.
           </p>
         </div>
       </section>
@@ -59,10 +59,11 @@ export default function AboutPage() {
                   safety.
                 </p>
                 <p>
-                  We understand that purchasing brand new tires isn&apos;t always
-                  an option. By meticulously sourcing and inspecting used tires,
-                  we offer our customers incredible value. We never sell a tire we
-                  wouldn&apos;t put on our own vehicles.
+                  Whether you want brand-new tires from top brands at a
+                  competitive price, or carefully inspected used tires that fit a
+                  tighter budget, we&apos;ve got you covered. Every used tire we
+                  sell is meticulously sourced and inspected &mdash; we never
+                  sell a tire we wouldn&apos;t put on our own vehicles.
                 </p>
                 <p>
                   Customer satisfaction comes first. When you walk into our shop,

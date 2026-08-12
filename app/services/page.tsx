@@ -4,6 +4,7 @@ import {
   Disc,
   Settings,
   Shield,
+  ShoppingBag,
   Star,
   Tag,
   Wrench,
@@ -35,6 +36,13 @@ const highlights = [
 ]
 
 const services = [
+  {
+    icon: ShoppingBag,
+    title: "TIRE",
+    accent: "SALES",
+    description: "New & used tires from top brands,\nin stock and ready to install.",
+    image: images.servicesHero,
+  },
   {
     icon: Disc,
     title: "TIRE",

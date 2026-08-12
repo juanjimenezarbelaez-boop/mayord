@@ -14,7 +14,7 @@ export default function Footer() {
               className="h-12 w-auto object-contain mb-6"
             />
             <p className="text-brand-text-muted max-w-sm mb-6">
-              Premium quality used tires and expert services in Maryland. Honesty
+              Premium quality new &amp; used tires and expert services in Maryland. Honesty
               and customer satisfaction are our top priorities.
             </p>
             <div className="flex items-center gap-4">
