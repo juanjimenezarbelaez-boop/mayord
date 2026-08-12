@@ -2,6 +2,7 @@ import Hero from "@/components/home/hero"
 import Features from "@/components/home/features"
 import EmergencyBanner from "@/components/home/emergency-banner"
 import ServicesPreview from "@/components/home/services-preview"
+import MobileService from "@/components/home/mobile-service"
 import TireSizes from "@/components/home/tire-sizes"
 import AboutPreview from "@/components/home/about-preview"
 import ReviewsPreview from "@/components/home/reviews-preview"
@@ -16,6 +17,7 @@ export default function HomePage() {
       <Features />
       <EmergencyBanner />
       <ServicesPreview />
+      <MobileService />
       <TireSizes />
       <AboutPreview />
       <ReviewsPreview />
