@@ -1,12 +1,8 @@
 "use client"
 
 import { MapPin, Phone } from "lucide-react"
-import { siteConfig } from "@/lib/data"
-import { trackPhoneConversion } from "@/lib/gtag"
-
-const WHATSAPP_HREF = `https://wa.me/12405958547?text=${encodeURIComponent(
-  "Hi! I'd like a price on used tires.",
-)}`
+import { siteConfig, whatsappHref } from "@/lib/data"
+import { trackPhoneCall, trackWhatsApp, trackDirections } from "@/lib/gtag"
 
 function WhatsAppIcon({ className = "" }: { className?: string }) {
   return (
@@ -17,7 +13,33 @@ function WhatsAppIcon({ className = "" }: { className?: string }) {
 }
 
 // Always-visible bottom action bar for the ads landing page (mobile only).
-export default function LandingStickyBar() {
+// `callOnly` renders a single full-width CALL button for call-only campaigns.
+export default function LandingStickyBar({
+  callOnly = false,
+  label = "sticky_bar",
+}: {
+  callOnly?: boolean
+  label?: string
+}) {
+  if (callOnly) {
+    return (
+      <div
+        className="fixed inset-x-0 bottom-0 z-50 bg-brand-orange text-white lg:hidden"
+        role="navigation"
+        aria-label="Call the shop"
+      >
+        <a
+          href={siteConfig.phoneHref}
+          onClick={() => trackPhoneCall(label)}
+          className="flex items-center justify-center gap-2 py-4 font-label text-base font-bold active:bg-brand-orange-hover"
+        >
+          <Phone size={20} />
+          CALL NOW: {siteConfig.phone}
+        </a>
+      </div>
+    )
+  }
+
   return (
     <div
       className="fixed inset-x-0 bottom-0 z-50 grid grid-cols-3 bg-brand-orange text-white lg:hidden"
@@ -26,16 +48,17 @@ export default function LandingStickyBar() {
     >
       <a
         href={siteConfig.phoneHref}
-        onClick={() => trackPhoneConversion()}
+        onClick={() => trackPhoneCall(label)}
         className="flex flex-col items-center justify-center gap-1 py-3 font-label font-bold text-xs active:bg-brand-orange-hover"
       >
         <Phone size={20} />
         CALL
       </a>
       <a
-        href={WHATSAPP_HREF}
+        href={whatsappHref()}
         target="_blank"
         rel="noopener noreferrer"
+        onClick={() => trackWhatsApp(label)}
         className="flex flex-col items-center justify-center gap-1 py-3 font-label font-bold text-xs border-x border-white/25 active:bg-brand-orange-hover"
       >
         <WhatsAppIcon className="h-5 w-5" />
@@ -45,6 +68,7 @@ export default function LandingStickyBar() {
         href={siteConfig.directionsUrl}
         target="_blank"
         rel="noopener noreferrer"
+        onClick={() => trackDirections(label)}
         className="flex flex-col items-center justify-center gap-1 py-3 font-label font-bold text-xs active:bg-brand-orange-hover"
       >
         <MapPin size={20} />

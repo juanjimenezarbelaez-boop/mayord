@@ -68,7 +68,14 @@ function computeStatus(): { open: boolean; text: string } {
   return { open: false, text: "Call to confirm today's hours" }
 }
 
-export default function OpenStatus({ className = "" }: { className?: string }) {
+export default function OpenStatus({
+  className = "",
+  openPrefix = "",
+}: {
+  className?: string
+  /** Optional text prepended only when the shop is currently open. */
+  openPrefix?: string
+}) {
   const [status, setStatus] = useState<{ open: boolean; text: string } | null>(null)
 
   useEffect(() => {
@@ -97,6 +104,7 @@ export default function OpenStatus({ className = "" }: { className?: string }) {
         aria-hidden="true"
       />
       <span className={status.open ? "text-white" : "text-brand-text-muted"}>
+        {status.open && openPrefix ? openPrefix : ""}
         {status.text}
       </span>
     </p>

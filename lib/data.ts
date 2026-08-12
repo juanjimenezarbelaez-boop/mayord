@@ -1,7 +1,22 @@
+// --- Single source of truth for contact channels ---------------------------
+// Swap PHONE for a Google Ads call-forwarding number here and it updates
+// everywhere (header, heroes, sticky bars, landing pages, JSON-LD, etc.).
+export const PHONE = "240-595-8547"
+// Digits-only, country-coded number for WhatsApp deep links (wa.me).
+export const WHATSAPP_NUMBER = "12405958547"
+export const DEFAULT_WHATSAPP_MESSAGE = "Hi! I'm interested in your tire services."
+
+// Build a WhatsApp click-to-chat link with an optional prefilled message.
+export function whatsappHref(message: string = DEFAULT_WHATSAPP_MESSAGE) {
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`
+}
+
 export const siteConfig = {
   name: "Mayo RD Tire Shop",
-  phone: "240-595-8547",
-  phoneHref: "tel:240-595-8547",
+  phone: PHONE,
+  phoneHref: `tel:${PHONE}`,
+  whatsappNumber: WHATSAPP_NUMBER,
+  whatsappHref: whatsappHref(),
   address: {
     street: "175 Mayo Rd",
     city: "Edgewater",

@@ -1,56 +1,33 @@
 "use client"
 
 import { useState, type FormEvent } from "react"
-import { Check } from "lucide-react"
+import { useRouter } from "next/navigation"
 import { siteConfig } from "@/lib/data"
-import { trackPhoneConversion } from "@/lib/gtag"
+import { trackFormLead } from "@/lib/gtag"
 
 const SHOP_SMS_NUMBER = "2405958547"
 
-export default function QuoteForm() {
+export default function QuoteForm({ label = "landing_used_tires" }: { label?: string }) {
+  const router = useRouter()
   const [size, setSize] = useState("")
   const [name, setName] = useState("")
   const [phone, setPhone] = useState("")
-  const [submitted, setSubmitted] = useState(false)
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
     if (!size.trim() || !name.trim() || !phone.trim()) return
 
-    // Fire the Google Ads conversion — this is a qualified lead.
-    trackPhoneConversion()
+    // Fire the Google Ads lead conversion — this is a qualified lead.
+    trackFormLead(label)
 
     // Pre-fill the visitor's SMS composer to the shop (mobile-first ads audience).
     const body = encodeURIComponent(
       `Hi Mayo RD Tire Shop, I'd like a price on used tires. Tire size/vehicle: ${size.trim()}. Name: ${name.trim()}. My number: ${phone.trim()}.`,
     )
-    window.location.href = `sms:${SHOP_SMS_NUMBER}?body=${body}`
+    window.open(`sms:${SHOP_SMS_NUMBER}?body=${body}`, "_self")
 
-    setSubmitted(true)
-  }
-
-  if (submitted) {
-    return (
-      <div className="rounded-2xl bg-brand-surface border border-brand-surface-light p-8 text-center">
-        <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-brand-orange text-white">
-          <Check size={28} />
-        </div>
-        <h3 className="font-label text-2xl font-bold text-white mb-2">
-          YOU&apos;RE ALL SET
-        </h3>
-        <p className="text-brand-text-muted mb-6 text-pretty">
-          Your text is ready to send. If it didn&apos;t open automatically, just call
-          us and we&apos;ll check your size right away.
-        </p>
-        <a
-          href={siteConfig.phoneHref}
-          onClick={() => trackPhoneConversion()}
-          className="inline-flex items-center justify-center rounded-lg bg-brand-orange px-6 py-3 font-label font-bold text-white transition-colors hover:bg-brand-orange-hover"
-        >
-          CALL {siteConfig.phone}
-        </a>
-      </div>
-    )
+    // Send the visitor to the conversion confirmation page.
+    router.push("/thank-you")
   }
 
   return (

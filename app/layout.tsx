@@ -2,7 +2,7 @@ import type { Metadata } from "next"
 import Script from "next/script"
 import { Work_Sans, Lexend, Space_Grotesk } from "next/font/google"
 import ConditionalChrome from "@/components/conditional-chrome"
-import { GA_CONVERSION_ID } from "@/lib/gtag"
+import { GA_CONVERSION_ID, GTAG_ID } from "@/lib/gtag"
 import { siteConfig } from "@/lib/data"
 import { SITE_URL, OG_IMAGE, localBusinessSchema, jsonLdProps } from "@/lib/seo"
 import "./globals.css"
@@ -58,16 +58,18 @@ export default function RootLayout({
         <script {...jsonLdProps(localBusinessSchema())} />
         <ConditionalChrome>{children}</ConditionalChrome>
 
-        {/* Google Tag (gtag.js) — Google Ads */}
+        {/* Google Tag (gtag.js) — loads the Google tag / Ads conversion tag.
+            Uses NEXT_PUBLIC_GTAG_ID when set, always configures the Ads id. */}
         <Script
-          src={`https://www.googletagmanager.com/gtag/js?id=${GA_CONVERSION_ID}`}
+          src={`https://www.googletagmanager.com/gtag/js?id=${GTAG_ID || GA_CONVERSION_ID}`}
           strategy="afterInteractive"
         />
-        <Script id="google-analytics" strategy="afterInteractive">
+        <Script id="google-tag" strategy="afterInteractive">
           {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
+            ${GTAG_ID ? `gtag('config', '${GTAG_ID}');` : ""}
             gtag('config', '${GA_CONVERSION_ID}');
           `}
         </Script>

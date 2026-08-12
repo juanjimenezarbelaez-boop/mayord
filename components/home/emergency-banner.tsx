@@ -8,6 +8,7 @@ const panels = [
     body: "Drive in now — most repairs done in ~20 minutes. Open 7 days.",
     cta: "CALL NOW",
     featured: false,
+    label: "services_card",
   },
   {
     icon: Truck,
@@ -15,6 +16,7 @@ const panels = [
     body: "Mobile tire assistance within ~15 minutes of Edgewater.",
     cta: "CALL FOR MOBILE SERVICE",
     featured: true,
+    label: "mobile_assistance",
   },
 ]
 
@@ -48,6 +50,7 @@ export default function EmergencyBanner() {
                 {panel.body}
               </p>
               <PhoneCallLink
+                label={panel.label}
                 className={`px-6 py-3.5 rounded-lg font-bold font-label flex items-center justify-center gap-2 transition-colors w-full sm:w-auto self-start ${
                   panel.featured
                     ? "bg-white text-gray-900 hover:bg-gray-100"

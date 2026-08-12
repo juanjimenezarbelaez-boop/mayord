@@ -2,8 +2,8 @@
 
 import { useState } from "react"
 import { Check, Clock, MessageCircle, Phone, Send } from "lucide-react"
-import { siteConfig } from "@/lib/data"
-import { trackPhoneConversion } from "@/lib/gtag"
+import { siteConfig, whatsappHref } from "@/lib/data"
+import { trackPhoneCall, trackWhatsApp, trackFormLead } from "@/lib/gtag"
 
 const interestOptions = [
   "Used Tires",
@@ -28,9 +28,7 @@ const confirmationHours = [
   { day: "Sunday", time: "9:00 AM - 4:00 PM" },
 ]
 
-const whatsappHref = `https://wa.me/12405958547?text=${encodeURIComponent(
-  "Hi! I'd like a quote on tires.",
-)}`
+const CONTACT_WHATSAPP_MESSAGE = "Hi! I'd like a quote on tires."
 
 const inputClasses =
   "w-full bg-white text-gray-900 placeholder:text-gray-500 border border-gray-300 rounded-xl px-4 py-3.5 focus:border-brand-orange focus:ring-2 focus:ring-brand-orange/20 outline-none transition-all font-semibold"
@@ -47,6 +45,8 @@ export default function ContactForm() {
     setSending(true)
     // TODO: wire up to your form backend (e.g. a server action, Formspree, or an API route)
     await new Promise((resolve) => setTimeout(resolve, 800))
+    // Fire the Google Ads lead conversion.
+    trackFormLead("contact_page")
     setSending(false)
     setSubmitted(true)
   }
@@ -75,7 +75,7 @@ export default function ContactForm() {
             </div>
             <a
               href={siteConfig.phoneHref}
-              onClick={() => trackPhoneConversion()}
+              onClick={() => trackPhoneCall("contact_page")}
               className="text-xl font-bold text-gray-900 hover:text-brand-orange transition-colors"
             >
               {siteConfig.phone}
@@ -84,9 +84,10 @@ export default function ContactForm() {
               Hablamos Espa&ntilde;ol
             </p>
             <a
-              href={whatsappHref}
+              href={whatsappHref(CONTACT_WHATSAPP_MESSAGE)}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => trackWhatsApp("contact_page")}
               className="mt-4 inline-flex items-center justify-center gap-2 w-full bg-[#25D366] hover:bg-[#1fb959] text-white px-4 py-3 rounded-xl font-bold font-label transition-colors"
             >
               <MessageCircle size={18} />
@@ -226,7 +227,7 @@ export default function ContactForm() {
             Need help right now? Don&apos;t wait for the form &mdash; call us:{" "}
             <a
               href={siteConfig.phoneHref}
-              onClick={() => trackPhoneConversion()}
+              onClick={() => trackPhoneCall("mobile_assistance")}
               className="text-brand-orange font-bold hover:underline"
             >
               {siteConfig.phone}
@@ -249,7 +250,7 @@ export default function ContactForm() {
           We reply within the hour during business hours. Prefer to talk? Call{" "}
           <a
             href={siteConfig.phoneHref}
-            onClick={() => trackPhoneConversion()}
+            onClick={() => trackPhoneCall("contact_page")}
             className="text-brand-orange font-bold hover:underline"
           >
             {siteConfig.phone}

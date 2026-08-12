@@ -20,6 +20,7 @@ import {
   jsonLdProps,
 } from "@/lib/seo"
 import PhoneCallLink from "@/components/phone-call-link"
+import WhatsAppLink from "@/components/whatsapp-link"
 import FaqAccordion, { type FaqItem } from "@/components/services/faq-accordion"
 
 const PAGE_PATH = "/mobile-tire-service-edgewater-md"
@@ -81,9 +82,7 @@ const faqs: FaqItem[] = [
   },
 ]
 
-const whatsappHref = `https://wa.me/12405958547?text=${encodeURIComponent(
-  "Hi! I need mobile tire assistance. Here is my location:",
-)}`
+const WHATSAPP_MESSAGE = "Hi! I need mobile tire assistance. Here is my location:"
 
 export default function MobileTireServicePage() {
   const breadcrumbs = breadcrumbSchema([
@@ -129,18 +128,20 @@ export default function MobileTireServicePage() {
               </ul>
 
               <div className="flex flex-col sm:flex-row gap-4">
-                <PhoneCallLink className="bg-brand-orange hover:bg-brand-orange-hover text-white px-7 py-4 rounded-lg font-bold font-label flex items-center justify-center gap-2 transition-colors text-lg">
+                <PhoneCallLink
+                  label="mobile_assistance"
+                  className="bg-brand-orange hover:bg-brand-orange-hover text-white px-7 py-4 rounded-lg font-bold font-label flex items-center justify-center gap-2 transition-colors text-lg"
+                >
                   <Phone size={22} />
                   CALL NOW: {siteConfig.phone}
                 </PhoneCallLink>
-                <Link
-                  href={whatsappHref}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <WhatsAppLink
+                  label="mobile_assistance"
+                  message={WHATSAPP_MESSAGE}
                   className="border-2 border-brand-surface-light hover:border-brand-orange hover:text-brand-orange text-brand-text px-7 py-4 rounded-lg font-bold font-label flex items-center justify-center gap-2 transition-colors"
                 >
                   Share your location on WhatsApp
-                </Link>
+                </WhatsAppLink>
               </div>
 
               <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm font-medium text-brand-text-muted">
@@ -428,10 +429,13 @@ export default function MobileTireServicePage() {
           <p className="text-white/90 text-lg font-medium mb-8">
             Open 7 days · Dispatched during shop hours · Hablamos Español
           </p>
-          <PhoneCallLink className="inline-flex items-center justify-center gap-2 bg-brand-dark hover:bg-black text-white px-8 py-4 rounded-lg font-bold font-label text-lg transition-colors">
-            <Phone size={22} />
-            CALL {siteConfig.phone}
-          </PhoneCallLink>
+              <PhoneCallLink
+                label="mobile_assistance"
+                className="inline-flex items-center justify-center gap-2 bg-brand-dark hover:bg-black text-white px-8 py-4 rounded-lg font-bold font-label text-lg transition-colors"
+              >
+                <Phone size={22} />
+                CALL {siteConfig.phone}
+              </PhoneCallLink>
         </div>
       </section>
     </>

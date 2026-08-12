@@ -1,68 +1,86 @@
 import type { Metadata } from "next"
-import Link from "next/link"
 import Image from "next/image"
-import {
-  AlertTriangle,
-  Clock,
-  Gauge,
-  MapPin,
-  Phone,
-  Star,
-  Truck,
-  Wrench,
-} from "lucide-react"
+import { Battery, CheckCircle2, Clock, Gauge, MapPin, Phone, RotateCcw, Star } from "lucide-react"
 import { hours, siteConfig } from "@/lib/data"
-import { localBusinessSchema, jsonLdProps, pageMetadata } from "@/lib/seo"
+import { localBusinessSchema, faqPageSchema, jsonLdProps, pageMetadata } from "@/lib/seo"
 import PhoneCallLink from "@/components/phone-call-link"
 import WhatsAppLink from "@/components/whatsapp-link"
 import DirectionsLink from "@/components/directions-link"
+import FaqAccordion, { type FaqItem } from "@/components/services/faq-accordion"
 import LandingStickyBar from "@/components/landing/landing-sticky-bar"
 import OpenStatus from "@/components/landing/open-status"
 
-const LANDING_LABEL = "landing_flat_repair"
-const WHATSAPP_MESSAGE = "Hi! I have a flat tire and need help."
+const LANDING_LABEL = "landing_tpms"
+const WHATSAPP_MESSAGE = "Hi! My TPMS / tire pressure light is on. Can you help?"
 
 export const metadata: Metadata = pageMetadata({
-  title: "Flat Tire Repair Edgewater MD | ~20 Min, Open 7 Days | Mayo RD",
+  title: "TPMS Sensor Replacement & Programming | Edgewater MD | Mayo RD",
   description:
-    "Flat tire? Drive in now — most flat repairs done in about 20 minutes. No appointment, open 7 days in Edgewater, MD. Can't drive on it? We come to you. Call 240-595-8547.",
-  path: "/flat-tire-repair-edgewater-md",
+    "TPMS light on? We install, program & reprogram tire pressure sensors for all makes and models in Edgewater, MD — done while you wait. Open 7 days. Call 240-595-8547.",
+  path: "/tpms-service-edgewater-md",
   absoluteTitle: true,
 })
 
-const steps = [
-  { n: "1", title: "Drive in or call", body: "No appointment needed — just come by or call ahead." },
-  { n: "2", title: "We inspect & repair", body: "We find the leak and fix it right, or advise a replacement." },
-  { n: "3", title: "Back on the road", body: "Most flat repairs are done in about 20 minutes." },
-]
-
-const covered = [
+const explainers = [
   {
-    icon: Wrench,
-    title: "Puncture & nail repair",
-    body: "Nails, screws, and punctures in the tread — plugged and patched properly from the inside.",
+    icon: RotateCcw,
+    title: "Light on after a tire change?",
+    body: "Sensors often need reprogramming to your vehicle after new tires are mounted. We'll relearn them so the light goes off.",
+  },
+  {
+    icon: Battery,
+    title: "Dead sensor battery?",
+    body: "TPMS sensors last a few years, then the battery dies. We replace the failed sensor and program a new one on the spot.",
   },
   {
     icon: Gauge,
-    title: "Valve stems & leaks",
-    body: "Slow leaks from a bad valve stem or bead seal found and fixed fast.",
-  },
-  {
-    icon: AlertTriangle,
-    title: "TPMS light on",
-    body: "Low-pressure warning or sensor light? We'll check it and get it sorted.",
-  },
-  {
-    icon: Truck,
-    title: "Used replacement",
-    body: "If it can't be safely repaired, we'll put on a quality inspected used tire the same visit.",
+    title: "New wheels or tires?",
+    body: "Fresh set of wheels? We install brand-new sensors and valve stems so every tire reports pressure correctly.",
   },
 ]
 
-export default function FlatTireRepairLandingPage() {
+const included = [
+  "New TPMS sensor",
+  "Professional installation",
+  "Programming to your vehicle",
+  "Warning light reset",
+]
+
+const trust = [
+  { icon: Star, label: "4.4 stars · 206 reviews" },
+  { icon: Clock, label: "In & out in ~20 minutes" },
+  { icon: CheckCircle2, label: "Open 7 days" },
+  { icon: Gauge, label: "Family-owned" },
+]
+
+const faqs: FaqItem[] = [
+  {
+    question: "Can I drive with the TPMS light on?",
+    answer:
+      "You can drive short distances, but you shouldn't ignore it. The light means one or more tires may be underinflated — or a sensor has failed. Low pressure hurts handling, fuel economy, and tire life, and it can lead to a blowout. Best to have it checked the same day.",
+  },
+  {
+    question: "How long does sensor replacement take?",
+    answer:
+      "Most TPMS sensor replacements and reprogramming are done while you wait — usually about 20 minutes. No appointment needed; just drive in or call ahead so we can confirm we have your sensor in stock.",
+  },
+  {
+    question: "Do you program sensors for any car brand?",
+    answer:
+      "Yes. We install and program TPMS sensors for all makes and models — domestic, import, cars, trucks, and SUVs. We relearn the sensors to your specific vehicle so the dash light clears correctly.",
+  },
+  {
+    question: "How much does it cost?",
+    answer:
+      "TPMS service starts from $XX per sensor, which includes the sensor, installation, programming to your vehicle, and resetting the warning light. Call us with your year, make, and model for an exact price.",
+  },
+]
+
+export default function TpmsServiceLandingPage() {
   return (
     <div className="bg-brand-dark text-brand-text pb-20 lg:pb-0">
       <script {...jsonLdProps(localBusinessSchema())} />
+      <script {...jsonLdProps(faqPageSchema(faqs))} />
 
       {/* Minimal header: logo + click-to-call only */}
       <header className="sticky top-0 z-40 border-b border-brand-surface-light bg-brand-dark/95 backdrop-blur">
@@ -75,10 +93,7 @@ export default function FlatTireRepairLandingPage() {
             className="h-9 w-auto object-contain sm:h-10"
             priority
           />
-          <PhoneCallLink
-            label={LANDING_LABEL}
-            className="inline-flex items-center gap-2 rounded-lg bg-brand-orange px-4 py-2.5 font-label text-sm font-bold text-white transition-colors hover:bg-brand-orange-hover sm:text-base"
-          >
+          <PhoneCallLink label={LANDING_LABEL} className="inline-flex items-center gap-2 rounded-lg bg-brand-orange px-4 py-2.5 font-label text-sm font-bold text-white transition-colors hover:bg-brand-orange-hover sm:text-base">
             <Phone size={18} />
             <span className="hidden sm:inline">CALL </span>
             {siteConfig.phone}
@@ -90,21 +105,18 @@ export default function FlatTireRepairLandingPage() {
       <section className="relative overflow-hidden border-b border-brand-surface-light">
         <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20 lg:py-24">
           <h1 className="font-label text-4xl font-bold uppercase leading-[1.05] tracking-tight text-white text-balance sm:text-5xl lg:text-6xl">
-            Flat Tire? <span className="text-brand-orange">We&apos;ll Fix It Fast.</span>
+            TPMS Light On? <span className="text-brand-orange">We&apos;ll Fix It Today.</span>
           </h1>
           <p className="mt-5 max-w-2xl text-lg text-brand-text-muted text-pretty sm:text-xl">
-            Drive in now — most flat repairs done in about{" "}
-            <span className="font-bold text-white">20 minutes</span>. No appointment.
-            Open 7 days.
+            TPMS sensor installation, programming &amp; reprogramming for all makes and
+            models. From <span className="font-bold text-white">$XX per sensor</span>,
+            done while you wait.
           </p>
 
           <OpenStatus className="mt-6 flex items-center gap-2 font-label text-base font-bold sm:text-lg" />
 
           <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-            <PhoneCallLink
-              label={LANDING_LABEL}
-              className="inline-flex items-center justify-center gap-2 rounded-lg bg-brand-orange px-8 py-5 font-label text-xl font-bold text-white transition-colors hover:bg-brand-orange-hover"
-            >
+            <PhoneCallLink label={LANDING_LABEL} className="inline-flex items-center justify-center gap-2 rounded-lg bg-brand-orange px-8 py-5 font-label text-xl font-bold text-white transition-colors hover:bg-brand-orange-hover">
               <Phone size={24} />
               CALL NOW: {siteConfig.phone}
             </PhoneCallLink>
@@ -125,120 +137,96 @@ export default function FlatTireRepairLandingPage() {
             <span aria-hidden="true">&middot;</span>
             <span>206 reviews</span>
             <span aria-hidden="true">&middot;</span>
-            <span>Family-Owned</span>
+            <span>All makes &amp; models</span>
             <span aria-hidden="true">&middot;</span>
             <span>No appointment needed</span>
           </p>
         </div>
       </section>
 
-      {/* 2. Cross-path banner: can't drive on it? */}
-      <section className="border-b border-brand-surface-light bg-brand-orange/10">
-        <div className="mx-auto flex max-w-6xl flex-col gap-5 px-4 py-8 sm:px-6 lg:flex-row lg:items-center lg:justify-between">
-          <div className="flex items-start gap-4">
-            <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl bg-brand-orange/20 text-brand-orange">
-              <AlertTriangle size={26} />
-            </div>
-            <div>
-              <p className="font-label text-xl font-bold uppercase tracking-tight text-white">
-                Can&apos;t drive on it?
-              </p>
-              <p className="mt-1 text-brand-text-muted text-pretty">
-                We come to you —{" "}
-                <Link
-                  href="/mobile-tire-service-edgewater-md"
-                  className="font-bold text-brand-orange hover:underline"
-                >
-                  mobile tire assistance
-                </Link>{" "}
-                within ~15 minutes of Edgewater.
-              </p>
-            </div>
-          </div>
-          <PhoneCallLink
-            label="mobile_assistance"
-            className="inline-flex flex-shrink-0 items-center justify-center gap-2 rounded-lg bg-brand-orange px-6 py-3.5 font-label text-base font-bold text-white transition-colors hover:bg-brand-orange-hover"
-          >
-            <Phone size={20} />
-            CALL FOR MOBILE SERVICE
-          </PhoneCallLink>
-        </div>
-      </section>
-
-      {/* 3. 3-step strip */}
-      <section className="border-b border-brand-surface-light">
-        <div className="mx-auto max-w-6xl px-4 py-14 sm:px-6">
-          <div className="grid gap-6 sm:grid-cols-3">
-            {steps.map((step, i) => (
-              <div key={step.n} className="relative flex items-start gap-4">
-                <span className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-brand-orange font-label text-xl font-bold text-white">
-                  {step.n}
-                </span>
-                <div>
-                  <h3 className="font-label text-lg font-bold text-white">
-                    {step.title}
-                  </h3>
-                  <p className="mt-1 text-brand-text-muted text-pretty">{step.body}</p>
-                </div>
-                {i < steps.length - 1 && (
-                  <span
-                    className="absolute -right-3 top-6 hidden text-2xl text-brand-orange sm:block"
-                    aria-hidden="true"
-                  >
-                    &rarr;
-                  </span>
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* 4. Trust row + review */}
-      <section className="border-b border-brand-surface-light">
-        <div className="mx-auto flex max-w-6xl flex-col items-center gap-8 px-4 py-16 text-center sm:px-6">
-          <div className="flex flex-col items-center gap-2">
-            <div className="flex gap-1 text-brand-orange" aria-hidden="true">
-              {Array.from({ length: 5 }).map((_, i) => (
-                <Star key={i} size={22} className="fill-current" />
-              ))}
-            </div>
-            <p className="font-label text-lg font-bold text-white">
-              4.4 stars &middot; 206 reviews
-            </p>
-          </div>
-          <figure className="max-w-2xl">
-            <blockquote className="text-xl font-medium text-white text-pretty sm:text-2xl">
-              &ldquo;Tire suddenly went flat&hellip; fixed and back on within 1/2 hour.
-              Friday night at 4:30. Amazing service.&rdquo;
-            </blockquote>
-            <figcaption className="mt-4 font-label text-sm font-bold tracking-wide text-brand-text-muted">
-              &mdash; Michele S.
-            </figcaption>
-          </figure>
-        </div>
-      </section>
-
-      {/* 5. Services covered */}
+      {/* 2. Explainer row */}
       <section className="border-b border-brand-surface-light">
         <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
           <h2 className="font-label text-3xl font-bold uppercase tracking-tight text-white text-balance sm:text-4xl">
-            What we handle
+            Why is my TPMS light on?
           </h2>
-          <div className="mt-10 grid gap-6 sm:grid-cols-2">
-            {covered.map((item) => (
-              <div key={item.title} className="flex items-start gap-4">
-                <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl bg-brand-orange/15 text-brand-orange">
+          <div className="mt-10 grid gap-6 md:grid-cols-3">
+            {explainers.map((item) => (
+              <div
+                key={item.title}
+                className="rounded-2xl border border-brand-surface-light bg-brand-surface/60 p-6"
+              >
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-brand-orange/15 text-brand-orange">
                   <item.icon size={24} />
                 </div>
-                <div>
-                  <h3 className="font-label text-lg font-bold text-white">
-                    {item.title}
-                  </h3>
-                  <p className="mt-1 text-brand-text-muted text-pretty">{item.body}</p>
-                </div>
+                <h3 className="mt-4 font-label text-lg font-bold text-white">
+                  {item.title}
+                </h3>
+                <p className="mt-2 text-brand-text-muted text-pretty">{item.body}</p>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 3. What's included — one price */}
+      <section className="border-b border-brand-surface-light">
+        <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6">
+          <div className="rounded-3xl border border-brand-orange/40 bg-brand-surface p-8 sm:p-10">
+            <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
+              <div>
+                <h2 className="font-label text-3xl font-bold uppercase tracking-tight text-white sm:text-4xl">
+                  One price, everything included
+                </h2>
+                <ul className="mt-6 grid gap-3 sm:grid-cols-2">
+                  {included.map((item) => (
+                    <li key={item} className="flex items-center gap-3 text-white">
+                      <CheckCircle2 size={20} className="flex-shrink-0 text-brand-orange" />
+                      <span className="font-medium">{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="flex flex-shrink-0 flex-col items-center rounded-2xl bg-brand-dark px-8 py-6 text-center">
+                <span className="font-label text-sm font-bold uppercase tracking-wide text-brand-text-muted">
+                  From
+                </span>
+                <span className="font-label text-5xl font-bold text-brand-orange">
+                  $XX
+                </span>
+                <span className="font-label text-sm font-bold uppercase tracking-wide text-brand-text-muted">
+                  per sensor
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 4. Trust row */}
+      <section className="border-b border-brand-surface-light">
+        <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {trust.map((item) => (
+              <div key={item.label} className="flex items-center gap-3">
+                <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl bg-brand-orange/15 text-brand-orange">
+                  <item.icon size={22} className={item.icon === Star ? "fill-current" : ""} />
+                </div>
+                <span className="font-label font-bold text-white">{item.label}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 5. FAQ */}
+      <section className="border-b border-brand-surface-light">
+        <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
+          <h2 className="font-label text-3xl font-bold uppercase tracking-tight text-white text-balance sm:text-4xl">
+            TPMS questions, answered
+          </h2>
+          <div className="mt-10">
+            <FaqAccordion items={faqs} />
           </div>
         </div>
       </section>
@@ -269,10 +257,7 @@ export default function FlatTireRepairLandingPage() {
             </p>
             <p className="mt-3 flex items-start gap-3 text-brand-text-muted">
               <Phone size={20} className="mt-0.5 flex-shrink-0 text-brand-orange" />
-              <PhoneCallLink
-                label={LANDING_LABEL}
-                className="font-bold text-white hover:text-brand-orange"
-              >
+              <PhoneCallLink label={LANDING_LABEL} className="font-bold text-white hover:text-brand-orange">
                 {siteConfig.phone}
               </PhoneCallLink>
             </p>
