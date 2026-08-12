@@ -286,16 +286,6 @@ export default function ReviewsPreview() {
                 </div>
               )}
             </div>
-
-            <a
-              href={filter === "yelp" ? siteConfig.yelpUrl : siteConfig.googleUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex bg-brand-orange hover:bg-brand-orange-hover text-white px-8 py-4 rounded-lg font-bold font-label items-center justify-center gap-2 transition-colors w-full sm:w-auto"
-            >
-              {filter === "yelp" ? "READ MORE ON YELP" : "READ MORE ON GOOGLE"}
-              <ExternalLink size={20} />
-            </a>
           </div>
 
           <div className="flex-1">
