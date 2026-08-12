@@ -34,7 +34,7 @@ export default function AboutPreview() {
               a place where our community comes first.
             </p>
             <p className="text-sm font-label font-bold tracking-wider text-brand-orange mb-10">
-              Proudly African American &amp; Latino owned
+              Proudly Afro-American &amp; Latino owned
             </p>
             <ul className="space-y-4">
               {highlights.map((item) => (
