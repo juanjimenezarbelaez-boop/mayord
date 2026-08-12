@@ -239,8 +239,14 @@ export default function ServicesPage() {
                   Can&apos;t Drive On It?
                 </h3>
                 <p className="mt-2 text-brand-text-muted">
-                  We come to you — mobile tire assistance within ~15 minutes of
-                  Edgewater.
+                  We come to you —{" "}
+                  <Link
+                    href="/mobile-tire-service-edgewater-md"
+                    className="font-semibold text-brand-orange hover:underline"
+                  >
+                    mobile tire assistance
+                  </Link>{" "}
+                  within ~15 minutes of Edgewater.
                 </p>
               </div>
               <PhoneCallLink className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-brand-orange px-6 py-3 font-label font-bold uppercase tracking-wide text-white transition-colors hover:bg-brand-orange-hover sm:w-auto">
